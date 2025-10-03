@@ -1,16 +1,17 @@
 @tool
 class_name SceneMapNode extends GraphNode
 
-@export var scene_path : String
-@export var component_slots : Array[SceneMapSlot]
-
-var scene : PackedScene
+var scene_path : String
 var scene_uid : String
-var preview : TextureRect
+
 var should_register_slots : bool
 var set_to_delete := false
 
-const VIEWPORT_SIZE := Vector2i(256,256)
+var preview : TextureRect
+var component_slots : Array[SceneMapSlot]
+
+var scene_resource : PackedScene
+var scene_instance : Node
 
 signal node_deleted()
 
@@ -21,13 +22,24 @@ func _init(_scene_uid : String, _scene_path : String = "",  _register_slots : bo
 	title = scene_path
 	name = scene_uid
 	should_register_slots = _register_slots
-	scene = load("uid://"+scene_uid)
+
+	scene_resource = load("uid://"+scene_uid) as PackedScene
+	scene_instance = scene_resource.instantiate()
 
 
 func _ready() -> void:
-	NodePreviewer.create_preview(self)
+
+	await SceneMapResourceTools.pre_save_scene(scene_path)
+
+	await NodePreviewer.create_preview(self)
 	if should_register_slots:
-		SlotRegistrator.new(self).register_slots()
+		await SlotRegistrator.new(self).register_slots()
+
+	await SceneMapResourceTools.post_save_scene(scene_resource, scene_instance, scene_path)
+	SceneMapIO.save(get_parent())
+
+	scene_resource = null
+	scene_instance.queue_free()
 
 
 func _process(delta : float) -> void:

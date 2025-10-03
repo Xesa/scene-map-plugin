@@ -48,9 +48,3 @@ func set_next_scene(scene_path : String, entrance_node : String) -> void:
 ## that are connected to this one.
 func go_to_next_scene() -> void:
 	pass
-
-
-func _notification(what: int) -> void:
-	if what == NOTIFICATION_PATH_RENAMED:
-		var path := get_path()
-		path_renamed.emit(path)

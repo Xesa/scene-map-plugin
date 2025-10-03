@@ -3,7 +3,6 @@ class_name ComponentFinder extends SceneMapHelper
 
 var graph_node : SceneMapNode
 var slots : Dictionary
-var scene_instance : Node
 
 func _init(_graph_node : SceneMapNode) -> void:
 	graph_node = _graph_node
@@ -13,12 +12,10 @@ func _init(_graph_node : SceneMapNode) -> void:
 func find() -> Dictionary:
 
 	slots = {"entrances": [], "exits": [], "two_ways": [], "funnels": []}
-	scene_instance = graph_node.scene.instantiate()
 
-	_set_slot_info(scene_instance)
-	_find_all_children_nodes(scene_instance)
+	_set_slot_info(graph_node.scene_instance)
+	_find_all_children_nodes(graph_node.scene_instance)
 
-	scene_instance.queue_free()
 	return slots.duplicate(true)
 
 
@@ -34,10 +31,9 @@ func _find_all_children_nodes(node : Node) -> void:
 func _set_slot_info(child : Node) -> void:
 
 	if child is SceneMapComponent:
-		var node_path := scene_instance.get_path_to(child)
+		var node_path := graph_node.scene_instance.get_path_to(child)
 
 		var slot := SceneMapSlot.new(
-			child,
 			graph_node.scene_path,
 			graph_node.scene_uid,
 			node_path,

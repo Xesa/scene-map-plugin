@@ -35,24 +35,22 @@ static func make_connection(from_node, from_port, to_node, to_port, connect : bo
 
 static func update_connection(from_slot : SceneMapSlot, to_slot : SceneMapSlot, action : Action ) -> void:
 	
-	# Reloads the scene to avoid overwriting data
-	EditorInterface.reload_scene_from_path(from_slot.scene_path)
-	await Engine.get_main_loop().process_frame
+	await SceneMapResourceTools.pre_save_scene(from_slot.scene_path)
 
 	# Retrieves data from the slots
 	var to_scene := to_slot.scene_path
 	var to_component := to_slot.component_path
 
 	# Instantiates the node's scene
-	var scene := load(from_slot.scene_path) as PackedScene
-	var instance := scene.instantiate()
+	var scene_resource := load(from_slot.scene_path) as PackedScene
+	var scene_instance := scene_resource.instantiate()
 
 	# Gets the component
-	var component : SceneMapComponent = instance.get_node(from_slot.component_path)
+	var component : SceneMapComponent = scene_instance.get_node(from_slot.component_path)
 
 	# If the component is inside a packed scene, sets the owner's children as editable
-	if component.owner != instance and instance.is_editable_instance(component.owner) == false:
-		instance.set_editable_instance(component.owner, true)
+	if component.owner != scene_instance and scene_instance.is_editable_instance(component.owner) == false:
+		scene_instance.set_editable_instance(component.owner, true)
 
 	# Sets the component values
 	component.next_scene_path = "" if action == Action.DISCONNECT else to_scene
@@ -67,16 +65,13 @@ static func update_connection(from_slot : SceneMapSlot, to_slot : SceneMapSlot, 
 		from_slot.remove_connection(to_slot, true)
 		to_slot.remove_connection(from_slot, false)
 
-	# Saves the changes to the scene
-	scene.pack(instance)
-	await ResourceSaver.save(scene, from_slot.scene_path)
-	await Engine.get_main_loop().process_frame
+	# Save both the from scene and the to scene
+	await SceneMapResourceTools.post_save_scene(scene_resource, scene_instance, from_slot.scene_path)
 
-	# Reloads both scenes to show the changes in the editor
-	EditorInterface.reload_scene_from_path(from_slot.scene_path)
-	await Engine.get_main_loop().process_frame
 	EditorInterface.reload_scene_from_path(to_slot.scene_path)
 	await Engine.get_main_loop().process_frame
 
 	# Returns back to the Scene Map screen
 	EditorInterface.set_main_screen_editor(SceneMapConstants.PLUGIN_NAME)
+
+	SceneMapIO.save(graph)

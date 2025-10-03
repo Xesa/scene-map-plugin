@@ -4,6 +4,8 @@ class_name SceneMapIO extends Node
 
 static func save(graph : SceneMapGraph) -> void:
 
+	return
+
 	var path = SceneMapConstants.USER_DATA_PATH + "test.tres"
 
 	# Creates a new resource
@@ -44,6 +46,8 @@ static func save(graph : SceneMapGraph) -> void:
 
 
 static func load(graph : SceneMapGraph) -> void:
+
+	return
 
 	var path = SceneMapConstants.USER_DATA_PATH + "test.tres"
 

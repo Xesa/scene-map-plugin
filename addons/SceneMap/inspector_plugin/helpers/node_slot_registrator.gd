@@ -10,8 +10,6 @@ var arrow_double : Texture2D
 var general_counter : int
 var specific_counters : Dictionary
 
-var scene_instance : Node
-
 const ARROW_LEFT := "res://addons/SceneMap/Assets/arrow-left.svg"
 const ARROW_RIGHT := "res://addons/SceneMap/Assets/arrow-right.svg"
 const ARROW_DOUBLE := "res://addons/SceneMap/Assets/arrow-double.svg"
@@ -35,16 +33,6 @@ func _init(_graph_node : SceneMapNode) -> void:
 ## Depending on the property [type] of the [SceneMapComponent], the connection slot will be either on the left side, right side or both sides.
 func register_slots() -> void:
 
-	EditorInterface.save_all_scenes()
-
-	# Reloads the scene to avoid overwriting data
-	EditorInterface.reload_scene_from_path(graph_node.scene_path)
-	await Engine.get_main_loop().process_frame
-
-	# Instantiates the node's scene
-	graph_node.scene = load("uid://"+graph_node.scene_uid)
-	scene_instance = graph_node.scene.instantiate()
-
 	graph_node.component_slots = []
 
 	general_counter = 0
@@ -65,16 +53,6 @@ func register_slots() -> void:
 			specific_counters[key] += 1
 
 			register_slot(slot, key)
-
-
-	# Saves the changes to the scene
-	graph_node.scene.pack(scene_instance)
-	await ResourceSaver.save(graph_node.scene, graph_node.scene_path)
-	await Engine.get_main_loop().process_frame
-
-	# Reloads the scene to show the changes in the editor
-	EditorInterface.reload_scene_from_path(graph_node.scene_path)
-	await Engine.get_main_loop().process_frame
 
 
 ## Registers a new connection slot. Depending on the parameter [type] it will create it
@@ -105,7 +83,11 @@ func register_slot(slot : SceneMapSlot, key : String) -> void:
 		config.icons[0], config.icons[1]
 	)
 
+	# Sets extra info to the slot
 	slot.set_slot_info(general_counter, specific_counters[key], left_side, right_side)
 	graph_node.component_slots.append(slot)
 
-	slot.component.component_id = ResourceUID.create_id()
+	# Sets a UID to the component
+	slot.component_uid = SceneMapResourceTools.generate_component_uid()
+	var component_instance : SceneMapComponent = graph_node.scene_instance.get_node(slot.component_path)
+	component_instance.component_id = slot.component_uid

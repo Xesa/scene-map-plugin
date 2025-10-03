@@ -11,6 +11,7 @@ var right : bool
 var scene_path : String
 var scene_uid : String
 var component_path : NodePath
+var component_uid : int
 
 var type : SceneMapComponent.Type
 var side : SceneMapComponent.Side
@@ -19,20 +20,19 @@ var type_string : String
 var connected_to_ids : Array[String]
 var connected_from_ids : Array[String]
 
-var component : SceneMapComponent
 var connected_to : Array[SceneMapSlot]
 var connected_from : Array[SceneMapSlot]
 
 
-func _init(_component : SceneMapComponent = null, _scene_path : String = "", _scene_uid : String = "",
-			_component_path : NodePath = "", _type : SceneMapComponent.Type = 0, _side : SceneMapComponent.Side = 0) -> void:
+func _init(_scene_path : String = "", _scene_uid : String = "", _component_path : NodePath = "",
+			_type : SceneMapComponent.Type = 0, _side : SceneMapComponent.Side = 0) -> void:
 	
 	scene_path = _scene_path
 	scene_uid = _scene_uid
 	component_path = _component_path
 	slot_id = scene_uid + ":" + str(_component_path)
 	side = _side
-	component = _component
+
 	connected_to = []
 	connected_from = []
 
@@ -122,26 +122,4 @@ func remove_all_connections() -> void:
 
 func update_connection(to_slot : SceneMapSlot, action : SlotConnector.Action) -> void:
 	SlotConnector.update_connection(self, to_slot, action)
-
-
-func _on_component_path_renamed(new_path : NodePath) -> void:
-	print("sdfsdf")
-	print(new_path)
-
-	var old_path := component_path
-	var old_slot_id := slot_id
-	component_path = new_path
-	slot_id = scene_path + "::" + str(new_path)
-
-	for slot : SceneMapSlot in connected_to:
-		var id_index = slot.connected_from_ids.find(old_slot_id)
-		slot.connected_from_ids[id_index] = slot_id
-
-	for slot : SceneMapSlot in connected_from:
-		var id_index = slot.connected_to_ids.find(old_slot_id)
-		slot.connected_to_ids[id_index] = slot_id
-		slot.update_connection(self, SlotConnector.Action.UPDATE)
-
-
-
 

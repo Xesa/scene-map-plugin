@@ -15,6 +15,6 @@ const ADD_ICON := ASSETS_PATH + "add-icon.svg"
 
 const USER_DATA_PATH := PLUGIN_PATH + "user_data/"
 
-
+const VIEWPORT_SIZE := Vector2i(256,256)
 
 const GITHUB_LINK := "http://www.google.com/"

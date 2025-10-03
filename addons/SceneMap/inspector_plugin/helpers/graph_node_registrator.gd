@@ -1,10 +1,18 @@
 class_name NodeRegistrator extends SceneMapHelper
 
 
-static func register_scene(graph : SceneMapGraph, scene_path : String) -> void:
+static func register_scene(
+		graph : SceneMapGraph,
+		scene_path : String,
+		scene_uid : String = "",
+		shoud_register_slots : bool = true
+) -> void:
 
-	# Gets the scene UID and checks if it's already in the map
-	var scene_uid = SceneMapResourceUIDScrapper.get_uid_from_tscn(scene_path)
+	# Gets the scene UID if not present
+	if scene_uid == "":
+		scene_uid = SceneMapResourceTools.get_uid_from_tscn(scene_path)
+
+	# Checks if the scene is already in the map
 	var existing_node : SceneMapNode = graph.get_node_or_null(scene_uid)
 
 	if existing_node:

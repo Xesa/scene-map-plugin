@@ -10,17 +10,13 @@ func _ready() -> void:
 
 
 func _on_connection_request(from_node, from_port, to_node, to_port) -> void:
-	EditorInterface.save_all_scenes()
 	connect_node(from_node, from_port, to_node, to_port)
 	SlotConnector.make_connection(from_node, from_port, to_node, to_port, true, self)
-	SceneMapIO.save(self)
 	
 
 func _on_disconnection_request(from_node, from_port, to_node, to_port) -> void:
-	EditorInterface.save_all_scenes()
 	disconnect_node(from_node, from_port, to_node, to_port)
 	SlotConnector.make_connection(from_node, from_port, to_node, to_port, false, self)
-	SceneMapIO.save(self)
 
 
 func _is_node_hover_valid(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> bool:
