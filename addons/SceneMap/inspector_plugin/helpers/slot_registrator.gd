@@ -1,5 +1,7 @@
-@tool
-class_name SlotRegistrator extends SceneMapHelper
+extends Node
+
+const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
+const SM_ResourceTools := preload("uid://cwik34k5w34y1")
 
 var graph_node : SceneMapNode
 
@@ -44,23 +46,25 @@ func register_slots() -> void:
 	}
 
 	# Gets all the [SceneMapComponent] in the scene
-	var slots := ComponentFinder.new(graph_node).find()
+	var components := SM_ComponentFinder.find_all_components(graph_node.scene_instance)
 
 	# Iterates each component from each type and registers them
 	for key in specific_counters.keys():
-		for slot in slots[key]:
+		for component in components[key]:
 			general_counter += 1
 			specific_counters[key] += 1
 
-			register_slot(slot, key)
+			_register_component_as_slot(component, key)
 
 
 ## Registers a new connection slot. Depending on the parameter [type] it will create it
 ## on the left side, right side or both sides.
-func register_slot(slot : SceneMapSlot, key : String) -> void:
+func _register_component_as_slot(component : SceneMapComponent, key : String) -> void:
 
 	# Gets the slot configuration for this component type
-	var config = SLOT_CONFIG[slot.type]
+	var config = SLOT_CONFIG[component.type]
+
+	var component_path := graph_node.scene_instance.get_path_to(component)
 
 	# Creates a text label
 	var label = Label.new()
@@ -68,14 +72,14 @@ func register_slot(slot : SceneMapSlot, key : String) -> void:
 	graph_node.add_child(label)
 
 	# Sets the the left and right slots as enabled or disabled depending on the combination of type and side
-	var left_side := true if slot.side == SceneMapComponent.Side.LEFT else false
-	var right_side := true if slot.side == SceneMapComponent.Side.RIGHT else false
+	var left_side := true if component.side == SceneMapComponent.Side.LEFT else false
+	var right_side := true if component.side == SceneMapComponent.Side.RIGHT else false
 
-	if slot.type == SceneMapComponent.Type.FUNNEL:
+	if component.type == SceneMapComponent.Type.FUNNEL:
 		left_side = true
 		right_side = true
 
-	# Adds the slot
+	# Adds the slot to the graph node
 	graph_node.set_slot(
 		general_counter,
 		left_side, 0, Color.WHITE,
@@ -83,11 +87,22 @@ func register_slot(slot : SceneMapSlot, key : String) -> void:
 		config.icons[0], config.icons[1]
 	)
 
-	# Sets extra info to the slot
-	slot.set_slot_info(general_counter, specific_counters[key], left_side, right_side)
+	var slot := SceneMapSlot.new(
+				graph_node.scene_path,
+				graph_node.scene_uid,
+				component_path,
+				component.type,
+				component.side,
+				general_counter,
+				specific_counters[key],
+				left_side,
+				right_side
+	)
+
+	graph_node.add_child(slot)
 	graph_node.component_slots.append(slot)
 
 	# Sets a UID to the component
-	slot.component_uid = SceneMapResourceTools.generate_component_uid()
+	slot.component_uid = SM_ResourceTools.generate_component_uid()
 	var component_instance : SceneMapComponent = graph_node.scene_instance.get_node(slot.component_path)
-	component_instance.component_id = slot.component_uid
+	component_instance.component_uid = slot.component_uid

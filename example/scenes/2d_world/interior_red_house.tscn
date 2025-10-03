@@ -40,9 +40,8 @@ z_index = -1
 position = Vector2(475, 580)
 script = ExtResource("3_4kahw")
 side = 0
-component_id = 1501371620
-next_scene_path = "res://example/scenes/2d_world/exterior.tscn"
-next_entrance_node = NodePath("RedHouse/SceneMapComponent1")
+component_uid = null
+next_entrance_node = NodePath("")
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent1"]
@@ -62,9 +61,8 @@ z_index = -1
 position = Vector2(600, 175)
 script = ExtResource("3_4kahw")
 side = 0
-component_id = 1501371620
-next_scene_path = "res://example/scenes/2d_world/exterior.tscn"
-next_entrance_node = NodePath("RedHouse/SceneMapComponent2")
+component_uid = null
+next_entrance_node = NodePath("")
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent2"]

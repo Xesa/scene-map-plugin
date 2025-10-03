@@ -1,6 +1,8 @@
 @tool
 class_name SceneMapSlot extends Node
 
+const SM_SlotConnector := preload("uid://1mcwq8t36pgx")
+
 var slot_id : String
 var index : int
 var specific_index : int
@@ -10,8 +12,8 @@ var right : bool
 
 var scene_path : String
 var scene_uid : String
-var component_path : NodePath
-var component_uid : int
+var component_path : String
+var component_uid : String
 
 var type : SceneMapComponent.Type
 var side : SceneMapComponent.Side
@@ -25,25 +27,23 @@ var connected_from : Array[SceneMapSlot]
 
 
 func _init(_scene_path : String = "", _scene_uid : String = "", _component_path : NodePath = "",
-			_type : SceneMapComponent.Type = 0, _side : SceneMapComponent.Side = 0) -> void:
+			_type : SceneMapComponent.Type = 0, _side : SceneMapComponent.Side = 0,
+			_index : int = 0, _specific_index : int = 0, _left : bool = false, _right : bool = false) -> void:
 	
 	scene_path = _scene_path
 	scene_uid = _scene_uid
 	component_path = _component_path
 	slot_id = scene_uid + ":" + str(_component_path)
 	side = _side
+	index = _index
+	specific_index = _specific_index
+	left = _left
+	right = _right
 
 	connected_to = []
 	connected_from = []
 
 	set_type(_type)
-
-
-func set_slot_info(_index : int, _specific_index :int, _left : bool, _right : bool):
-	index = _index
-	specific_index = _specific_index
-	left = _left
-	right = _right
 
 
 func set_type(_type : SceneMapComponent.Type) -> void:
@@ -114,12 +114,12 @@ func get_all_connections() -> Array[SceneMapSlot]:
 func remove_all_connections() -> void:
 
 	for to_slot in get_connections(true):
-		update_connection(to_slot, SlotConnector.Action.DISCONNECT)
+		await update_connection(to_slot, SM_SlotConnector.Action.DISCONNECT)
 
 	for from_slot in get_connections(false):
-		from_slot.update_connection(self, SlotConnector.Action.DISCONNECT)
+		await from_slot.update_connection(self, SM_SlotConnector.Action.DISCONNECT)
 
 
-func update_connection(to_slot : SceneMapSlot, action : SlotConnector.Action) -> void:
-	SlotConnector.update_connection(self, to_slot, action)
+func update_connection(to_slot : SceneMapSlot, action : SM_SlotConnector.Action) -> void:
+	await SM_SlotConnector.update_connection(self, to_slot, action)
 

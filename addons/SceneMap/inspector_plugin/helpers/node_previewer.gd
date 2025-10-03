@@ -1,5 +1,6 @@
-@tool
-class_name NodePreviewer extends SceneMapHelper
+extends Node
+
+const SM_Constants := preload("uid://cjynbj0oq1sx1")
 
 ## Creates the preview box and calls the [_refresh_preview] method.
 static func create_preview(graph_node : SceneMapNode) -> void:
@@ -17,7 +18,7 @@ static func refresh_preview(graph_node : SceneMapNode) -> void:
 
 	# Creates a subviewport that will hold the scene
 	var viewport := SubViewport.new()
-	viewport.size = SceneMapConstants.VIEWPORT_SIZE
+	viewport.size = SM_Constants.VIEWPORT_SIZE
 	viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
 	viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ALWAYS
 	graph_node.add_child(viewport)
@@ -30,7 +31,7 @@ static func refresh_preview(graph_node : SceneMapNode) -> void:
 	# Creates a camera and sets its position and zoom to fit the entire scene into the subviewport
 	var camera := Camera2D.new()
 	camera.enabled = true
-	camera = fit_camera_to_scene(camera, scene_size, SceneMapConstants.VIEWPORT_SIZE)
+	camera = fit_camera_to_scene(camera, scene_size, SM_Constants.VIEWPORT_SIZE)
 	viewport.add_child(camera)
 	camera.make_current()
 	

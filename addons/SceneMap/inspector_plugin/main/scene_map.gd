@@ -1,6 +1,8 @@
 @tool
 class_name SceneMap extends EditorPlugin
 
+const SM_Constants := preload("uid://cjynbj0oq1sx1")
+
 var main_panel : Control
 
 func _enter_tree() -> void:
@@ -11,7 +13,7 @@ func _enter_tree() -> void:
 		return
 
 	# Adds the main panel
-	main_panel = load(SceneMapConstants.PANEL_PATH).instantiate()
+	main_panel = load(SM_Constants.PANEL_PATH).instantiate()
 	main_panel.name = "SceneMapPanel"
 	get_editor_interface().get_editor_main_screen().add_child(main_panel)
 
@@ -44,7 +46,7 @@ func _get_plugin_name():
 
 
 func _get_plugin_icon():
-	var svg : Texture2D = load(SceneMapConstants.MAP_ICON)
+	var svg : Texture2D = load(SM_Constants.MAP_ICON)
 	var img := svg.get_image()
 	img.resize(16, 16, Image.INTERPOLATE_LANCZOS)
 	return ImageTexture.create_from_image(img)
@@ -52,10 +54,10 @@ func _get_plugin_icon():
 
 func _load_config_file() -> int:
 	var config := ConfigFile.new()
-	var err := config.load(SceneMapConstants.CONFIG_PATH)
+	var err := config.load(SM_Constants.CONFIG_PATH)
 
 	if err == OK:
-		SceneMapConstants.VERSION = config.get_value("plugin", "version")
+		SM_Constants.VERSION = config.get_value("plugin", "version")
 	else:
 		printerr("Error loading .cfg file. Please, reinstall the plugin")
 

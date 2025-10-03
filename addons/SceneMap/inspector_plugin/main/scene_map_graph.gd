@@ -1,6 +1,9 @@
 @tool
 class_name SceneMapGraph extends GraphEdit
 
+const SM_SlotConnector := preload("uid://1mcwq8t36pgx")
+const SM_ConnectionValidator := preload("uid://btnhphtrcwk72")
+
 var plugin : SceneMap
 
 
@@ -11,19 +14,19 @@ func _ready() -> void:
 
 func _on_connection_request(from_node, from_port, to_node, to_port) -> void:
 	connect_node(from_node, from_port, to_node, to_port)
-	SlotConnector.make_connection(from_node, from_port, to_node, to_port, true, self)
+	SM_SlotConnector.make_connection(from_node, from_port, to_node, to_port, true, self)
 	
 
 func _on_disconnection_request(from_node, from_port, to_node, to_port) -> void:
 	disconnect_node(from_node, from_port, to_node, to_port)
-	SlotConnector.make_connection(from_node, from_port, to_node, to_port, false, self)
+	SM_SlotConnector.make_connection(from_node, from_port, to_node, to_port, false, self)
 
 
 func _is_node_hover_valid(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> bool:
 	var from_slot := get_slot_info(from_node, from_port)
 	var to_slot := get_slot_info(to_node, to_port)
 
-	return ConnectionValidator.get_connection_type(from_slot, to_slot) != 0
+	return SM_ConnectionValidator.get_connection_type(from_slot, to_slot) != 0
 
 
 ## Returns the [SceneMapSlot] allocated in the node and port specified in the parameters.

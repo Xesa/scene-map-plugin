@@ -1,4 +1,4 @@
-class_name SceneMapConstants extends SceneMapHelper
+extends Node
 
 static var VERSION : String
 const PLUGIN_NAME := "SceneMap"

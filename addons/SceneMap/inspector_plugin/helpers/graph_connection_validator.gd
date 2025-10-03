@@ -1,5 +1,4 @@
-@tool
-class_name ConnectionValidator extends SceneMapHelper
+extends Node
 
 ## Returns the connection type depending on the [type] and [side] properties from each component.
 ## [br] [1] means the connection goes from left to right.

@@ -1,15 +1,20 @@
 @tool
 class_name SceneMapIO extends Node
 
+const SM_Constants := preload("uid://cjynbj0oq1sx1")
+const SM_GraphResource := preload("uid://c2qiuif0u7poj")
+const SM_NodeResource := preload("uid://cu1fsenurp8wr")
+const SM_SlotResource := preload("uid://p2mmnni4huyo")
+
 
 static func save(graph : SceneMapGraph) -> void:
 
 	return
 
-	var path = SceneMapConstants.USER_DATA_PATH + "test.tres"
+	var path = SM_Constants.USER_DATA_PATH + "test.tres"
 
 	# Creates a new resource
-	var resource := SceneMapResource.new()
+	var resource := SM_GraphResource.new()
 
 	# Adds the graph connections
 	resource.connections = graph.connections
@@ -17,13 +22,13 @@ static func save(graph : SceneMapGraph) -> void:
 	# Iterates each SceneMapNode in the graph and adds it to the resource
 	for node in graph.get_children():
 		if node is SceneMapNode:
-			var node_res := SceneMapNodeResource.new()
+			var node_res := SM_NodeResource.new()
 			node_res.offset = node.position_offset
 			node_res.scene_path = node.scene_path
 			node_res.component_slots = []
 
 			for slot in node.component_slots:
-				var slot_res = SceneMapSlotResource.new()
+				var slot_res = SM_SlotResource.new()
 				slot_res.slot_id = slot.slot_id
 				slot_res.index = slot.index
 				slot_res.specific_index = slot.specific_index
@@ -49,10 +54,10 @@ static func load(graph : SceneMapGraph) -> void:
 
 	return
 
-	var path = SceneMapConstants.USER_DATA_PATH + "test.tres"
+	var path = SM_Constants.USER_DATA_PATH + "test.tres"
 
 	# Loads the resource
-	var resource : SceneMapResource
+	var resource : SM_GraphResource
 
 	if FileAccess.file_exists(path):
 		resource = load(path)

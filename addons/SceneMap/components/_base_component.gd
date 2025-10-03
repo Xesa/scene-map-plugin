@@ -12,13 +12,13 @@ class_name SceneMapComponent extends Node2D
 @export_group("Plugin information")
 
 ## Unique identifier of this component, so the plugin can find even if it changes its path or name. DO NOT MODIFY IN THE INSPECTOR.
-@export var component_id : int
+@export var component_uid : String
 
 ## Reference to the scene connected in the graph. DO NOT MODIFY IN THE INSPECTOR.
 @export var next_scene_path : String
 
 ## Reference to the component connected in the graph. DO NOT MODIFY IN THE INSPECTOR.
-@export var next_entrance_node : NodePath
+@export var next_entrance_node : String
 
 
 enum Type {

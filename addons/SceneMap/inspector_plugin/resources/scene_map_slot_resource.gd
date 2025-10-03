@@ -8,7 +8,9 @@ class_name SceneMapSlotResource extends Resource
 @export var right : bool
 
 @export var scene_path : String
-@export var component_path : NodePath
+@export var scene_uid : String
+@export var component_path : String
+@export var component_uid : String
 
 @export var type : SceneMapComponent.Type
 @export var side : SceneMapComponent.Side

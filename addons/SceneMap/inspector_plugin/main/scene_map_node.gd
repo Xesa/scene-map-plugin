@@ -1,6 +1,10 @@
 @tool
 class_name SceneMapNode extends GraphNode
 
+const SM_ResourceTools := preload("uid://cwik34k5w34y1")
+const SM_NodePreviewer := preload("uid://brgihuj5exdgu")
+const SM_SlotRegistrator := preload("uid://bj10g5ips4ubj")
+
 var scene_path : String
 var scene_uid : String
 
@@ -29,13 +33,13 @@ func _init(_scene_uid : String, _scene_path : String = "",  _register_slots : bo
 
 func _ready() -> void:
 
-	await SceneMapResourceTools.pre_save_scene(scene_path)
+	await SM_ResourceTools.pre_save_scene(scene_path)
 
-	await NodePreviewer.create_preview(self)
+	await SM_NodePreviewer.create_preview(self)
 	if should_register_slots:
-		await SlotRegistrator.new(self).register_slots()
+		await SM_SlotRegistrator.new(self).register_slots()
 
-	await SceneMapResourceTools.post_save_scene(scene_resource, scene_instance, scene_path)
+	await SM_ResourceTools.post_save_scene(scene_resource, scene_instance, scene_path)
 	SceneMapIO.save(get_parent())
 
 	scene_resource = null
@@ -51,9 +55,8 @@ func _process(delta : float) -> void:
 
 func _delete() -> void:
 	set_to_delete = true
-	EditorInterface.save_all_scenes()
 	for slot in component_slots:
-		slot.remove_all_connections()
+		await slot.remove_all_connections()
 	queue_free()
 
 

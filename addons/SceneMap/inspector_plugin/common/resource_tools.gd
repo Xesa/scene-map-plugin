@@ -1,4 +1,4 @@
-class_name SceneMapResourceTools extends SceneMapHelper
+extends Node
 
 
 static func get_uid_from_tscn(scene_path : String) -> String:
@@ -22,10 +22,10 @@ static func get_uid_from_tscn(scene_path : String) -> String:
 	return ""
 
 
-static func generate_component_uid() -> int:
+static func generate_component_uid() -> String:
 	var seed = int(Time.get_unix_time_from_system())
 	var uid = rand_from_seed(seed)[0]
-	return uid
+	return str(uid)
 
 
 static func pre_save_scene(scene_path : String) -> void:
