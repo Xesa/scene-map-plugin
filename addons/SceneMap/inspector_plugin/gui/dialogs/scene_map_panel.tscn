@@ -1,0 +1,84 @@
+[gd_scene load_steps=10 format=3 uid="uid://booyw8vscyshu"]
+
+[ext_resource type="Script" uid="uid://oiktsvd4pdkl" path="res://addons/SceneMap/inspector_plugin/main/scene_map_graph.gd" id="1_gt7hy"]
+[ext_resource type="Texture2D" uid="uid://cm23pxr7faqc4" path="res://addons/SceneMap/assets/about-icon.svg" id="2_38w3s"]
+[ext_resource type="Script" uid="uid://i4j27dsb5b75" path="res://addons/SceneMap/inspector_plugin/gui/buttons/scene_map_about_button.gd" id="3_wb71h"]
+[ext_resource type="Texture2D" uid="uid://bcwxyr3ftw0vo" path="res://addons/SceneMap/assets/config-icon.svg" id="4_01stx"]
+[ext_resource type="Script" uid="uid://xud3fcw57jhx" path="res://addons/SceneMap/inspector_plugin/gui/buttons/scene_map_config_button.gd" id="5_13j7q"]
+[ext_resource type="Texture2D" uid="uid://os5jf3vgldqr" path="res://addons/SceneMap/assets/add-icon.svg" id="6_q2a30"]
+[ext_resource type="Script" uid="uid://bttiennyu3gud" path="res://addons/SceneMap/inspector_plugin/gui/buttons/scene_map_add_button.gd" id="7_jmxlb"]
+[ext_resource type="Texture2D" uid="uid://lyk158lmo6ff" path="res://addons/SceneMap/assets/refresh-icon.svg" id="8_ac1rd"]
+[ext_resource type="Script" uid="uid://b2s440prenmwf" path="res://addons/SceneMap/inspector_plugin/gui/buttons/scene_map_refresh_button.gd" id="9_ofa4h"]
+
+[node name="SceneMapPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+
+[node name="SceneMapGraph" type="GraphEdit" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+show_zoom_label = true
+show_zoom_buttons = false
+script = ExtResource("1_gt7hy")
+metadata/_custom_type_script = "uid://oiktsvd4pdkl"
+
+[node name="TopContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -88.0
+offset_top = 10.0
+offset_right = 60.0
+offset_bottom = 82.0
+grow_horizontal = 0
+scale = Vector2(0.5, 0.5)
+
+[node name="AboutButton" type="Button" parent="TopContainer"]
+z_index = 1
+layout_mode = 2
+tooltip_text = "About this plugin"
+icon = ExtResource("2_38w3s")
+script = ExtResource("3_wb71h")
+
+[node name="ConfigButton" type="Button" parent="TopContainer"]
+z_index = 1
+layout_mode = 2
+tooltip_text = "Configuration"
+icon = ExtResource("4_01stx")
+script = ExtResource("5_13j7q")
+
+[node name="BottomContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -58.0
+offset_right = 158.0
+offset_bottom = 14.0
+grow_vertical = 0
+scale = Vector2(0.6, 0.6)
+
+[node name="AddButton" type="Button" parent="BottomContainer"]
+z_index = 1
+layout_mode = 2
+tooltip_text = "Add scene"
+icon = ExtResource("6_q2a30")
+script = ExtResource("7_jmxlb")
+
+[node name="RefreshButton" type="Button" parent="BottomContainer"]
+z_index = 1
+layout_mode = 2
+tooltip_text = "Refresh all nodes"
+icon = ExtResource("8_ac1rd")
+script = ExtResource("9_ofa4h")

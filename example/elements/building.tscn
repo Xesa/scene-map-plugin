@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfawd4xhm7kd0"]
+
+[ext_resource type="Texture2D" uid="uid://bvehs0do7gxn6" path="res://example/assets/exterior_house_red.png" id="1_uiy41"]
+[ext_resource type="Script" uid="uid://dnv7lj6i0r7u8" path="res://example/scripts/example_area_2d.gd" id="2_y0by5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wi4n8"]
+size = Vector2(86, 60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7aome"]
+size = Vector2(50, 16.5)
+
+[node name="Building" type="StaticBody2D"]
+y_sort_enabled = true
+texture_filter = 1
+collision_layer = 2
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_uiy41")
+
+[node name="PhysicsCollider" type="CollisionShape2D" parent="."]
+position = Vector2(0, 40)
+shape = SubResource("RectangleShape2D_wi4n8")
+debug_color = Color(0.818575, 0.366237, 0.457979, 0.42)
+
+[node name="SceneMapComponent1" type="Node2D" parent="."]
+position = Vector2(0, 98)
+script = ExtResource("2_y0by5")
+metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+
+[node name="Area2D" type="Area2D" parent="SceneMapComponent1"]
+position = Vector2(0, -28)
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneMapComponent1/Area2D"]
+shape = SubResource("RectangleShape2D_7aome")

@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=3 uid="uid://cirq1cv70x3h"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bg4o8"]
+
+[node name="SceneMapAboutDialog" type="Window"]
+initial_position = 2
+size = Vector2i(500, 220)
+transient = true
+unresizable = true
+borderless = true
+popup_window = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+z_index = 1
+custom_minimum_size = Vector2(460, 200)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -110.0
+offset_right = 230.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainText" type="RichTextLabel" parent="VBoxContainer"]
+custom_minimum_size = Vector2(420, 180)
+layout_mode = 2
+theme_override_constants/outline_size = 0
+theme_override_constants/line_separation = 8
+theme_override_font_sizes/normal_font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxEmpty_bg4o8")
+bbcode_enabled = true
+text = "Use the [img=20%]res://addons/SceneMap/Assets/add-icon.svg[/img] button to add a new scene to the map.
+Drag and drop the nodes to connect one scene to another.
+Drag a connection to an empty space to disconnect the scenes.
+Press DEL while having one or more scenes selected to remove them from the map."
+scroll_active = false
+vertical_alignment = 1
+
+[node name="BottomText" type="RichTextLabel" parent="VBoxContainer"]
+clip_contents = false
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 11
+bbcode_enabled = true
+text = "Version 0.1.1 | Developed by Guillem Chesa | [url=http://www.google.com/]GitHub[/url]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.13, 0.13, 0.13, 1)
