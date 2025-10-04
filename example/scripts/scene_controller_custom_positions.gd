@@ -9,13 +9,12 @@ class_name SceneControllerWithCustomPositions extends Node2D
 
 @onready var player : Player = $Player
 
-var where_to_spawn : NodePath
+var where_to_spawn : SceneMapComponent
 
 
 func _ready() -> void:
-	if where_to_spawn == NodePath(""):
+	if not where_to_spawn:
 		player.global_position = default_spawn_node.global_position
 	
 	else:
-		var spawn_node : SceneMapComponent = get_node(where_to_spawn)
-		player.global_position = spawn_node.global_position
+		player.global_position = where_to_spawn.global_position

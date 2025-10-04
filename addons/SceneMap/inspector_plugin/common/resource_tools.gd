@@ -1,5 +1,6 @@
 extends Node
 
+const SM_Constants := preload("uid://cjynbj0oq1sx1")
 
 static func get_uid_from_tscn(scene_path : String) -> String:
 	var file = FileAccess.open(scene_path, FileAccess.READ)
@@ -23,9 +24,7 @@ static func get_uid_from_tscn(scene_path : String) -> String:
 
 
 static func generate_component_uid() -> String:
-	var seed = int(Time.get_unix_time_from_system())
-	var uid = rand_from_seed(seed)[0]
-	return str(uid)
+	return str(ResourceUID.create_id())
 
 
 static func pre_save_scene(scene_path : String) -> void:
@@ -51,4 +50,4 @@ static func post_save_scene(scene_resource : PackedScene, scene_instance : Node,
 	await Engine.get_main_loop().process_frame
 
 	# Returns back to the Scene Map screen
-	EditorInterface.set_main_screen_editor(SceneMapConstants.PLUGIN_NAME)
+	EditorInterface.set_main_screen_editor(SM_Constants.PLUGIN_NAME)

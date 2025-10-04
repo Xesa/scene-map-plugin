@@ -18,11 +18,10 @@ func _on_body_entered(_body : Node2D) -> void:
 ## In this case we will instantiate the next scene and tell it from which node has to spawn the player.
 func go_to_next_scene() -> void:
 
-	var next_scene = load(next_scene_path).instantiate() # Instantiate the target scene
+	var next_scene := get_next_scene_instance() # Instantiate the target scene
+	var next_component := get_next_component_reference(next_scene) # Gets the target component
 
 	if next_scene is SceneControllerWithCustomPositions:
-		next_scene.where_to_spawn = next_entrance_node # Set the entrance node to the instance
+		next_scene.where_to_spawn = next_component # Sets the entrance node to the instance
 
-	get_tree().root.add_child.call_deferred(next_scene)
-	get_tree().current_scene.queue_free()
-	get_tree().set_deferred("current_scene", next_scene)
+	load_scene_into_tree(next_scene) # Changes the current scene to the next one

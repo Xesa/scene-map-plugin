@@ -40,10 +40,6 @@ static func update_connection(from_slot : SceneMapSlot, to_slot : SceneMapSlot, 
 	
 	await SM_ResourceTools.pre_save_scene(from_slot.scene_path)
 
-	# Retrieves data from the slots
-	var to_scene := to_slot.scene_path
-	var to_component := to_slot.component_path
-
 	# Instantiates the node's scene
 	var scene_resource := load(from_slot.scene_path) as PackedScene
 	var scene_instance := scene_resource.instantiate()
@@ -56,8 +52,8 @@ static func update_connection(from_slot : SceneMapSlot, to_slot : SceneMapSlot, 
 		scene_instance.set_editable_instance(component.owner, true)
 
 	# Sets the component values
-	component.next_scene_path = "" if action == Action.DISCONNECT else to_scene
-	component.next_entrance_node = "" if action == Action.DISCONNECT else to_component
+	component.next_scene_uid = "" if action == Action.DISCONNECT else to_slot.scene_uid
+	component.next_component_uid = "" if action == Action.DISCONNECT else to_slot.component_uid
 
 	# Updates connection info to the slot
 	if action == Action.CONNECT:

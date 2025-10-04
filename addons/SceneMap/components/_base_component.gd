@@ -2,11 +2,13 @@
 class_name SceneMapComponent extends Node2D
 ## Base component for being used as an interactable Area2D.
 
+const SceneMapComponentFinder := preload("uid://bm5cgkk8r2tb5")
+
 ## Defines which actions will the player be able to perform.
 @export var type := Type.TWO_WAY
 
 ## Defines in which side of the Scene Map will this node appear.
-##In the case of choosing the type [code]FUNNEL[/code] the node will appear in both sides but this will define which side is the entry and which is the exit.
+##In the case of choosing the type [code]FUNNEL[/code] the node will appear in both sides but this will define which side is the entrance and which is the exit.
 @export var side := Side.RIGHT
 
 @export_group("Plugin information")
@@ -15,10 +17,10 @@ class_name SceneMapComponent extends Node2D
 @export var component_uid : String
 
 ## Reference to the scene connected in the graph. DO NOT MODIFY IN THE INSPECTOR.
-@export var next_scene_path : String
+@export var next_scene_uid : String
 
 ## Reference to the component connected in the graph. DO NOT MODIFY IN THE INSPECTOR.
-@export var next_entrance_node : String
+@export var next_component_uid : String
 
 
 enum Type {
@@ -30,17 +32,45 @@ enum Type {
 
 
 enum Side {
-	LEFT,	## The node will appear in the left side.
-	RIGHT,	## The node will appear in the right side.
+	LEFT,	## The node will appear in the left side. In [code]FUNNEL[/code] mode the left side will be the entrance and the right side will be the exit (left-to-right).
+	RIGHT,	## The node will appear in the right side. In [code]FUNNEL[/code] mode the left side will be the exit and the right side will be the entrance (right-to-left).
 }
-
-signal path_renamed(path : NodePath)
 	
 
-## Sets the [next_scene_path] and [next_entrance_node] paths. These are the values that will be used when calling the [go_to_next_scene] method.
-func set_next_scene(scene_path : String, entrance_node : String) -> void:
-	next_scene_path = scene_path
-	next_entrance_node = entrance_node
+## Sets the [next_scene_uid] and [next_component_uid] references. These are the values that will be used when calling the [go_to_next_scene] method.
+func set_next_scene(scene_uid : String, component_uid : String) -> void:
+	next_scene_uid = scene_uid
+	next_component_uid = component_uid
+
+
+## Gets an instance of the scene referenced in [next_scene_uid]. If [next_scene_uid] is empty or [null], this method returns [null].
+func get_next_scene_instance() -> Node:
+	if next_scene_uid:
+		return load("uid://"+next_scene_uid).instantiate()
+	return null
+
+
+## Gets the node referenced by [next_component_uid] by searching it in the parameter [next_scene_instance].
+## The value for that parameter can be obtained using the [get_next_scene_instance()] method.
+## The instance of the scene used to perform all actions should be always the same.
+## If the [next_scene_instance] parameter is [null] or the [next_component_uid] property is empty or [null], this method returns [null].
+func get_next_component_reference(next_scene_instance : Node) -> SceneMapComponent:
+	if next_scene_instance and next_component_uid != null and next_component_uid != "":
+		return SceneMapComponentFinder.search_component_by_uid(next_scene_instance, next_component_uid)
+	return null
+
+
+## Loads the scene instance from the [next_scene_instance] parameter into the tree and frees the current scene.
+## The value for that parameter can be obtained using the [get_next_scene_instance()] method.
+## The instance of the scene used to perform all actions should be always the same.
+## If the [next_scene_instance] parameter is [null] this method does nothing.
+func load_scene_into_tree(next_scene_instance : Node) -> void:
+	if next_scene_instance:
+		get_tree().root.add_child.call_deferred(next_scene_instance)
+		get_tree().current_scene.queue_free()
+		get_tree().set_deferred("current_scene", next_scene_instance)
+	else:
+		printerr("Cannot load next scene. Parameter next_scene_instance is null.")
 
 
 ## Abstract method that must be called to change the scene. This method has no logic and it is the final developer who is in charge

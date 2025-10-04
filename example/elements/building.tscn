@@ -27,7 +27,8 @@ debug_color = Color(0.818575, 0.366237, 0.457979, 0.42)
 position = Vector2(0, 98)
 script = ExtResource("2_y0by5")
 component_uid = null
-next_entrance_node = NodePath("")
+next_scene_uid = null
+next_component_uid = null
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
 
 [node name="Area2D" type="Area2D" parent="SceneMapComponent1"]
