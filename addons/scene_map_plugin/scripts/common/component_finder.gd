@@ -26,7 +26,7 @@ static func _collect_components(node: Node, components: Dictionary) -> void:
 
 
 static func search_component_by_uid(node: Node, component_uid: String) -> SceneMapComponent:
-	if node is SceneMapComponent and node.get_component_uid() == component_uid:
+	if node is SceneMapComponent and node.get_component_uid_or_null() == component_uid:
 		return node
 
 	for child in node.get_children():

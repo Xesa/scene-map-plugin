@@ -39,9 +39,29 @@ func _set_next_scene(scene_uid : String, component_uid : String) -> void:
 	set_meta(&"_next_component_uid", component_uid)
 
 
+## Removes the [component_uid] value in the component's metadata.
+## [b]This method is reserved for the plugin and shouldn't be called anywhere else.[/b]
+func _remove_component_uid() -> void:
+	remove_meta(&"_component_uid")
+
+
+## Removes the [next_scene_uid] and [next_component_uid] references in the component's metadata.[br]
+## [b]This method is reserved for the plugin and shouldn't be called anywhere else.[/b]
+func _remove_next_scene() -> void:
+	remove_meta(&"_next_scene_uid")
+	remove_meta(&"_next_component_uid")
+
+
 ## Returns the [component_uid] value from this component's metadata. If the value is [null] an error is generated.
 func get_component_uid() -> String:
 	return get_meta(&"_component_uid")
+
+
+## Returns the [component_uid] value from this component's metadata. If the value is [null] no errors will be generated.
+func get_component_uid_or_null() -> Variant:
+	if has_meta(&"_component_uid"):
+		return get_meta(&"_component_uid")
+	return null
 
 
 ## Returns the [next_scene_uid] value from this component's metadata. If the value is [null] an error is generated.
