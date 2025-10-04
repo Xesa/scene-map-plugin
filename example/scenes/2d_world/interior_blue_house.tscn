@@ -41,10 +41,10 @@ z_index = -1
 position = Vector2(675, 580)
 script = ExtResource("4_leja7")
 side = 0
-component_uid = "2067671933742156851"
-next_scene_uid = "bhc4y1rku2jb1"
-next_component_uid = "6922436306014625812"
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_uid = "7455961879194834424"
+metadata/_next_scene_uid = "bhc4y1rku2jb1"
+metadata/_next_component_uid = "2813035847607231632"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent1"]
 position = Vector2(0, 33)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://lyk158lmo6ff"
-path="res://.godot/imported/refresh-icon.svg-220fc9f8a42ba6d89ce43ba1633ed469.ctex"
+uid="uid://bcwxyr3ftw0vo"
+path="res://.godot/imported/config-icon.svg-df5618f3ac2a90a0325c103127e8eb27.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/SceneMap/assets/refresh-icon.svg"
-dest_files=["res://.godot/imported/refresh-icon.svg-220fc9f8a42ba6d89ce43ba1633ed469.ctex"]
+source_file="res://addons/scene_map_plugin/assets/config-icon.svg"
+dest_files=["res://.godot/imported/config-icon.svg-df5618f3ac2a90a0325c103127e8eb27.ctex"]
 
 [params]
 

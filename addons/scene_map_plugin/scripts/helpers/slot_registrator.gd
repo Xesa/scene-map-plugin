@@ -1,5 +1,6 @@
 extends Node
 
+const SM_Constants := preload("uid://cjynbj0oq1sx1")
 const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
 const SM_ResourceTools := preload("uid://cwik34k5w34y1")
 
@@ -12,10 +13,6 @@ var arrow_double : Texture2D
 var general_counter : int
 var specific_counters : Dictionary
 
-const ARROW_LEFT := "res://addons/SceneMap/Assets/arrow-left.svg"
-const ARROW_RIGHT := "res://addons/SceneMap/Assets/arrow-right.svg"
-const ARROW_DOUBLE := "res://addons/SceneMap/Assets/arrow-double.svg"
-
 var SLOT_CONFIG = {
 	SceneMapComponent.Type.ENTRY:	{"label": "Entrance",	"icons": [arrow_right, arrow_left]},
 	SceneMapComponent.Type.EXIT:	{"label": "Exit",		"icons": [arrow_left, arrow_right]},
@@ -26,9 +23,9 @@ var SLOT_CONFIG = {
 
 func _init(_graph_node : SceneMapNode) -> void:
 	graph_node = _graph_node
-	arrow_left = load(ARROW_LEFT)
-	arrow_right = load(ARROW_RIGHT)
-	arrow_double = load(ARROW_DOUBLE)
+	arrow_left = load(SM_Constants.ARROW_LEFT)
+	arrow_right = load(SM_Constants.ARROW_RIGHT)
+	arrow_double = load(SM_Constants.ARROW_DOUBLE)
 
 
 ## Creates connection slots for each [SceneMapComponent] found in the scene.
@@ -105,4 +102,4 @@ func _register_component_as_slot(component : SceneMapComponent, key : String) ->
 	# Sets a UID to the component
 	slot.component_uid = SM_ResourceTools.generate_component_uid()
 	var component_instance : SceneMapComponent = graph_node.scene_instance.get_node(slot.component_path)
-	component_instance.component_uid = slot.component_uid
+	component_instance._set_component_uid(slot.component_uid)

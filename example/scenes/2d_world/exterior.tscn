@@ -45,9 +45,9 @@ position = Vector2(475, 260)
 shape = SubResource("RectangleShape2D_j5mi0")
 
 [node name="SceneMapComponent1" parent="RedHouse" index="2"]
-component_uid = "8453444503624893825"
-next_scene_uid = "di56ddpupkoyd"
-next_component_uid = "1459716818614397050"
+metadata/_component_uid = "7737849952468190715"
+metadata/_next_scene_uid = "di56ddpupkoyd"
+metadata/_next_component_uid = "3797012362827155175"
 
 [node name="CollisionShape2D" parent="RedHouse/SceneMapComponent1/Area2D" index="0"]
 shape = SubResource("RectangleShape2D_n8xp1")
@@ -55,10 +55,10 @@ shape = SubResource("RectangleShape2D_n8xp1")
 [node name="SceneMapComponent2" type="Node2D" parent="RedHouse"]
 position = Vector2(0, -54)
 script = ExtResource("5_ndlqu")
-component_uid = "6327909357355896737"
-next_scene_uid = "di56ddpupkoyd"
-next_component_uid = "4904501017832583520"
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_uid = "2117761086849629552"
+metadata/_next_scene_uid = "di56ddpupkoyd"
+metadata/_next_component_uid = "7202811844677788342"
 
 [node name="Area2D" type="Area2D" parent="RedHouse/SceneMapComponent2"]
 position = Vector2(0, 66)
@@ -78,9 +78,9 @@ texture = ExtResource("6_x4ysd")
 shape = SubResource("RectangleShape2D_wi4n8")
 
 [node name="SceneMapComponent1" parent="BlueHouse" index="2"]
-component_uid = "6922436306014625812"
-next_scene_uid = "cwtf45gw77uak"
-next_component_uid = "2067671933742156851"
+metadata/_component_uid = "2813035847607231632"
+metadata/_next_scene_uid = "cwtf45gw77uak"
+metadata/_next_component_uid = "7455961879194834424"
 
 [node name="CollisionShape2D" parent="BlueHouse/SceneMapComponent1/Area2D" index="0"]
 shape = SubResource("RectangleShape2D_7aome")

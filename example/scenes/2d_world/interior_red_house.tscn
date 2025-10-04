@@ -40,10 +40,10 @@ z_index = -1
 position = Vector2(475, 580)
 script = ExtResource("3_4kahw")
 side = 0
-component_uid = "1459716818614397050"
-next_scene_uid = "bhc4y1rku2jb1"
-next_component_uid = "8453444503624893825"
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_uid = "3797012362827155175"
+metadata/_next_scene_uid = "bhc4y1rku2jb1"
+metadata/_next_component_uid = "7737849952468190715"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent1"]
 position = Vector2(0, 33)
@@ -62,10 +62,10 @@ z_index = -1
 position = Vector2(600, 175)
 script = ExtResource("3_4kahw")
 side = 0
-component_uid = "4904501017832583520"
-next_scene_uid = "bhc4y1rku2jb1"
-next_component_uid = "6327909357355896737"
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_uid = "7202811844677788342"
+metadata/_next_scene_uid = "bhc4y1rku2jb1"
+metadata/_next_component_uid = "2117761086849629552"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent2"]
 position = Vector2(0, -26)

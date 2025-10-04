@@ -1,6 +1,6 @@
 class_name SceneMapAboutDialog extends Window
 
-
+const SM_Constants := preload("uid://cjynbj0oq1sx1")
 func _init() -> void:
 	size = Vector2i(500, 220)
 	initial_position = 2
@@ -53,7 +53,7 @@ func _add_main_text(vbox : VBoxContainer) -> void:
 	mtext.add_theme_font_size_override("normal_font_size", 15)
 	mtext.add_theme_stylebox_override("normal", StyleBoxEmpty.new())
 
-	var add_icon = SceneMapConstants.ADD_ICON
+	var add_icon = SM_Constants.ADD_ICON
 	mtext.text = "- Use the [img=20%]" + add_icon + "[/img] button to add a new scene to the map.
 - Drag and drop the nodes to connect one scene to another.
 - Drag a connection to an empty space to disconnect the scenes.
@@ -72,8 +72,8 @@ func _add_bottom_text(vbox : VBoxContainer) -> void:
 	btext.bbcode_enabled = true
 	btext.add_theme_font_size_override("normal_font_size", 11)
 	
-	var version = SceneMapConstants.VERSION
-	var github = SceneMapConstants.GITHUB_LINK
+	var version = SM_Constants.VERSION
+	var github = SM_Constants.GITHUB_LINK
 	btext.text = "Version " + version + " | Developed by Guillem Chesa | [url=" + github + "]GitHub[/url]"
 
 	vbox.add_child(btext)

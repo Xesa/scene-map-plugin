@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://clgq2ocm5m0cd"
-path="res://.godot/imported/arrow-right.svg-0c32d30715df0a7d321ef42f264786aa.ctex"
+uid="uid://cxjyxrqnmnao"
+path="res://.godot/imported/arrow-left.svg-b3ded328dc4adc01e8e843b01bcf6ca6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/SceneMap/assets/arrow-right.svg"
-dest_files=["res://.godot/imported/arrow-right.svg-0c32d30715df0a7d321ef42f264786aa.ctex"]
+source_file="res://addons/scene_map_plugin/assets/arrow-left.svg"
+dest_files=["res://.godot/imported/arrow-left.svg-b3ded328dc4adc01e8e843b01bcf6ca6.ctex"]
 
 [params]
 

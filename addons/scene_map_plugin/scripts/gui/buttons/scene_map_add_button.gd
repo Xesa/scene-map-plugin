@@ -1,6 +1,8 @@
 @tool
 extends Button
 
+const SM_NodeRegistrator := preload("uid://h21oshs7hv1o")
+
 var panel : Control
 var graph : SceneMapGraph
 var dialog : SceneMapAddDialog
@@ -23,7 +25,7 @@ func _on_button_pressed() -> void:
 
 
 func _on_scene_selected(scene_path : String) -> void:
-	NodeRegistrator.register_scene(graph, scene_path)
+	SM_NodeRegistrator.register_scene(graph, scene_path)
 	_on_dialog_closed()
 
 

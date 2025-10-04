@@ -52,8 +52,9 @@ static func update_connection(from_slot : SceneMapSlot, to_slot : SceneMapSlot, 
 		scene_instance.set_editable_instance(component.owner, true)
 
 	# Sets the component values
-	component.next_scene_uid = "" if action == Action.DISCONNECT else to_slot.scene_uid
-	component.next_component_uid = "" if action == Action.DISCONNECT else to_slot.component_uid
+	var next_scene_uid = "" if action == Action.DISCONNECT else to_slot.scene_uid
+	var next_component_uid = "" if action == Action.DISCONNECT else to_slot.component_uid
+	component._set_next_scene(next_scene_uid, next_component_uid)
 
 	# Updates connection info to the slot
 	if action == Action.CONNECT:
