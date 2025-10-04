@@ -100,6 +100,5 @@ func _register_component_as_slot(component : SceneMapComponent, key : String) ->
 	graph_node.component_slots.append(slot)
 
 	# Sets a UID to the component
-	slot.component_uid = SM_ResourceTools.generate_component_uid()
 	var component_instance : SceneMapComponent = graph_node.scene_instance.get_node(slot.component_path)
 	component_instance._set_component_uid(slot.component_uid)

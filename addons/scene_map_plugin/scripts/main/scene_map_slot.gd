@@ -30,12 +30,18 @@ var connected_from : Array[SceneMapSlot]
 
 func _init(_scene_path : String = "", _scene_uid : String = "", _component_path : NodePath = "",
 			_type : SceneMapComponent.Type = 0, _side : SceneMapComponent.Side = 0,
-			_index : int = 0, _specific_index : int = 0, _left : bool = false, _right : bool = false) -> void:
+			_index : int = 0, _specific_index : int = 0, _left : bool = false, _right : bool = false, _component_uid = null) -> void:
 	
+	if _component_uid:
+		component_uid = _component_uid
+	else:
+		component_uid = str(ResourceUID.create_id())
+
 	scene_path = _scene_path
 	scene_uid = _scene_uid
 	component_path = _component_path
-	slot_id = scene_uid + ":" + str(_component_path)
+	slot_id = scene_uid + ":" + component_uid
+
 	side = _side
 	index = _index
 	specific_index = _specific_index
@@ -45,10 +51,9 @@ func _init(_scene_path : String = "", _scene_uid : String = "", _component_path 
 	connected_to = []
 	connected_from = []
 
-	set_type(_type)
+	_set_type(_type)
 
-
-func set_type(_type : SceneMapComponent.Type) -> void:
+func _set_type(_type : SceneMapComponent.Type) -> void:
 	type = _type
 	match type:
 		SceneMapComponent.Type.ENTRY: type_string = "Entrance"

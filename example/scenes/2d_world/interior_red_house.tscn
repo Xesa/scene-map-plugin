@@ -48,6 +48,9 @@ position = Vector2(475, 580)
 script = ExtResource("3_4kahw")
 side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_next_scene_uid = "bhc4y1rku2jb1"
+metadata/_next_component_uid = "978221708546513656"
+metadata/_component_uid = "8709288477961065463"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent1"]
 position = Vector2(0, 33)
@@ -67,6 +70,9 @@ position = Vector2(600, 175)
 script = ExtResource("3_4kahw")
 side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_next_scene_uid = "bhc4y1rku2jb1"
+metadata/_next_component_uid = "6768396811432661707"
+metadata/_component_uid = "4348510056369282230"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent2"]
 position = Vector2(0, -26)

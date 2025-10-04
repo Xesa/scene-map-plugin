@@ -9,9 +9,7 @@ const SM_SlotResource := preload("uid://p2mmnni4huyo")
 
 static func save(graph : SceneMapGraph) -> void:
 
-	return
-
-	var path = SM_Constants.USER_DATA_PATH + "test.tres"
+	var path = SM_Constants.USER_DATA_PATH + "graph.tres"
 
 	# Creates a new resource
 	var resource := SM_GraphResource.new()
@@ -25,20 +23,26 @@ static func save(graph : SceneMapGraph) -> void:
 			var node_res := SM_NodeResource.new()
 			node_res.offset = node.position_offset
 			node_res.scene_path = node.scene_path
+			node_res.scene_uid = node.scene_uid
 			node_res.component_slots = []
 
 			for slot in node.component_slots:
 				var slot_res = SM_SlotResource.new()
 				slot_res.slot_id = slot.slot_id
+				slot_res.scene_path = slot.scene_path
+				slot_res.scene_uid = slot.scene_uid
+				slot_res.component_path = slot.component_path
+				slot_res.component_uid = slot.component_uid
+
 				slot_res.index = slot.index
 				slot_res.specific_index = slot.specific_index
 				slot_res.left = slot.left
 				slot_res.right = slot.right
-				slot_res.scene_path = slot.scene_path
-				slot_res.component_path = slot.component_path
+
 				slot_res.type = slot.type
 				slot_res.side = slot.side
 				slot_res.type_string = slot.type_string
+
 				slot_res.connected_to_ids = slot.connected_to_ids
 				slot_res.connected_from_ids = slot.connected_from_ids
 				
@@ -47,42 +51,48 @@ static func save(graph : SceneMapGraph) -> void:
 			resource.nodes.append(node_res)
 
 	# Saves the resource in disk
-	#ResourceSaver.save(resource, path)
+	ResourceSaver.save(resource, path)
 
 
 static func load(graph : SceneMapGraph) -> void:
 
-	return
-
-	var path = SM_Constants.USER_DATA_PATH + "test.tres"
+	var path = SM_Constants.USER_DATA_PATH + "graph.tres"
 
 	# Loads the resource
-	var resource : SM_GraphResource
+	var graph_resource : SM_GraphResource
 
 	if FileAccess.file_exists(path):
-		resource = load(path)
+		graph_resource = load(path)
 
 	var slot_ids : Dictionary[String, SceneMapSlot] = {}
 
 	# Iterates each graph node in the resource
-	for node_resource in resource.nodes:
+	for node_resource in graph_resource.nodes:
 
 		# Creates an actual graph node
 		var node = SceneMapNode.new(node_resource.scene_uid, node_resource.scene_path, false)
-		node.component_slots = node_resource.component_slots
 		node.position_offset = node_resource.offset
 
 		graph.add_child(node)
+		await node.node_ready
 		
 		# Iterates each slot in the node
-		for slot in node.component_slots:
+		for slot_resource in node_resource.component_slots:
+
+			var slot := SceneMapSlot.new(
+				slot_resource.scene_path,
+				slot_resource.scene_uid,
+				slot_resource.component_path,
+				slot_resource.type,
+				slot_resource.side,
+				slot_resource.index,
+				slot_resource.specific_index,
+				slot_resource.left,
+				slot_resource.right,
+				slot_resource.component_uid
+			)
 
 			slot_ids[slot.slot_id] = slot
-
-			# Retrieves the actual component and adds it to the slot
-			var scene_instance = load(slot.scene_path).instantiate()
-			var component = scene_instance.get_node(slot.component_path)
-			slot.component = component
 			
 			# Creates a label
 			var label = Label.new()
@@ -91,6 +101,8 @@ static func load(graph : SceneMapGraph) -> void:
 
 			# Sets the slot to the node
 			node.set_slot(slot.index, slot.left, 0, Color.WHITE, slot.right, 0, Color.WHITE)
+			node.component_slots.append(slot)
+			node.add_child(slot)
 
 
 	# Iterates the slot_ids array and hydrates the connections with actual slots
@@ -104,6 +116,6 @@ static func load(graph : SceneMapGraph) -> void:
 			slot.connected_from.append(slot_ids[id])
 
 	# Iterates the connection dictionary and adds them to the graph
-	for conn in resource.connections:
+	for conn in graph_resource.connections:
 		graph.connect_node(conn.from_node, conn.from_port, conn.to_node, conn.to_port)
 
