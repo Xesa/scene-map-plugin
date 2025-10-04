@@ -3,6 +3,7 @@ extends Node
 const SM_Constants := preload("uid://cjynbj0oq1sx1")
 const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
 const SM_ResourceTools := preload("uid://cwik34k5w34y1")
+const SM_SceneSaver := preload("uid://7svcgc01kw2b")
 
 var graph_node : SceneMapNode
 
@@ -32,8 +33,10 @@ func _init(_graph_node : SceneMapNode) -> void:
 ## Depending on the property [type] of the [SceneMapComponent], the connection slot will be either on the left side, right side or both sides.
 func register_slots() -> void:
 
+	# Sets a blank list for the component slots
 	graph_node.component_slots = []
 
+	# Resets all slot counters
 	general_counter = 0
 	specific_counters = {
 		"funnels" : 0,
@@ -42,26 +45,31 @@ func register_slots() -> void:
 		"two_ways" : 0
 	}
 
+	# Gets the scene instance
+	var scene_values := await SM_SceneSaver.open_scene(graph_node.scene_uid)
+	
 	# Gets all the [SceneMapComponent] in the scene
-	var components := SM_ComponentFinder.find_all_components(graph_node.scene_instance)
+	var components := SM_ComponentFinder.find_all_components(scene_values.instance)
 
 	# Iterates each component from each type and registers them
 	for key in specific_counters.keys():
 		for component in components[key]:
 			general_counter += 1
 			specific_counters[key] += 1
+			_register_component_as_slot(scene_values.instance, component, key)
 
-			_register_component_as_slot(component, key)
+	# Saves the scene
+	await SM_SceneSaver.save()
 
 
 ## Registers a new connection slot. Depending on the parameter [type] it will create it
 ## on the left side, right side or both sides.
-func _register_component_as_slot(component : SceneMapComponent, key : String) -> void:
+func _register_component_as_slot(scene_instance : Node, component : SceneMapComponent, key : String) -> void:
 
 	# Gets the slot configuration for this component type
 	var config = SLOT_CONFIG[component.type]
 
-	var component_path := graph_node.scene_instance.get_path_to(component)
+	var component_path : NodePath = scene_instance.get_path_to(component)
 
 	# Creates a text label
 	var label = Label.new()
@@ -84,6 +92,7 @@ func _register_component_as_slot(component : SceneMapComponent, key : String) ->
 		config.icons[0], config.icons[1]
 	)
 
+	# Creates a slot object
 	var slot := SceneMapSlot.new(
 				graph_node.scene_path,
 				graph_node.scene_uid,
@@ -96,9 +105,9 @@ func _register_component_as_slot(component : SceneMapComponent, key : String) ->
 				right_side
 	)
 
+	# Adds the slot object to the graph node
 	graph_node.add_child(slot)
 	graph_node.component_slots.append(slot)
 
 	# Sets a UID to the component
-	var component_instance : SceneMapComponent = graph_node.scene_instance.get_node(slot.component_path)
-	component_instance._set_component_uid(slot.component_uid)
+	component._set_component_uid(slot.component_uid)

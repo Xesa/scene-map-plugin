@@ -4,6 +4,7 @@ class_name SceneMapSlot extends Node
 const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
 const SM_SlotConnector := preload("uid://1mcwq8t36pgx")
 const SM_ResourceTools := preload("uid://cwik34k5w34y1")
+const SM_SceneSaver := preload("uid://7svcgc01kw2b")
 
 var slot_id : String
 var index : int
@@ -120,19 +121,20 @@ func get_all_connections() -> Array[SceneMapSlot]:
 
 func remove_all_connections() -> void:
 
+	# Iterates every connected slot and removes the connection
 	for to_slot in get_connections(true):
 		await update_connection(to_slot, SM_SlotConnector.Action.DISCONNECT)
 
 	for from_slot in get_connections(false):
 		await from_slot.update_connection(self, SM_SlotConnector.Action.DISCONNECT)
 
-	# Instantiates the node's scene
-	var scene_resource := load("uid://"+scene_uid) as PackedScene
-	var scene_instance := scene_resource.instantiate()
-	var component_instance := SM_ComponentFinder.search_component_by_uid(scene_instance, component_uid)
-	component_instance._remove_component_uid()
 
-	await SM_ResourceTools.post_save_scene(scene_resource, scene_instance, scene_path)
+func delete() -> void:
+	remove_all_connections()
+	var scene_values := SM_SceneSaver.open_scene(scene_uid)
+	var component := SM_ComponentFinder.search_component_by_uid(scene_values["instance"], component_uid)
+	component._remove_component_uid()
+	component._remove_next_scene()
 
 
 func update_connection(to_slot : SceneMapSlot, action : SM_SlotConnector.Action) -> void:

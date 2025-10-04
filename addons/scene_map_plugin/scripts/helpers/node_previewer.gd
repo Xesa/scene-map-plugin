@@ -1,6 +1,7 @@
 extends Node
 
 const SM_Constants := preload("uid://cjynbj0oq1sx1")
+const SM_SceneSaver := preload("uid://7svcgc01kw2b")
 
 ## Creates the preview box and calls the [_refresh_preview] method.
 static func create_preview(graph_node : SceneMapNode) -> void:
@@ -24,7 +25,8 @@ static func refresh_preview(graph_node : SceneMapNode) -> void:
 	graph_node.add_child(viewport)
 
 	# Gets the total size of the scene
-	var scene_instance = graph_node.scene_resource.instantiate()
+	var scene_resource : PackedScene = await SM_SceneSaver.open_scene(graph_node.scene_uid)["resource"]
+	var scene_instance : Node = scene_resource.instantiate()
 	var scene_size = get_scene_size(scene_instance)
 	viewport.add_child(scene_instance)
 

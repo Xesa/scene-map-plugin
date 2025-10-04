@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="SceneMapResource" load_steps=11 format=3 uid="uid://buaegqhxbt1ka"]
+[gd_resource type="Resource" script_class="SceneMapResource" load_steps=8 format=3 uid="uid://dbx8ujkl6onxk"]
 
 [ext_resource type="Script" uid="uid://cu1fsenurp8wr" path="res://addons/scene_map_plugin/scripts/resources/scene_map_node_resource.gd" id="1_lxg6p"]
 [ext_resource type="Script" uid="uid://p2mmnni4huyo" path="res://addons/scene_map_plugin/scripts/resources/scene_map_slot_resource.gd" id="2_6uifj"]
@@ -6,7 +6,7 @@
 
 [sub_resource type="Resource" id="Resource_lxg6p"]
 script = ExtResource("2_6uifj")
-slot_id = "bhc4y1rku2jb1:978221708546513656"
+slot_id = "bhc4y1rku2jb1:915351100147896499"
 index = 1
 specific_index = 1
 left = false
@@ -14,7 +14,7 @@ right = true
 scene_path = "res://example/scenes/2d_world/exterior.tscn"
 scene_uid = "bhc4y1rku2jb1"
 component_path = "RedHouse/SceneMapComponent1"
-component_uid = "978221708546513656"
+component_uid = "915351100147896499"
 type = 2
 side = 1
 type_string = "Two-way"
@@ -23,7 +23,7 @@ connected_from_ids = Array[String]([])
 
 [sub_resource type="Resource" id="Resource_6uifj"]
 script = ExtResource("2_6uifj")
-slot_id = "bhc4y1rku2jb1:6768396811432661707"
+slot_id = "bhc4y1rku2jb1:8439047713442575165"
 index = 2
 specific_index = 2
 left = false
@@ -31,16 +31,16 @@ right = true
 scene_path = "res://example/scenes/2d_world/exterior.tscn"
 scene_uid = "bhc4y1rku2jb1"
 component_path = "RedHouse/SceneMapComponent2"
-component_uid = "6768396811432661707"
+component_uid = "8439047713442575165"
 type = 2
 side = 1
 type_string = "Two-way"
-connected_to_ids = Array[String](["di56ddpupkoyd:4348510056369282230"])
-connected_from_ids = Array[String](["di56ddpupkoyd:4348510056369282230"])
+connected_to_ids = Array[String]([])
+connected_from_ids = Array[String]([])
 
 [sub_resource type="Resource" id="Resource_udy4l"]
 script = ExtResource("2_6uifj")
-slot_id = "bhc4y1rku2jb1:3578861248020412066"
+slot_id = "bhc4y1rku2jb1:59162546033280182"
 index = 3
 specific_index = 3
 left = false
@@ -48,7 +48,7 @@ right = true
 scene_path = "res://example/scenes/2d_world/exterior.tscn"
 scene_uid = "bhc4y1rku2jb1"
 component_path = "BlueHouse/SceneMapComponent1"
-component_uid = "3578861248020412066"
+component_uid = "59162546033280182"
 type = 2
 side = 1
 type_string = "Two-way"
@@ -62,60 +62,7 @@ scene_path = "res://example/scenes/2d_world/exterior.tscn"
 scene_uid = "bhc4y1rku2jb1"
 component_slots = Array[ExtResource("2_6uifj")]([SubResource("Resource_lxg6p"), SubResource("Resource_6uifj"), SubResource("Resource_udy4l")])
 
-[sub_resource type="Resource" id="Resource_lko6m"]
-script = ExtResource("2_6uifj")
-slot_id = "di56ddpupkoyd:8709288477961065463"
-index = 1
-specific_index = 1
-left = true
-right = false
-scene_path = "res://example/scenes/2d_world/interior_red_house.tscn"
-scene_uid = "di56ddpupkoyd"
-component_path = "SceneMapComponent1"
-component_uid = "8709288477961065463"
-type = 2
-side = 0
-type_string = "Two-way"
-connected_to_ids = Array[String]([])
-connected_from_ids = Array[String]([])
-
-[sub_resource type="Resource" id="Resource_e1yag"]
-script = ExtResource("2_6uifj")
-slot_id = "di56ddpupkoyd:4348510056369282230"
-index = 2
-specific_index = 2
-left = true
-right = false
-scene_path = "res://example/scenes/2d_world/interior_red_house.tscn"
-scene_uid = "di56ddpupkoyd"
-component_path = "SceneMapComponent2"
-component_uid = "4348510056369282230"
-type = 2
-side = 0
-type_string = "Two-way"
-connected_to_ids = Array[String](["bhc4y1rku2jb1:6768396811432661707"])
-connected_from_ids = Array[String](["bhc4y1rku2jb1:6768396811432661707"])
-
-[sub_resource type="Resource" id="Resource_ssii4"]
-script = ExtResource("1_lxg6p")
-offset = Vector2(520, 100)
-scene_path = "res://example/scenes/2d_world/interior_red_house.tscn"
-scene_uid = "di56ddpupkoyd"
-component_slots = Array[ExtResource("2_6uifj")]([SubResource("Resource_lko6m"), SubResource("Resource_e1yag")])
-
 [resource]
 script = ExtResource("3_udy4l")
-nodes = Array[ExtResource("1_lxg6p")]([SubResource("Resource_fv177"), SubResource("Resource_ssii4")])
-connections = Array[Dictionary]([{
-"from_node": &"bhc4y1rku2jb1",
-"from_port": 0,
-"keep_alive": false,
-"to_node": &"di56ddpupkoyd",
-"to_port": 0
-}, {
-"from_node": &"bhc4y1rku2jb1",
-"from_port": 1,
-"keep_alive": false,
-"to_node": &"di56ddpupkoyd",
-"to_port": 1
-}])
+nodes = Array[ExtResource("1_lxg6p")]([SubResource("Resource_fv177")])
+connections = Array[Dictionary]([])

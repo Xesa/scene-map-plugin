@@ -28,7 +28,7 @@ static func get_path_from_uid(scene_uid : String) -> String:
 	var scene_resource := load("uid://"+scene_uid)
 	return scene_resource.resource_path
 
-
+"""
 static func pre_save_scene(scene_path : String) -> void:
 
 	# Saves all the progress
@@ -53,3 +53,4 @@ static func post_save_scene(scene_resource : PackedScene, scene_instance : Node,
 
 	# Returns back to the Scene Map screen
 	EditorInterface.set_main_screen_editor(SM_Constants.PLUGIN_NAME)
+"""

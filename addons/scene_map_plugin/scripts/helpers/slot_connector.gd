@@ -3,6 +3,8 @@ extends Node
 const SM_Constants := preload("uid://cjynbj0oq1sx1")
 const SM_ResourceTools := preload("uid://cwik34k5w34y1")
 const SM_ConnectionValidator := preload("uid://btnhphtrcwk72")
+const SM_SceneSaver := preload("uid://7svcgc01kw2b")
+const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
 
 static var graph : SceneMapGraph
 
@@ -26,6 +28,9 @@ static func make_connection(from_node, from_port, to_node, to_port, connect : bo
 	var connection_type := SM_ConnectionValidator.get_connection_type(from_slot, to_slot)
 	var action := Action.CONNECT if connect else Action.DISCONNECT
 
+	# Initiates the scene saver
+	await SM_SceneSaver.start()
+
 	match connection_type:
 		1:
 			await from_slot.update_connection(to_slot, action)
@@ -35,17 +40,22 @@ static func make_connection(from_node, from_port, to_node, to_port, connect : bo
 			await from_slot.update_connection(to_slot, action)
 			await to_slot.update_connection(from_slot, action)
 
+	# Saves all the changes made to the scenes
+	await SM_SceneSaver.save()
+	SceneMapIO.save(graph)
+
 
 static func update_connection(from_slot : SceneMapSlot, to_slot : SceneMapSlot, action : Action ) -> void:
 	
-	await SM_ResourceTools.pre_save_scene(from_slot.scene_path)
+	# Opens the node's scene
+	var scene_values := await SM_SceneSaver.open_scene(from_slot.scene_uid)
 
-	# Instantiates the node's scene
-	var scene_resource := load("uid://"+from_slot.scene_uid) as PackedScene
-	var scene_instance := scene_resource.instantiate()
+	var scene_resource : PackedScene = scene_values["resource"]
+	var scene_instance : Node = scene_values["instance"]
 
 	# Gets the component
-	var component : SceneMapComponent = scene_instance.get_node(from_slot.component_path)
+	var component := SM_ComponentFinder.search_component_by_uid(scene_instance, from_slot.component_uid)
+	
 
 	# If the component is inside a packed scene, sets the owner's children as editable
 	if component.owner != scene_instance and scene_instance.is_editable_instance(component.owner) == false:
@@ -61,14 +71,3 @@ static func update_connection(from_slot : SceneMapSlot, to_slot : SceneMapSlot, 
 		await from_slot.remove_connection(to_slot, true)
 		await to_slot.remove_connection(from_slot, false)
 		component._remove_next_scene()
-
-	# Save both the from scene and the to scene
-	await SM_ResourceTools.post_save_scene(scene_resource, scene_instance, from_slot.scene_path)
-
-	EditorInterface.reload_scene_from_path(to_slot.scene_path)
-	await Engine.get_main_loop().process_frame
-
-	# Returns back to the Scene Map screen
-	EditorInterface.set_main_screen_editor(SM_Constants.PLUGIN_NAME)
-
-	SceneMapIO.save(graph)
