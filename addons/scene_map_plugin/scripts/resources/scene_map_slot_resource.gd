@@ -1,4 +1,4 @@
-class_name SceneMapSlotResource extends Resource
+extends Resource
 
 @export var slot_id : String
 @export var index : int
@@ -6,10 +6,10 @@ class_name SceneMapSlotResource extends Resource
 
 @export var left : bool
 @export var right : bool
+@export var left_icon : String
+@export var right_icon : String
 
-@export var scene_path : String
 @export var scene_uid : String
-@export var component_path : String
 @export var component_uid : String
 
 @export var type : SceneMapComponent.Type

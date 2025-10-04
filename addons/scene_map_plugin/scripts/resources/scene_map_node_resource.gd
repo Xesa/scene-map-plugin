@@ -1,4 +1,4 @@
-class_name SceneMapNodeResource extends Resource
+extends Resource
 
 @export var offset : Vector2
 @export var scene_path : String

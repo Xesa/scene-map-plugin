@@ -9,7 +9,7 @@ const SM_SlotResource := preload("uid://p2mmnni4huyo")
 
 static func save(graph : SceneMapGraph) -> void:
 
-	var path = SM_Constants.USER_DATA_PATH + "graph.tres"
+	var path = SM_Constants.USER_DATA_PATH + "graph_1.tres"
 
 	# Creates a new resource
 	var resource := SM_GraphResource.new()
@@ -29,15 +29,15 @@ static func save(graph : SceneMapGraph) -> void:
 			for slot in node.component_slots:
 				var slot_res = SM_SlotResource.new()
 				slot_res.slot_id = slot.slot_id
-				slot_res.scene_path = slot.scene_path
 				slot_res.scene_uid = slot.scene_uid
-				slot_res.component_path = slot.component_path
 				slot_res.component_uid = slot.component_uid
 
 				slot_res.index = slot.index
 				slot_res.specific_index = slot.specific_index
 				slot_res.left = slot.left
 				slot_res.right = slot.right
+				slot_res.left_icon = slot.left_icon
+				slot_res.right_icon = slot.right_icon
 
 				slot_res.type = slot.type
 				slot_res.side = slot.side
@@ -56,7 +56,7 @@ static func save(graph : SceneMapGraph) -> void:
 
 static func load(graph : SceneMapGraph) -> void:
 
-	var path = SM_Constants.USER_DATA_PATH + "graph.tres"
+	var path = SM_Constants.USER_DATA_PATH + "graph_1.tres"
 
 	# Loads the resource
 	var graph_resource : SM_GraphResource
@@ -80,15 +80,15 @@ static func load(graph : SceneMapGraph) -> void:
 		for slot_resource in node_resource.component_slots:
 
 			var slot := SceneMapSlot.new(
-				slot_resource.scene_path,
-				slot_resource.scene_uid,
-				slot_resource.component_path,
 				slot_resource.type,
 				slot_resource.side,
 				slot_resource.index,
 				slot_resource.specific_index,
 				slot_resource.left,
 				slot_resource.right,
+				slot_resource.left_icon,
+				slot_resource.right_icon,
+				slot_resource.scene_uid,
 				slot_resource.component_uid
 			)
 
@@ -99,8 +99,12 @@ static func load(graph : SceneMapGraph) -> void:
 			label.text = "%s %d" % [slot.type_string, slot.index]
 			node.add_child(label)
 
+			# Loads the icons
+			var left_icon := load(slot_resource.left_icon)
+			var right_icon := load(slot_resource.right_icon)
+
 			# Sets the slot to the node
-			node.set_slot(slot.index, slot.left, 0, Color.WHITE, slot.right, 0, Color.WHITE)
+			node.set_slot(slot.index, slot.left, 0, Color.WHITE, slot.right, 0, Color.WHITE, left_icon, right_icon)
 			node.component_slots.append(slot)
 			node.add_child(slot)
 

@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="SceneMapResource" load_steps=3 format=3 uid="uid://ddo6eg6ihp45o"]
-
-[ext_resource type="Script" uid="uid://cu1fsenurp8wr" path="res://addons/scene_map_plugin/scripts/resources/scene_map_node_resource.gd" id="1_lxg6p"]
-[ext_resource type="Script" uid="uid://c2qiuif0u7poj" path="res://addons/scene_map_plugin/scripts/resources/scene_map_graph_resource.gd" id="3_udy4l"]
-
-[resource]
-script = ExtResource("3_udy4l")
-nodes = Array[ExtResource("1_lxg6p")]([])
-connections = Array[Dictionary]([])

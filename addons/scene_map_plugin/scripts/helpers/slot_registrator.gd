@@ -7,27 +7,15 @@ const SM_SceneSaver := preload("uid://7svcgc01kw2b")
 
 var graph_node : SceneMapNode
 
-var arrow_left : Texture2D
-var arrow_right : Texture2D
-var arrow_double : Texture2D
-
 var general_counter : int
 var specific_counters : Dictionary
 
-var SLOT_CONFIG = {
-	SceneMapComponent.Type.ENTRY:	{"label": "Entrance",	"icons": [arrow_right, arrow_left]},
-	SceneMapComponent.Type.EXIT:	{"label": "Exit",		"icons": [arrow_left, arrow_right]},
-	SceneMapComponent.Type.TWO_WAY:	{"label": "Two-way",	"icons": [arrow_double, arrow_double]},
-	SceneMapComponent.Type.FUNNEL:	{"label": "Funnel",		"icons": [arrow_double, arrow_double]},
-}
+var slot_config : Dictionary
 
 
 func _init(_graph_node : SceneMapNode) -> void:
 	graph_node = _graph_node
-	arrow_left = load(SM_Constants.ARROW_LEFT)
-	arrow_right = load(SM_Constants.ARROW_RIGHT)
-	arrow_double = load(SM_Constants.ARROW_DOUBLE)
-
+	
 
 ## Creates connection slots for each [SceneMapComponent] found in the scene.
 ## Depending on the property [type] of the [SceneMapComponent], the connection slot will be either on the left side, right side or both sides.
@@ -51,6 +39,9 @@ func register_slots() -> void:
 	# Gets all the [SceneMapComponent] in the scene
 	var components := SM_ComponentFinder.find_all_components(scene_values.instance)
 
+	# Sets an invisible node, otherwise the rest of nodes won't work properly
+	graph_node.set_slot(0, true, 1, Color.TRANSPARENT, true, 1, Color.TRANSPARENT)
+
 	# Iterates each component from each type and registers them
 	for key in specific_counters.keys():
 		for component in components[key]:
@@ -67,7 +58,7 @@ func register_slots() -> void:
 func _register_component_as_slot(scene_instance : Node, component : SceneMapComponent, key : String) -> void:
 
 	# Gets the slot configuration for this component type
-	var config = SLOT_CONFIG[component.type]
+	var config = SM_Constants.SLOT_CONFIG[component.type]
 
 	var component_path : NodePath = scene_instance.get_path_to(component)
 
@@ -80,29 +71,44 @@ func _register_component_as_slot(scene_instance : Node, component : SceneMapComp
 	var left_side := true if component.side == SceneMapComponent.Side.LEFT else false
 	var right_side := true if component.side == SceneMapComponent.Side.RIGHT else false
 
+	var left_icon : Texture2D
+	var right_icon : Texture2D
+
 	if component.type == SceneMapComponent.Type.FUNNEL:
 		left_side = true
 		right_side = true
+
+		if component.side == SceneMapComponent.Side.LEFT:
+			left_icon = load(config["icons_left"][0])
+			right_icon = load(config["icons_left"][1])
+
+		if component.side == SceneMapComponent.Side.RIGHT:
+			left_icon = load(config["icons_right"][0])
+			right_icon = load(config["icons_right"][1])
+	
+	else:
+		left_icon = load(config["icons"][0])
+		right_icon = load(config["icons"][1])
 
 	# Adds the slot to the graph node
 	graph_node.set_slot(
 		general_counter,
 		left_side, 0, Color.WHITE,
 		right_side, 0, Color.WHITE,
-		config.icons[0], config.icons[1]
+		left_icon, right_icon
 	)
 
 	# Creates a slot object
 	var slot := SceneMapSlot.new(
-				graph_node.scene_path,
-				graph_node.scene_uid,
-				component_path,
 				component.type,
 				component.side,
 				general_counter,
 				specific_counters[key],
 				left_side,
-				right_side
+				right_side,
+				config["icons"][0],
+				config["icons"][1],
+				graph_node.scene_uid,
 	)
 
 	# Adds the slot object to the graph node

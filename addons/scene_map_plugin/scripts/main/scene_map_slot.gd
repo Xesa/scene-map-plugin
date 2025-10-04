@@ -12,10 +12,10 @@ var specific_index : int
 
 var left : bool
 var right : bool
+var left_icon : String
+var right_icon : String
 
-var scene_path : String
 var scene_uid : String
-var component_path : String
 var component_uid : String
 
 var type : SceneMapComponent.Type
@@ -29,18 +29,18 @@ var connected_to : Array[SceneMapSlot]
 var connected_from : Array[SceneMapSlot]
 
 
-func _init(_scene_path : String = "", _scene_uid : String = "", _component_path : NodePath = "",
-			_type : SceneMapComponent.Type = 0, _side : SceneMapComponent.Side = 0,
-			_index : int = 0, _specific_index : int = 0, _left : bool = false, _right : bool = false, _component_uid = null) -> void:
+func _init(_type : SceneMapComponent.Type = 0, _side : SceneMapComponent.Side = 0,
+		_index : int = 0, _specific_index : int = 0,
+		_left : bool = false, _right : bool = false,
+		_left_icon : String = "", _right_icon : String = "",
+		_scene_uid : String = "", _component_uid = null)-> void:
 	
 	if _component_uid:
 		component_uid = _component_uid
 	else:
 		component_uid = str(ResourceUID.create_id())
 
-	scene_path = _scene_path
 	scene_uid = _scene_uid
-	component_path = _component_path
 	slot_id = scene_uid + ":" + component_uid
 
 	side = _side
@@ -48,11 +48,14 @@ func _init(_scene_path : String = "", _scene_uid : String = "", _component_path 
 	specific_index = _specific_index
 	left = _left
 	right = _right
+	left_icon = _left_icon
+	right_icon = _right_icon
 
 	connected_to = []
 	connected_from = []
 
 	_set_type(_type)
+
 
 func _set_type(_type : SceneMapComponent.Type) -> void:
 	type = _type
