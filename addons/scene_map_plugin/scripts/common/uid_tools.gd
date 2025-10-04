@@ -27,30 +27,3 @@ static func get_uid_from_tscn(scene_path : String) -> String:
 static func get_path_from_uid(scene_uid : String) -> String:
 	var scene_resource := load("uid://"+scene_uid)
 	return scene_resource.resource_path
-
-"""
-static func pre_save_scene(scene_path : String) -> void:
-
-	# Saves all the progress
-	await Engine.get_main_loop().process_frame
-	EditorInterface.save_all_scenes()
-
-	# Reloads the scene to avoid overwriting data
-	EditorInterface.reload_scene_from_path(scene_path)
-	await Engine.get_main_loop().process_frame
-
-
-static func post_save_scene(scene_resource : PackedScene, scene_instance : Node, scene_path : String) -> void:
-
-	# Saves the changes to the scene
-	scene_resource.pack(scene_instance)
-	await ResourceSaver.save(scene_resource, scene_path)
-	await Engine.get_main_loop().process_frame
-
-	# Reloads the scene to show the changes in the editor
-	EditorInterface.reload_scene_from_path(scene_path)
-	await Engine.get_main_loop().process_frame
-
-	# Returns back to the Scene Map screen
-	EditorInterface.set_main_screen_editor(SM_Constants.PLUGIN_NAME)
-"""

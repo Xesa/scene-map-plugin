@@ -16,7 +16,7 @@ var set_to_delete := false
 var preview : TextureRect
 var component_slots : Array[SceneMapSlot]
 
-signal node_deleted()
+signal node_deleted(node : SceneMapNode)
 signal node_ready()
 
 
@@ -43,6 +43,7 @@ func _ready() -> void:
 		await SM_SceneSaver.save()
 		SceneMapIO.save(get_parent())
 
+	node_deleted.connect(get_parent()._on_node_deleted)
 	node_ready.emit()
 
 
@@ -66,9 +67,9 @@ func _delete() -> void:
 
 	# Saves all the changes made to the scenes
 	await SM_SceneSaver.save()
-	#SceneMapIO.save(graph)
 
-	queue_free()
+	# Emits a signal for the graph to delete this node
+	node_deleted.emit(self)
 
 
 func get_component_slot(index : int) -> SceneMapSlot:

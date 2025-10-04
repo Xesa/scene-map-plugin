@@ -33,3 +33,9 @@ func _is_node_hover_valid(from_node: StringName, from_port: int, to_node: String
 func get_slot_info(node_index, port) -> SceneMapSlot:
 	var graph_node : SceneMapNode = get_node(NodePath(node_index))
 	return graph_node.get_component_slot(port)
+
+
+func _on_node_deleted(node : SceneMapNode) -> void:
+	node.queue_free()
+	await Engine.get_main_loop().process_frame
+	SceneMapIO.save(self)
