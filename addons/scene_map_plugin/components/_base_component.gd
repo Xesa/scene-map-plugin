@@ -5,16 +5,15 @@ class_name SceneMapComponent extends Node2D
 const SceneMapComponentFinder := preload("uid://bm5cgkk8r2tb5")
 const SM_ResourceTools := preload("uid://b71h2bnocse6c")
 
+## Defines a custom name for this component in the Scene Map. If this property is left empty the name of the node will appear instead.
+@export var custom_name : String
+
 ## Defines which actions will the player be able to perform.
 @export var type := Type.TWO_WAY
 
 ## Defines in which side of the Scene Map will this node appear.
 ##In the case of choosing the type [code]FUNNEL[/code] the node will appear in both sides but this will define which side is the entrance and which is the exit.
 @export var side := Side.RIGHT
-
-@export_group("Preview")
-@export var preview_size : Vector3
-@export var preview_center : Vector3
 
 
 enum Type {

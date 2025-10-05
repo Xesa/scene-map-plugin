@@ -64,8 +64,11 @@ debug_color = Color(0.818575, 0.366237, 0.457979, 0.42)
 [node name="SceneMapComponent1" parent="RedHouse" index="2"]
 position = Vector2(0, 98)
 script = ExtResource("5_ndlqu")
-type = 1
+custom_name = "Red House Bottom Entrance"
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_uid = "7445845752887952232"
+metadata/_next_scene_uid = "di56ddpupkoyd"
+metadata/_next_component_uid = "2975549928602511674"
 
 [node name="Area2D" parent="RedHouse/SceneMapComponent1" index="0"]
 position = Vector2(0, -28)
@@ -78,8 +81,11 @@ shape = SubResource("RectangleShape2D_n8xp1")
 [node name="SceneMapComponent2" type="Node2D" parent="RedHouse"]
 position = Vector2(0, -54)
 script = ExtResource("5_ndlqu")
-type = 1
+custom_name = "Red House Top Entrance"
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_uid = "7420143796949489103"
+metadata/_next_scene_uid = "di56ddpupkoyd"
+metadata/_next_component_uid = "1681468742710000557"
 
 [node name="Area2D" type="Area2D" parent="RedHouse/SceneMapComponent2"]
 position = Vector2(0, 66)
@@ -107,8 +113,11 @@ debug_color = Color(0.818575, 0.366237, 0.457979, 0.42)
 [node name="SceneMapComponent1" parent="BlueHouse" index="2"]
 position = Vector2(0, 98)
 script = ExtResource("5_ndlqu")
-type = 1
+custom_name = "Blue House Entrance"
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_uid = "1407151085931374687"
+metadata/_next_scene_uid = "cwtf45gw77uak"
+metadata/_next_component_uid = "2234335045504275665"
 
 [node name="Area2D" parent="BlueHouse/SceneMapComponent1" index="0"]
 position = Vector2(0, -28)

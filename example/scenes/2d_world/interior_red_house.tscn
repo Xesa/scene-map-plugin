@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=4 uid="uid://di56ddpupkoyd"]
+[gd_scene load_steps=8 format=4 uid="uid://di56ddpupkoyd"]
 
 [ext_resource type="Script" uid="uid://dwu4scnijfokr" path="res://example/scripts/scene_controller_custom_positions.gd" id="1_1h868"]
 [ext_resource type="TileSet" uid="uid://cbbme12ie4eex" path="res://example/resources/interior_tileset.tres" id="2_5aepf"]
 [ext_resource type="Script" uid="uid://dnv7lj6i0r7u8" path="res://example/scripts/example_area_2d.gd" id="3_4kahw"]
 [ext_resource type="Texture2D" uid="uid://bqkdpqqmo8lgm" path="res://example/assets/carpet_red.png" id="4_4kahw"]
 [ext_resource type="PackedScene" uid="uid://ogkvmsxudtdj" path="res://example/elements/player.tscn" id="4_5aepf"]
+[ext_resource type="Script" uid="uid://ra3t033pr4q" path="res://example/scripts/player.gd" id="4_kfr51"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_abwjd"]
 size = Vector2(73, 21)
@@ -32,16 +33,25 @@ position = Vector2(-576, -312)
 tile_map_data = PackedByteArray("AAACAAUAAQADAAMAAAACAAYAAQADAAQAAAACAAcAAQADAAMAAAACAAgAAQADAAQAAAADAAUAAQAEAAEAAAADAAYAAQAEAAQAAAADAAcAAQAEAAIAAAADAAgAAQAEAAQAAAADAAkAAQAEAAMAAAAEAAUAAQAFAAEAAAAEAAYAAQAFAAIAAAAEAAcAAQAFAAIAAAAEAAgAAQAFAAIAAAAEAAkAAQAFAAMAAAAFAAUAAQAFAAEAAAAFAAYAAQAFAAIAAAAFAAcAAQAFAAIAAAAFAAgAAQAFAAIAAAAFAAkAAQAFAAMAAAAGAAUAAQAFAAEAAAAGAAYAAQAFAAIAAAAGAAcAAQAFAAIAAAAGAAgAAQAFAAIAAAAGAAkAAQAFAAMAAAAHAAUAAQAGAAEAAAAHAAYAAQAGAAQAAAAHAAcAAQAGAAIAAAAHAAgAAQAGAAQAAAAHAAkAAQAGAAMAAAAIAAUAAQAHAAMAAAAIAAYAAQAHAAQAAAAIAAcAAQAHAAMAAAAIAAgAAQAHAAQAAAAPAAUAAQADAAMAAAAPAAYAAQADAAQAAAAPAAcAAQADAAMAAAAPAAgAAQADAAQAAAAQAAUAAQAEAAEAAAAQAAYAAQAEAAQAAAAQAAcAAQAEAAIAAAAQAAgAAQAEAAQAAAAQAAkAAQAEAAMAAAARAAUAAQAFAAEAAAARAAYAAQAFAAIAAAARAAcAAQAFAAIAAAARAAgAAQAFAAIAAAARAAkAAQAFAAMAAAASAAUAAQAFAAEAAAASAAYAAQAFAAIAAAASAAcAAQAFAAIAAAASAAgAAQAFAAIAAAASAAkAAQAFAAMAAAATAAUAAQAFAAEAAAATAAYAAQAFAAIAAAATAAcAAQAFAAIAAAATAAgAAQAFAAIAAAATAAkAAQAFAAMAAAAUAAUAAQAGAAEAAAAUAAYAAQAGAAQAAAAUAAcAAQAGAAIAAAAUAAgAAQAGAAQAAAAUAAkAAQAGAAMAAAAVAAUAAQAHAAMAAAAVAAYAAQAHAAQAAAAVAAcAAQAHAAMAAAAVAAgAAQAHAAQAAAAMAAEAAQAAAAAAAAAMAAIAAQAAAAEAAAA=")
 tile_set = ExtResource("2_5aepf")
 
-[node name="Player" parent="." instance=ExtResource("4_5aepf")]
+[node name="Player" type="CharacterBody2D" parent="." instance=ExtResource("4_5aepf")]
+y_sort_enabled = true
 position = Vector2(602, 747)
+collision_layer = 16
+collision_mask = 2
+motion_mode = 1
+script = ExtResource("4_kfr51")
+metadata/_custom_type_script = "uid://ra3t033pr4q"
 
 [node name="SceneMapComponent1" type="Node2D" parent="."]
 z_index = -1
 position = Vector2(475, 580)
 script = ExtResource("3_4kahw")
-type = 0
+custom_name = "Exit Bottom"
 side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_uid = "2975549928602511674"
+metadata/_next_scene_uid = "bhc4y1rku2jb1"
+metadata/_next_component_uid = "7445845752887952232"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent1"]
 position = Vector2(0, 33)
@@ -59,9 +69,12 @@ shape = SubResource("RectangleShape2D_abwjd")
 z_index = -1
 position = Vector2(600, 175)
 script = ExtResource("3_4kahw")
-type = 0
+custom_name = "Exit Top"
 side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_uid = "1681468742710000557"
+metadata/_next_scene_uid = "bhc4y1rku2jb1"
+metadata/_next_component_uid = "7420143796949489103"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent2"]
 position = Vector2(0, -26)

@@ -1,7 +1,7 @@
 extends Node
 
 const SM_Constants := preload("uid://cjynbj0oq1sx1")
-const SM_UIDTools := preload("uid://b71h2bnocse6c")
+const SM_ResourceTools := preload("uid://b71h2bnocse6c")
 
 
 static var scenes := {}
@@ -20,7 +20,7 @@ static func open_scene(scene_uid : String) -> Dictionary:
 		return scenes[scene_uid]
 
 	# If the scene is not open, loads the resource and instantiates the scene
-	var scene_resource : PackedScene = SM_UIDTools.load_from_uid(scene_uid)
+	var scene_resource : PackedScene = SM_ResourceTools.load_from_uid(scene_uid)
 	var scene_instance : Node = scene_resource.instantiate()
 	var scene_path := scene_resource.resource_path
 

@@ -62,6 +62,8 @@ func register_new_slot(component: SceneMapComponent, key: String) -> SceneMapSlo
 	var left_icon_path = slot_sides[2]
 	var right_icon_path = slot_sides[3]
 
+	var component_name = component.custom_name if component.custom_name else SM_ResourceTools.convert_string_to_readable_name(component.name)
+
 	var data := {
 		"type": component.type,
 		"side": component.side,
@@ -72,7 +74,7 @@ func register_new_slot(component: SceneMapComponent, key: String) -> SceneMapSlo
 		"left_icon": left_icon_path,
 		"right_icon": right_icon_path,
 		"scene_uid": graph_node.scene_uid,
-		"component_name": SM_ResourceTools.convert_string_to_readable_name(component.name),
+		"component_name": component_name,
 		"component_uid": null,
 	}
 
