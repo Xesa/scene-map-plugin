@@ -3,7 +3,7 @@ class_name SceneMapComponent extends Node2D
 ## Base component for being used as an interactable Area2D.
 
 const SceneMapComponentFinder := preload("uid://bm5cgkk8r2tb5")
-const SM_UIDTools := preload("uid://cwik34k5w34y1")
+const SM_ResourceTools := preload("uid://b71h2bnocse6c")
 
 ## Defines which actions will the player be able to perform.
 @export var type := Type.TWO_WAY
@@ -11,6 +11,10 @@ const SM_UIDTools := preload("uid://cwik34k5w34y1")
 ## Defines in which side of the Scene Map will this node appear.
 ##In the case of choosing the type [code]FUNNEL[/code] the node will appear in both sides but this will define which side is the entrance and which is the exit.
 @export var side := Side.RIGHT
+
+@export_group("Preview")
+@export var preview_size : Vector3
+@export var preview_center : Vector3
 
 
 enum Type {
@@ -79,7 +83,7 @@ func get_next_component_uid() -> String:
 func get_next_scene_instance() -> Node:
 	var next_scene_uid = get_next_scene_uid()
 	if next_scene_uid:
-		return SM_UIDTools.load_from_uid(next_scene_uid).instantiate()
+		return SM_ResourceTools.load_from_uid(next_scene_uid).instantiate()
 	return null
 
 

@@ -42,7 +42,6 @@ script = ExtResource("3_4kahw")
 type = 0
 side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "159647271511563933"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent1"]
 position = Vector2(0, 33)
@@ -63,7 +62,6 @@ script = ExtResource("3_4kahw")
 type = 0
 side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "1567018600707671313"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent2"]
 position = Vector2(0, -26)

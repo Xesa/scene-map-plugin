@@ -2,7 +2,7 @@ extends Node
 
 const SM_Constants := preload("uid://cjynbj0oq1sx1")
 const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
-const SM_ResourceTools := preload("uid://cwik34k5w34y1")
+const SM_ResourceTools := preload("uid://b71h2bnocse6c")
 const SM_SceneSaver := preload("uid://7svcgc01kw2b")
 const SM_DisconnectButton := preload("uid://0s4l0pgfen4i")
 const SM_SlotResource := preload("uid://p2mmnni4huyo")
@@ -72,7 +72,7 @@ func register_new_slot(component: SceneMapComponent, key: String) -> SceneMapSlo
 		"left_icon": left_icon_path,
 		"right_icon": right_icon_path,
 		"scene_uid": graph_node.scene_uid,
-		"component_name": component.name,
+		"component_name": SM_ResourceTools.convert_string_to_readable_name(component.name),
 		"component_uid": null,
 	}
 

@@ -1,6 +1,6 @@
 extends Node
 
-const SM_ResourceTools := preload("uid://cwik34k5w34y1")
+const SM_ResourceTools := preload("uid://b71h2bnocse6c")
 
 
 static func register_scene(

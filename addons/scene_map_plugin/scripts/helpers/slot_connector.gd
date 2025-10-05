@@ -1,7 +1,7 @@
 extends Node
 
 const SM_Constants := preload("uid://cjynbj0oq1sx1")
-const SM_ResourceTools := preload("uid://cwik34k5w34y1")
+const SM_ResourceTools := preload("uid://b71h2bnocse6c")
 const SM_ConnectionValidator := preload("uid://btnhphtrcwk72")
 const SM_SceneSaver := preload("uid://7svcgc01kw2b")
 const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")

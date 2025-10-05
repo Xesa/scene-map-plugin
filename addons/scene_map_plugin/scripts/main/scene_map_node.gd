@@ -1,7 +1,7 @@
 @tool
 class_name SceneMapNode extends GraphNode
 
-const SM_ResourceTools := preload("uid://cwik34k5w34y1")
+const SM_ResourceTools := preload("uid://b71h2bnocse6c")
 const SM_NodePreviewer := preload("uid://brgihuj5exdgu")
 const SM_SlotRegistrator := preload("uid://bj10g5ips4ubj")
 const SM_SceneSaver := preload("uid://7svcgc01kw2b")

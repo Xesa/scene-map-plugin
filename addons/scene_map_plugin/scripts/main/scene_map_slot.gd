@@ -3,7 +3,7 @@ class_name SceneMapSlot extends Node
 
 const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
 const SM_SlotConnector := preload("uid://1mcwq8t36pgx")
-const SM_ResourceTools := preload("uid://cwik34k5w34y1")
+const SM_ResourceTools := preload("uid://b71h2bnocse6c")
 const SM_SceneSaver := preload("uid://7svcgc01kw2b")
 
 var slot_id : String

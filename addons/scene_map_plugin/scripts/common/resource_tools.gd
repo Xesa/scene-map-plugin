@@ -37,11 +37,13 @@ static func get_name_from_uid(scene_uid : String) -> String:
 static func get_name_from_path(scene_path : String) -> String:
 	var file_name = scene_path.get_file().get_file()
 	var extension = scene_path.get_file().get_extension()
-	
-	var regex = RegEx.new()
-
 	var temp = file_name.replace("."+extension, "") # Removes the file extension
-	temp = temp.replace("_", " ") # Replaces underscores for spaces
+	return convert_string_to_readable_name(temp)
+
+
+static func convert_string_to_readable_name(string : String) -> String:
+	var temp = string.replace("_", " ") # Replaces underscores for spaces
+	var regex = RegEx.new()
 
 	regex.compile("([a-zA-Z])([0-9]+)")
 	temp = regex.sub(temp, "\\1 \\2", true) # Separates numbers from letters but keeps them united by hyphen

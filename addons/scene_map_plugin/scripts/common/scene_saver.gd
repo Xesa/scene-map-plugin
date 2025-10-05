@@ -1,7 +1,7 @@
 extends Node
 
 const SM_Constants := preload("uid://cjynbj0oq1sx1")
-const SM_UIDTools := preload("uid://cwik34k5w34y1")
+const SM_UIDTools := preload("uid://b71h2bnocse6c")
 
 
 static var scenes := {}
