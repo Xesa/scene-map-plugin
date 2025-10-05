@@ -4,6 +4,8 @@ const SM_Constants := preload("uid://cjynbj0oq1sx1")
 const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
 const SM_ResourceTools := preload("uid://cwik34k5w34y1")
 const SM_SceneSaver := preload("uid://7svcgc01kw2b")
+const SM_DisconnectButton := preload("uid://0s4l0pgfen4i")
+const SM_SlotResource := preload("uid://p2mmnni4huyo")
 
 var graph_node : SceneMapNode
 
@@ -47,33 +49,97 @@ func register_slots() -> void:
 		for component in components[key]:
 			general_counter += 1
 			specific_counters[key] += 1
-			_register_component_as_slot(scene_values.instance, component, key)
+			register_new_slot(component, key)
 
 	# Saves the scene
 	await SM_SceneSaver.save()
 
 
-## Registers a new connection slot. Depending on the parameter [type] it will create it
-## on the left side, right side or both sides.
-func _register_component_as_slot(scene_instance : Node, component : SceneMapComponent, key : String) -> void:
+func register_new_slot(component: SceneMapComponent, key: String) -> SceneMapSlot:
+	var slot_sides = _get_slot_sides(component, key)
+	var left_side = slot_sides[0]
+	var right_side = slot_sides[1]
+	var left_icon_path = slot_sides[2]
+	var right_icon_path = slot_sides[3]
+
+	var data := {
+		"type": component.type,
+		"side": component.side,
+		"index": general_counter,
+		"specific_index": specific_counters[key],
+		"left": left_side,
+		"right": right_side,
+		"left_icon": left_icon_path,
+		"right_icon": right_icon_path,
+		"scene_uid": graph_node.scene_uid,
+		"component_name": component.name,
+		"component_uid": null,
+	}
+
+	var slot = _create_and_attach_slot(data)
+	component._set_component_uid(slot.component_uid)
+	return slot
+
+
+func load_existing_slot(resource: SM_SlotResource) -> SceneMapSlot:
+	var data := {
+		"type": resource.type,
+		"side": resource.side,
+		"index": resource.index,
+		"specific_index": resource.specific_index,
+		"left": resource.left,
+		"right": resource.right,
+		"left_icon": resource.left_icon,
+		"right_icon": resource.right_icon,
+		"scene_uid": resource.scene_uid,
+		"component_name": resource.component_name,
+		"component_uid": resource.component_uid
+	}
+
+	var slot = _create_and_attach_slot(data)
+
+	slot.connected_from_ids = resource.connected_from_ids
+	slot.connected_to_ids = resource.connected_to_ids
+
+	return slot
+
+
+func _create_and_attach_slot(data: Dictionary) -> SceneMapSlot:
+	var slot := SceneMapSlot.new(
+		data.type,
+		data.side,
+		data.index,
+		data.specific_index,
+		data.left,
+		data.right,
+		data.left_icon,
+		data.right_icon,
+		data.scene_uid,
+		data.component_name,
+		data.component_uid
+	)
+
+	generate_slot_controls(data.component_name, data.type, data.side, slot)
+	set_slot(data.index, data.left, data.right, data.left_icon, data.right_icon)
+
+	graph_node.add_child(slot)
+	graph_node.component_slots.append(slot)
+
+	return slot
+
+
+func _get_slot_sides(component : SceneMapComponent, key : String) -> Array:
 
 	# Gets the slot configuration for this component type
 	var config = SM_Constants.SLOT_CONFIG[component.type]
 
-	var component_path : NodePath = scene_instance.get_path_to(component)
+	# Sets different variables for the slot configuration
+	var left_side := false
+	var right_side := false
+	var left_icon_path : String
+	var right_icon_path : String
 
-	# Creates a text label
-	var label = Label.new()
-	label.text = "%s %d" % [config.label, specific_counters[key]]
-	graph_node.add_child(label)
-
-	# Sets the the left and right slots as enabled or disabled depending on the combination of type and side
-	var left_side := true if component.side == SceneMapComponent.Side.LEFT else false
-	var right_side := true if component.side == SceneMapComponent.Side.RIGHT else false
-
-	var left_icon_path : String = config["icons"][0]
-	var right_icon_path : String = config["icons"][1]
-
+	# Sets the values if the component type is Funnel
 	if component.type == SceneMapComponent.Type.FUNNEL:
 		left_side = true
 		right_side = true
@@ -86,33 +152,82 @@ func _register_component_as_slot(scene_instance : Node, component : SceneMapComp
 			left_icon_path = config["icons"][1]
 			right_icon_path = config["icons"][1]
 
+	# Sets the values for any other component type
+	else:
+		left_icon_path = config["icons"][0]
+		right_icon_path = config["icons"][1]
+
+		if component.side == SceneMapComponent.Side.LEFT:
+			left_side = true
+
+		if component.side == SceneMapComponent.Side.RIGHT:
+			right_side = true
+
+	return [left_side, right_side, left_icon_path, right_icon_path]
+
+
+func set_slot(index, left_side, right_side, left_icon_path, right_icon_path) -> void:
+	# Loads the textures for the icons
 	var left_icon : Texture2D = load(left_icon_path)
 	var right_icon : Texture2D = load(right_icon_path)
 
 	# Adds the slot to the graph node
 	graph_node.set_slot(
-		general_counter,
+		index,
 		left_side, 0, Color.WHITE,
 		right_side, 0, Color.WHITE,
 		left_icon, right_icon
 	)
 
-	# Creates a slot object
-	var slot := SceneMapSlot.new(
-				component.type,
-				component.side,
-				general_counter,
-				specific_counters[key],
-				left_side,
-				right_side,
-				left_icon_path,
-				right_icon_path,
-				graph_node.scene_uid,
-	)
 
-	# Adds the slot object to the graph node
-	graph_node.add_child(slot)
-	graph_node.component_slots.append(slot)
+func generate_slot_controls(name : String, type : SceneMapComponent.Type, side : SceneMapComponent.Side, slot : SceneMapSlot) -> void:
+	var control := _create_control()
 
-	# Sets a UID to the component
-	component._set_component_uid(slot.component_uid)
+	if type == SceneMapComponent.Type.FUNNEL:
+
+		_create_disconnect_button(control, slot, 0)
+		_create_label(control, name)
+		_create_disconnect_button(control, slot, 1)
+
+	else:
+
+		if side == SceneMapComponent.Side.LEFT:
+			_create_disconnect_button(control, slot, 0)
+			_create_label(control, name)
+			_create_empty_space(control)
+
+		if side == SceneMapComponent.Side.RIGHT:
+			_create_empty_space(control)
+			_create_label(control, name)
+			_create_disconnect_button(control, slot, 1)
+
+
+func _create_control() -> HBoxContainer:
+	var control := HBoxContainer.new()
+	control.add_theme_constant_override("separation", -5)
+	control.set_anchors_preset(Control.LayoutPreset.PRESET_HCENTER_WIDE)
+	graph_node.add_child(control)
+	return control
+
+
+func _create_disconnect_button(control : HBoxContainer, slot : SceneMapSlot, side : int) -> SM_DisconnectButton:
+	var button := SM_DisconnectButton.new(graph_node.get_parent(), slot, side)
+	control.add_child(button)
+	return button
+
+
+func _create_label(control : HBoxContainer, text : String) -> Label:
+	var label = Label.new()
+	label.text = text
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	control.add_child(label)
+	return label
+
+
+func _create_empty_space(control) -> Control:
+	var spacer = Control.new()
+	spacer.custom_minimum_size.x = 28
+	control.add_child(spacer)
+	return spacer

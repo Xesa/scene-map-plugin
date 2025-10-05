@@ -49,7 +49,6 @@ position = Vector2(675, 580)
 script = ExtResource("4_leja7")
 side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "8139075366926864657"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent1"]
 position = Vector2(0, 33)

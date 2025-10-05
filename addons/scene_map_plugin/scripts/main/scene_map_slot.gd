@@ -17,6 +17,7 @@ var right_icon : String
 
 var scene_uid : String
 var component_uid : String
+var component_name : String
 
 var type : SceneMapComponent.Type
 var side : SceneMapComponent.Side
@@ -28,12 +29,15 @@ var connected_from_ids : Array[String]
 var connected_to : Array[SceneMapSlot]
 var connected_from : Array[SceneMapSlot]
 
+signal connection_added(connection : SceneMapSlot, direction : int)
+signal connection_removed(connection : SceneMapSlot, direction : int)
+
 
 func _init(_type : SceneMapComponent.Type = 0, _side : SceneMapComponent.Side = 0,
 		_index : int = 0, _specific_index : int = 0,
 		_left : bool = false, _right : bool = false,
 		_left_icon : String = "", _right_icon : String = "",
-		_scene_uid : String = "", _component_uid = null)-> void:
+		_scene_uid : String = "", _component_name = "", _component_uid = null, )-> void:
 	
 	if _component_uid:
 		component_uid = _component_uid
@@ -41,6 +45,7 @@ func _init(_type : SceneMapComponent.Type = 0, _side : SceneMapComponent.Side = 
 		component_uid = str(ResourceUID.create_id())
 
 	scene_uid = _scene_uid
+	component_name = _component_name
 	slot_id = scene_uid + ":" + component_uid
 
 	side = _side
@@ -66,50 +71,42 @@ func _set_type(_type : SceneMapComponent.Type) -> void:
 		SceneMapComponent.Type.FUNNEL: type_string = "Funnel"
 
 
-func add_connection(connection : SceneMapSlot, to : bool) -> void:
-	if to and not connected_to.has(connection):
+func add_connection(connection : SceneMapSlot, direction : int) -> void:
+	if direction == 1 and not connected_to.has(connection):
 		connected_to.append(connection)
 		connected_to_ids.append(connection.slot_id)
-	elif !to and not connected_from.has(connection): 
+		connection_added.emit(connection, direction)
+	elif direction == 0 and not connected_from.has(connection): 
 		connected_from.append(connection)
 		connected_from_ids.append(connection.slot_id)
+		connection_added.emit(connection, direction)
 
 
-func set_connections(connections : Array[SceneMapSlot], to : bool) -> void:
-
-	if to:
-		connected_to = []
-		connected_to_ids = []
-
-		for connection in connections:
-			add_connection(connection, true)
-	
-	else:
-		connected_from = []
-		connected_from_ids = []
-
-		for connection in connections:
-			add_connection(connection, false)
-
-
-func remove_connection(connection : SceneMapSlot, to : bool) -> void:
-	if to:
+func remove_connection(connection : SceneMapSlot, direction : int) -> void:
+	if direction == 1:
 		connected_to.erase(connection)
 		connected_to_ids.erase(connection.slot_id)
 	else:
 		connected_from.erase(connection)
 		connected_from_ids.erase(connection.slot_id)
 
-
-func has_connection(connection: SceneMapSlot, to : bool) -> bool:
-	if to:
-		return connected_to.has(connection)
-	else:
-		return connected_from.has(connection)
+	connection_removed.emit(connection, direction)
 
 
-func get_connections(to : bool) -> Array[SceneMapSlot]:
-	if to:
+func has_incoming_connections() -> bool:
+	if connected_from == null:
+		return false
+	return connected_from.size() > 0
+
+
+func has_outgoing_connections() -> bool:
+	if connected_to == null:
+		return false
+	return connected_to.size() > 0
+
+
+func get_connections(direction : int) -> Array[SceneMapSlot]:
+	if direction == 1:
 		return connected_to
 	else:
 		return connected_from
@@ -117,8 +114,8 @@ func get_connections(to : bool) -> Array[SceneMapSlot]:
 
 func get_all_connections() -> Array[SceneMapSlot]:
 	var all_connections : Array[SceneMapSlot] = []
-	all_connections.append_array(get_connections(true))
-	all_connections.append_array(get_connections(false))
+	all_connections.append_array(get_connections(1))
+	all_connections.append_array(get_connections(0))
 	return all_connections
 
 

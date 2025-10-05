@@ -11,6 +11,7 @@ extends Resource
 
 @export var scene_uid : String
 @export var component_uid : String
+@export var component_name : String
 
 @export var type : SceneMapComponent.Type
 @export var side : SceneMapComponent.Side

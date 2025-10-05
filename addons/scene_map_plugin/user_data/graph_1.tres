@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=13 format=3 uid="uid://dpvfkjracyl0h"]
+[gd_resource type="Resource" load_steps=11 format=3 uid="uid://dpvfkjracyl0h"]
 
 [ext_resource type="Script" uid="uid://cu1fsenurp8wr" path="res://addons/scene_map_plugin/scripts/resources/scene_map_node_resource.gd" id="1_yln3w"]
 [ext_resource type="Script" uid="uid://p2mmnni4huyo" path="res://addons/scene_map_plugin/scripts/resources/scene_map_slot_resource.gd" id="2_yln3w"]
@@ -6,52 +6,55 @@
 
 [sub_resource type="Resource" id="Resource_yln3w"]
 script = ExtResource("2_yln3w")
-slot_id = "bhc4y1rku2jb1:4346867208061113266"
+slot_id = "bhc4y1rku2jb1:8903239182783448697"
 index = 1
 specific_index = 1
 left = false
 right = true
-left_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
-right_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
+left_icon = "res://addons/scene_map_plugin/assets/arrow-left.svg"
+right_icon = "res://addons/scene_map_plugin/assets/arrow-right.svg"
 scene_uid = "bhc4y1rku2jb1"
-component_uid = "4346867208061113266"
-type = 2
+component_uid = "8903239182783448697"
+component_name = "SceneMapComponent1"
+type = 1
 side = 1
-type_string = "Two-way"
+type_string = "Exit"
 connected_to_ids = Array[String]([])
 connected_from_ids = Array[String]([])
 
 [sub_resource type="Resource" id="Resource_8v2go"]
 script = ExtResource("2_yln3w")
-slot_id = "bhc4y1rku2jb1:3626716572101059667"
+slot_id = "bhc4y1rku2jb1:2164069848887492799"
 index = 2
 specific_index = 2
 left = false
 right = true
-left_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
-right_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
+left_icon = "res://addons/scene_map_plugin/assets/arrow-left.svg"
+right_icon = "res://addons/scene_map_plugin/assets/arrow-right.svg"
 scene_uid = "bhc4y1rku2jb1"
-component_uid = "3626716572101059667"
-type = 2
+component_uid = "2164069848887492799"
+component_name = "SceneMapComponent2"
+type = 1
 side = 1
-type_string = "Two-way"
+type_string = "Exit"
 connected_to_ids = Array[String]([])
 connected_from_ids = Array[String]([])
 
 [sub_resource type="Resource" id="Resource_1rojr"]
 script = ExtResource("2_yln3w")
-slot_id = "bhc4y1rku2jb1:2190605181435301454"
+slot_id = "bhc4y1rku2jb1:1239743465691862811"
 index = 3
 specific_index = 3
 left = false
 right = true
-left_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
-right_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
+left_icon = "res://addons/scene_map_plugin/assets/arrow-left.svg"
+right_icon = "res://addons/scene_map_plugin/assets/arrow-right.svg"
 scene_uid = "bhc4y1rku2jb1"
-component_uid = "2190605181435301454"
-type = 2
+component_uid = "1239743465691862811"
+component_name = "SceneMapComponent1"
+type = 1
 side = 1
-type_string = "Two-way"
+type_string = "Exit"
 connected_to_ids = Array[String]([])
 connected_from_ids = Array[String]([])
 
@@ -64,70 +67,48 @@ component_slots = Array[ExtResource("2_yln3w")]([SubResource("Resource_yln3w"), 
 
 [sub_resource type="Resource" id="Resource_jn6tc"]
 script = ExtResource("2_yln3w")
-slot_id = "cwtf45gw77uak:8139075366926864657"
+slot_id = "di56ddpupkoyd:159647271511563933"
 index = 1
 specific_index = 1
 left = true
 right = false
-left_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
-right_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
-scene_uid = "cwtf45gw77uak"
-component_uid = "8139075366926864657"
-type = 2
+left_icon = "res://addons/scene_map_plugin/assets/arrow-right.svg"
+right_icon = "res://addons/scene_map_plugin/assets/arrow-left.svg"
+scene_uid = "di56ddpupkoyd"
+component_uid = "159647271511563933"
+component_name = "SceneMapComponent1"
+type = 0
 side = 0
-type_string = "Two-way"
+type_string = "Entrance"
 connected_to_ids = Array[String]([])
 connected_from_ids = Array[String]([])
 
 [sub_resource type="Resource" id="Resource_plngk"]
-script = ExtResource("1_yln3w")
-offset = Vector2(380, 300)
-scene_name = "Interior Blue House"
-scene_uid = "cwtf45gw77uak"
-component_slots = Array[ExtResource("2_yln3w")]([SubResource("Resource_jn6tc")])
-
-[sub_resource type="Resource" id="Resource_6cui4"]
 script = ExtResource("2_yln3w")
-slot_id = "di56ddpupkoyd:6351859921877785586"
-index = 1
-specific_index = 1
-left = true
-right = false
-left_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
-right_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
-scene_uid = "di56ddpupkoyd"
-component_uid = "6351859921877785586"
-type = 2
-side = 0
-type_string = "Two-way"
-connected_to_ids = Array[String]([])
-connected_from_ids = Array[String]([])
-
-[sub_resource type="Resource" id="Resource_3amfr"]
-script = ExtResource("2_yln3w")
-slot_id = "di56ddpupkoyd:5948467518445170278"
+slot_id = "di56ddpupkoyd:1567018600707671313"
 index = 2
 specific_index = 2
 left = true
 right = false
-left_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
-right_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
+left_icon = "res://addons/scene_map_plugin/assets/arrow-right.svg"
+right_icon = "res://addons/scene_map_plugin/assets/arrow-left.svg"
 scene_uid = "di56ddpupkoyd"
-component_uid = "5948467518445170278"
-type = 2
+component_uid = "1567018600707671313"
+component_name = "SceneMapComponent2"
+type = 0
 side = 0
-type_string = "Two-way"
+type_string = "Entrance"
 connected_to_ids = Array[String]([])
 connected_from_ids = Array[String]([])
 
-[sub_resource type="Resource" id="Resource_uqefw"]
+[sub_resource type="Resource" id="Resource_6cui4"]
 script = ExtResource("1_yln3w")
-offset = Vector2(0, 0)
+offset = Vector2(520, -40)
 scene_name = "Interior Red House"
 scene_uid = "di56ddpupkoyd"
-component_slots = Array[ExtResource("2_yln3w")]([SubResource("Resource_6cui4"), SubResource("Resource_3amfr")])
+component_slots = Array[ExtResource("2_yln3w")]([SubResource("Resource_jn6tc"), SubResource("Resource_plngk")])
 
 [resource]
 script = ExtResource("3_1rojr")
-nodes = Array[ExtResource("1_yln3w")]([SubResource("Resource_is818"), SubResource("Resource_plngk"), SubResource("Resource_uqefw")])
+nodes = Array[ExtResource("1_yln3w")]([SubResource("Resource_is818"), SubResource("Resource_6cui4")])
 connections = Array[Dictionary]([])

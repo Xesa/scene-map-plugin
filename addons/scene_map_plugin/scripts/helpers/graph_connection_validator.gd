@@ -5,7 +5,7 @@ extends Node
 ## [br] [-1] means the connection goes from right to left.
 ## [br] [2] means it is a double sided connections.
 ## [br] [0] means it is a non-valid connection.
-static func get_connection_type(from_slot : SceneMapSlot, to_slot : SceneMapSlot) -> int:
+static func get_connection_type(from_slot : SceneMapSlot, to_slot : SceneMapSlot, connect : bool = true) -> int:
 
 	var from_already_connected := from_slot.connected_to.size() > 0
 	var to_already_connected := to_slot.connected_to.size() > 0
@@ -14,18 +14,18 @@ static func get_connection_type(from_slot : SceneMapSlot, to_slot : SceneMapSlot
 		return 0
 
 	if from_slot.type == SceneMapComponent.Type.EXIT and to_slot.type == SceneMapComponent.Type.ENTRY:
-		if from_already_connected:
+		if connect and from_already_connected:
 			print("Invalid connection: exit node already connected.")
 			return 0
 		return 1
 
 	if from_slot.type == SceneMapComponent.Type.ENTRY and to_slot.type == SceneMapComponent.Type.EXIT:
-		if to_already_connected:
+		if connect and to_already_connected:
 			print("Invalid connection: exit node already connected.")
 		return -1
 
 	if from_slot.type == SceneMapComponent.Type.TWO_WAY and to_slot.type == SceneMapComponent.Type.TWO_WAY:
-		if from_already_connected or to_already_connected:
+		if connect and (from_already_connected or to_already_connected):
 			print("Invalid connection: one of the nodes is already connected.")
 			return 0
 		return 2

@@ -1,10 +1,12 @@
-[gd_scene load_steps=12 format=4 uid="uid://bhc4y1rku2jb1"]
+[gd_scene load_steps=14 format=4 uid="uid://bhc4y1rku2jb1"]
 
 [ext_resource type="Script" uid="uid://dwu4scnijfokr" path="res://example/scripts/scene_controller_custom_positions.gd" id="1_tg1nb"]
 [ext_resource type="TileSet" uid="uid://dlpdiyv3esdax" path="res://example/resources/exterior_tileset.tres" id="2_tg1nb"]
+[ext_resource type="Script" uid="uid://ra3t033pr4q" path="res://example/scripts/player.gd" id="4_7aome"]
 [ext_resource type="PackedScene" uid="uid://ogkvmsxudtdj" path="res://example/elements/player.tscn" id="4_f6iip"]
 [ext_resource type="PackedScene" uid="uid://dfawd4xhm7kd0" path="res://example/elements/building.tscn" id="4_ndlqu"]
 [ext_resource type="Script" uid="uid://dnv7lj6i0r7u8" path="res://example/scripts/example_area_2d.gd" id="5_ndlqu"]
+[ext_resource type="Texture2D" uid="uid://bvehs0do7gxn6" path="res://example/assets/exterior_house_red.png" id="6_10m4f"]
 [ext_resource type="Texture2D" uid="uid://cwgx07cg2jh4b" path="res://example/assets/exterior_house_blue.png" id="6_x4ysd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j5mi0"]
@@ -35,17 +37,41 @@ z_index = -1
 tile_map_data = PackedByteArray("AAAAAAAAAAABAAEAAAABAAAAAAACAAEAAAACAAAAAAACAAEAAAADAAAAAAACAAEAAAAEAAAAAAACAAEAAAAFAAAAAAACAAEAAAAGAAAAAAACAAEAAAAHAAAAAAACAAEAAAAIAAAAAAACAAEAAAAJAAAAAAACAAEAAAAKAAAAAAACAAEAAAALAAAAAAACAAEAAAAMAAAAAAACAAEAAAANAAAAAAACAAEAAAAOAAAAAAACAAEAAAAPAAAAAAACAAEAAAAQAAAAAAACAAEAAAARAAAAAAADAAEAAAARAAEAAAADAAIAAAARAAIAAAADAAIAAAARAAMAAAADAAIAAAARAAQAAAADAAIAAAARAAUAAAADAAIAAAARAAYAAAADAAIAAAARAAcAAAADAAIAAAARAAgAAAADAAIAAAARAAkAAAADAAMAAAAQAAkAAAACAAMAAAAPAAkAAAACAAMAAAAOAAkAAAACAAMAAAANAAkAAAACAAMAAAAMAAkAAAACAAMAAAALAAkAAAACAAMAAAAKAAkAAAACAAMAAAAJAAkAAAACAAMAAAAIAAkAAAACAAMAAAAHAAkAAAACAAMAAAAGAAkAAAACAAMAAAAFAAkAAAACAAMAAAAEAAkAAAACAAMAAAADAAkAAAACAAMAAAACAAkAAAACAAMAAAABAAkAAAACAAMAAAAAAAkAAAABAAMAAAAAAAgAAAABAAIAAAAAAAcAAAABAAIAAAAAAAYAAAABAAIAAAAAAAUAAAABAAIAAAAAAAQAAAABAAIAAAAAAAMAAAABAAIAAAAAAAIAAAABAAIAAAAAAAEAAAABAAIAAAABAAEAAAACAAIAAAABAAIAAAACAAIAAAABAAMAAAACAAIAAAABAAQAAAACAAIAAAABAAUAAAACAAIAAAABAAYAAAACAAIAAAABAAcAAAACAAIAAAABAAgAAAACAAIAAAACAAEAAAACAAIAAAACAAIAAAACAAIAAAACAAMAAAACAAIAAAACAAQAAAACAAIAAAACAAUAAAACAAIAAAACAAYAAAACAAIAAAACAAcAAAACAAIAAAACAAgAAAACAAIAAAADAAEAAAACAAIAAAADAAIAAAACAAIAAAADAAMAAAACAAIAAAADAAQAAAACAAIAAAADAAUAAAACAAIAAAADAAYAAAACAAIAAAADAAcAAAACAAIAAAADAAgAAAACAAIAAAAEAAEAAAACAAIAAAAEAAIAAAACAAIAAAAEAAMAAAACAAIAAAAEAAQAAAACAAIAAAAEAAUAAAACAAIAAAAEAAYAAAACAAIAAAAEAAcAAAACAAIAAAAEAAgAAAACAAIAAAAFAAEAAAACAAIAAAAFAAIAAAACAAIAAAAFAAMAAAACAAIAAAAFAAQAAAACAAIAAAAFAAUAAAACAAIAAAAFAAYAAAACAAIAAAAFAAcAAAACAAIAAAAFAAgAAAACAAIAAAAGAAEAAAACAAIAAAAGAAIAAAACAAIAAAAGAAMAAAACAAIAAAAGAAQAAAACAAIAAAAGAAUAAAACAAIAAAAGAAYAAAACAAIAAAAGAAcAAAACAAIAAAAGAAgAAAACAAIAAAAHAAEAAAACAAIAAAAHAAIAAAACAAIAAAAHAAMAAAACAAIAAAAHAAQAAAACAAIAAAAHAAUAAAACAAIAAAAHAAYAAAACAAIAAAAHAAcAAAACAAIAAAAHAAgAAAACAAIAAAAIAAEAAAACAAIAAAAIAAIAAAACAAIAAAAIAAMAAAACAAIAAAAIAAQAAAACAAIAAAAIAAUAAAACAAIAAAAIAAYAAAACAAIAAAAIAAcAAAACAAIAAAAIAAgAAAACAAIAAAAJAAEAAAACAAIAAAAJAAIAAAACAAIAAAAJAAMAAAACAAIAAAAJAAQAAAACAAIAAAAJAAUAAAACAAIAAAAJAAYAAAACAAIAAAAJAAcAAAACAAIAAAAJAAgAAAACAAIAAAAKAAEAAAACAAIAAAAKAAIAAAACAAIAAAAKAAMAAAACAAIAAAAKAAQAAAACAAIAAAAKAAUAAAACAAIAAAAKAAYAAAACAAIAAAAKAAcAAAACAAIAAAAKAAgAAAACAAIAAAALAAEAAAACAAIAAAALAAIAAAACAAIAAAALAAMAAAACAAIAAAALAAQAAAACAAIAAAALAAUAAAACAAIAAAALAAYAAAACAAIAAAALAAcAAAACAAIAAAALAAgAAAACAAIAAAAMAAEAAAACAAIAAAAMAAIAAAACAAIAAAAMAAMAAAACAAIAAAAMAAQAAAACAAIAAAAMAAUAAAACAAIAAAAMAAYAAAACAAIAAAAMAAcAAAACAAIAAAAMAAgAAAACAAIAAAANAAEAAAACAAIAAAANAAIAAAACAAIAAAANAAMAAAACAAIAAAANAAQAAAACAAIAAAANAAUAAAACAAIAAAANAAYAAAACAAIAAAANAAcAAAACAAIAAAANAAgAAAACAAIAAAAOAAEAAAACAAIAAAAOAAIAAAACAAIAAAAOAAMAAAACAAIAAAAOAAQAAAACAAIAAAAOAAUAAAACAAIAAAAOAAYAAAACAAIAAAAOAAcAAAACAAIAAAAOAAgAAAACAAIAAAAPAAEAAAACAAIAAAAPAAIAAAACAAIAAAAPAAMAAAACAAIAAAAPAAQAAAACAAIAAAAPAAUAAAACAAIAAAAPAAYAAAACAAIAAAAPAAcAAAACAAIAAAAPAAgAAAACAAIAAAAQAAEAAAACAAIAAAAQAAIAAAACAAIAAAAQAAMAAAACAAIAAAAQAAQAAAACAAIAAAAQAAUAAAACAAIAAAAQAAYAAAACAAIAAAAQAAcAAAACAAIAAAAQAAgAAAACAAIAAAAAAAoAAAABAAQAAAABAAoAAAACAAQAAAACAAoAAAACAAQAAAADAAoAAAACAAQAAAAEAAoAAAACAAQAAAAFAAoAAAACAAQAAAAGAAoAAAACAAQAAAAHAAoAAAACAAQAAAAIAAoAAAACAAQAAAAJAAoAAAACAAQAAAAKAAoAAAACAAQAAAALAAoAAAACAAQAAAAMAAoAAAACAAQAAAANAAoAAAACAAQAAAAOAAoAAAACAAQAAAAPAAoAAAACAAQAAAAQAAoAAAACAAQAAAARAAoAAAADAAQAAAA=")
 tile_set = ExtResource("2_tg1nb")
 
-[node name="Player" parent="." instance=ExtResource("4_f6iip")]
+[node name="Player" type="CharacterBody2D" parent="." instance=ExtResource("4_f6iip")]
+y_sort_enabled = true
 position = Vector2(593, 756)
+collision_layer = 16
+collision_mask = 2
+motion_mode = 1
+script = ExtResource("4_7aome")
+metadata/_custom_type_script = "uid://ra3t033pr4q"
 
 [node name="RedHouse" parent="." instance=ExtResource("4_ndlqu")]
+y_sort_enabled = true
+texture_filter = 1
 position = Vector2(475, 260)
+collision_layer = 2
+collision_mask = 0
+
+[node name="Sprite2D" parent="RedHouse" index="0"]
+texture = ExtResource("6_10m4f")
 
 [node name="PhysicsCollider" parent="RedHouse" index="1"]
+position = Vector2(0, 40)
 shape = SubResource("RectangleShape2D_j5mi0")
+debug_color = Color(0.818575, 0.366237, 0.457979, 0.42)
 
 [node name="SceneMapComponent1" parent="RedHouse" index="2"]
-metadata/_component_uid = "4346867208061113266"
+position = Vector2(0, 98)
+script = ExtResource("5_ndlqu")
+type = 1
+metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_uid = "8903239182783448697"
+
+[node name="Area2D" parent="RedHouse/SceneMapComponent1" index="0"]
+position = Vector2(0, -28)
+collision_layer = 0
+collision_mask = 16
 
 [node name="CollisionShape2D" parent="RedHouse/SceneMapComponent1/Area2D" index="0"]
 shape = SubResource("RectangleShape2D_n8xp1")
@@ -53,8 +79,9 @@ shape = SubResource("RectangleShape2D_n8xp1")
 [node name="SceneMapComponent2" type="Node2D" parent="RedHouse"]
 position = Vector2(0, -54)
 script = ExtResource("5_ndlqu")
+type = 1
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "3626716572101059667"
+metadata/_component_uid = "2164069848887492799"
 
 [node name="Area2D" type="Area2D" parent="RedHouse/SceneMapComponent2"]
 position = Vector2(0, 66)
@@ -65,16 +92,31 @@ collision_mask = 16
 shape = SubResource("RectangleShape2D_ndlqu")
 
 [node name="BlueHouse" parent="." instance=ExtResource("4_ndlqu")]
+y_sort_enabled = true
+texture_filter = 1
 position = Vector2(675, 260)
+collision_layer = 2
+collision_mask = 0
 
 [node name="Sprite2D" parent="BlueHouse" index="0"]
 texture = ExtResource("6_x4ysd")
 
 [node name="PhysicsCollider" parent="BlueHouse" index="1"]
+position = Vector2(0, 40)
 shape = SubResource("RectangleShape2D_wi4n8")
+debug_color = Color(0.818575, 0.366237, 0.457979, 0.42)
 
 [node name="SceneMapComponent1" parent="BlueHouse" index="2"]
-metadata/_component_uid = "2190605181435301454"
+position = Vector2(0, 98)
+script = ExtResource("5_ndlqu")
+type = 1
+metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_uid = "1239743465691862811"
+
+[node name="Area2D" parent="BlueHouse/SceneMapComponent1" index="0"]
+position = Vector2(0, -28)
+collision_layer = 0
+collision_mask = 16
 
 [node name="CollisionShape2D" parent="BlueHouse/SceneMapComponent1/Area2D" index="0"]
 shape = SubResource("RectangleShape2D_7aome")

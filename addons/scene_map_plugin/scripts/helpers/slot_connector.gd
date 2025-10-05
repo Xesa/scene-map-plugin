@@ -25,7 +25,7 @@ static func make_connection(from_node, from_port, to_node, to_port, connect : bo
 	var from_slot := graph.get_slot_info(from_node, from_port)
 	var to_slot := graph.get_slot_info(to_node, to_port)
 
-	var connection_type := SM_ConnectionValidator.get_connection_type(from_slot, to_slot)
+	var connection_type := SM_ConnectionValidator.get_connection_type(from_slot, to_slot, connect)
 	var action := Action.CONNECT if connect else Action.DISCONNECT
 
 	# Initiates the scene saver
@@ -64,10 +64,10 @@ static func update_connection(from_slot : SceneMapSlot, to_slot : SceneMapSlot, 
 	# Updates connection info to the slot
 	if action == Action.CONNECT:
 		component._set_next_scene(to_slot.scene_uid, to_slot.component_uid)
-		await from_slot.add_connection(to_slot, true)
-		await to_slot.add_connection(from_slot, false)
+		await from_slot.add_connection(to_slot, 1)
+		await to_slot.add_connection(from_slot, 0)
 	
 	if action == Action.DISCONNECT:
-		await from_slot.remove_connection(to_slot, true)
-		await to_slot.remove_connection(from_slot, false)
+		await from_slot.remove_connection(to_slot, 1)
+		await to_slot.remove_connection(from_slot, 0)
 		component._remove_next_scene()

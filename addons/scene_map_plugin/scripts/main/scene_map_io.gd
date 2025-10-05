@@ -2,6 +2,7 @@
 class_name SceneMapIO extends Node
 
 const SM_Constants := preload("uid://cjynbj0oq1sx1")
+const SM_SlotRegistrator := preload("uid://bj10g5ips4ubj")
 const SM_GraphResource := preload("uid://c2qiuif0u7poj")
 const SM_NodeResource := preload("uid://cu1fsenurp8wr")
 const SM_SlotResource := preload("uid://p2mmnni4huyo")
@@ -31,6 +32,7 @@ static func save(graph : SceneMapGraph) -> void:
 				slot_res.slot_id = slot.slot_id
 				slot_res.scene_uid = slot.scene_uid
 				slot_res.component_uid = slot.component_uid
+				slot_res.component_name = slot.component_name
 
 				slot_res.index = slot.index
 				slot_res.specific_index = slot.specific_index
@@ -80,36 +82,8 @@ static func load(graph : SceneMapGraph) -> void:
 		
 		# Iterates each slot in the node
 		for slot_resource in node_resource.component_slots:
-
-			var slot := SceneMapSlot.new(
-				slot_resource.type,
-				slot_resource.side,
-				slot_resource.index,
-				slot_resource.specific_index,
-				slot_resource.left,
-				slot_resource.right,
-				slot_resource.left_icon,
-				slot_resource.right_icon,
-				slot_resource.scene_uid,
-				slot_resource.component_uid
-			)
-
+			var slot = SM_SlotRegistrator.new(node).load_existing_slot(slot_resource)
 			slot_ids[slot.slot_id] = slot
-			
-			# Creates a label
-			var label = Label.new()
-			label.text = "%s %d" % [slot.type_string, slot.index]
-			node.add_child(label)
-
-			# Loads the icons
-			var left_icon := load(slot_resource.left_icon)
-			var right_icon := load(slot_resource.right_icon)
-
-			# Sets the slot to the node
-			node.set_slot(slot.index, slot.left, 0, Color.WHITE, slot.right, 0, Color.WHITE, left_icon, right_icon)
-			node.component_slots.append(slot)
-			node.add_child(slot)
-
 
 	# Iterates the slot_ids array and hydrates the connections with actual slots
 	for key in slot_ids.keys():
@@ -117,9 +91,13 @@ static func load(graph : SceneMapGraph) -> void:
 
 		for id in slot.connected_to_ids:
 			slot.connected_to.append(slot_ids[id])
+			slot.connection_added.emit(slot_ids[id], 1)
+			slot_ids[id].connection_added.emit(slot, 0)
 
 		for id in slot.connected_from_ids:
 			slot.connected_from.append(slot_ids[id])
+			slot.connection_added.emit(slot_ids[id], 0)
+			slot_ids[id].connection_added.emit(slot, 1)
 
 	# Iterates the connection dictionary and adds them to the graph
 	for conn in graph_resource.connections:
