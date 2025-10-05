@@ -10,7 +10,7 @@ var plugin : SceneMap
 func _ready() -> void:
 	connection_request.connect(_on_connection_request)
 	disconnection_request.connect(_on_disconnection_request)
-
+	
 
 func _on_connection_request(from_node, from_port, to_node, to_port) -> void:
 	connect_node(from_node, from_port, to_node, to_port)

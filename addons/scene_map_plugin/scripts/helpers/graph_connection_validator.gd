@@ -10,7 +10,7 @@ static func get_connection_type(from_slot : SceneMapSlot, to_slot : SceneMapSlot
 	var from_already_connected := from_slot.connected_to.size() > 0
 	var to_already_connected := to_slot.connected_to.size() > 0
 
-	if from_slot.scene_path == to_slot.scene_path:
+	if from_slot.scene_uid == to_slot.scene_uid:
 		return 0
 
 	if from_slot.type == SceneMapComponent.Type.EXIT and to_slot.type == SceneMapComponent.Type.ENTRY:

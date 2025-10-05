@@ -71,24 +71,23 @@ func _register_component_as_slot(scene_instance : Node, component : SceneMapComp
 	var left_side := true if component.side == SceneMapComponent.Side.LEFT else false
 	var right_side := true if component.side == SceneMapComponent.Side.RIGHT else false
 
-	var left_icon : Texture2D
-	var right_icon : Texture2D
+	var left_icon_path : String = config["icons"][0]
+	var right_icon_path : String = config["icons"][1]
 
 	if component.type == SceneMapComponent.Type.FUNNEL:
 		left_side = true
 		right_side = true
 
 		if component.side == SceneMapComponent.Side.LEFT:
-			left_icon = load(config["icons_left"][0])
-			right_icon = load(config["icons_left"][1])
+			left_icon_path = config["icons"][0]
+			right_icon_path = config["icons"][0]
 
 		if component.side == SceneMapComponent.Side.RIGHT:
-			left_icon = load(config["icons_right"][0])
-			right_icon = load(config["icons_right"][1])
-	
-	else:
-		left_icon = load(config["icons"][0])
-		right_icon = load(config["icons"][1])
+			left_icon_path = config["icons"][1]
+			right_icon_path = config["icons"][1]
+
+	var left_icon : Texture2D = load(left_icon_path)
+	var right_icon : Texture2D = load(right_icon_path)
 
 	# Adds the slot to the graph node
 	graph_node.set_slot(
@@ -106,8 +105,8 @@ func _register_component_as_slot(scene_instance : Node, component : SceneMapComp
 				specific_counters[key],
 				left_side,
 				right_side,
-				config["icons"][0],
-				config["icons"][1],
+				left_icon_path,
+				right_icon_path,
 				graph_node.scene_uid,
 	)
 

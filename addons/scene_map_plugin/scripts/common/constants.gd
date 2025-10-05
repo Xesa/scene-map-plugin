@@ -26,5 +26,5 @@ const SLOT_CONFIG := {
 		SceneMapComponent.Type.ENTRY:	{"label": "Entrance",	"icons": [ARROW_RIGHT, ARROW_LEFT]},
 		SceneMapComponent.Type.EXIT:	{"label": "Exit",		"icons": [ARROW_LEFT, ARROW_RIGHT]},
 		SceneMapComponent.Type.TWO_WAY:	{"label": "Two-way",	"icons": [ARROW_DOUBLE, ARROW_DOUBLE]},
-		SceneMapComponent.Type.FUNNEL:	{"label": "Funnel",		"icons_left": [ARROW_RIGHT, ARROW_LEFT], "icons_right": [ARROW_LEFT, ARROW_RIGHT]},
+		SceneMapComponent.Type.FUNNEL:	{"label": "Funnel",		"icons": [ARROW_RIGHT, ARROW_LEFT]},
 	}

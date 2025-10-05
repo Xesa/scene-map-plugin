@@ -75,6 +75,8 @@ static func load(graph : SceneMapGraph) -> void:
 
 		graph.add_child(node)
 		await node.node_ready
+
+		node.set_slot(0, true, 1, Color.TRANSPARENT, true, 1, Color.TRANSPARENT)
 		
 		# Iterates each slot in the node
 		for slot_resource in node_resource.component_slots:

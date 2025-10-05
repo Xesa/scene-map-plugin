@@ -73,4 +73,4 @@ func _delete() -> void:
 
 
 func get_component_slot(index : int) -> SceneMapSlot:
-	return component_slots.get(index)
+	return component_slots.get(index-1)
