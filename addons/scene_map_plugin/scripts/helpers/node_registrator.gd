@@ -22,5 +22,6 @@ static func register_scene(
 		return
 
 	# Adds the graph node to the graph
-	var graph_node = SceneMapNode.new(scene_uid, scene_path)
+	var scene_name = SM_ResourceTools.get_name_from_path(scene_path)
+	var graph_node = SceneMapNode.new(scene_uid, scene_name)
 	graph.add_child(graph_node)

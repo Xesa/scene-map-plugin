@@ -7,7 +7,7 @@ const SM_SlotRegistrator := preload("uid://bj10g5ips4ubj")
 const SM_SceneSaver := preload("uid://7svcgc01kw2b")
 const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
 
-var scene_path : String
+var scene_name : String
 var scene_uid : String
 
 var set_to_create : bool
@@ -20,10 +20,10 @@ signal node_deleted(node : SceneMapNode)
 signal node_ready()
 
 
-func _init(_scene_uid : String, _scene_path : String = "",  _set_to_create : bool = true) -> void:
-	scene_path = _scene_path
+func _init(_scene_uid : String, _scene_name : String,  _set_to_create : bool = true) -> void:
+	scene_name = _scene_name
 	scene_uid = _scene_uid
-	title = scene_path
+	title = scene_name
 	name = scene_uid
 	set_to_create = _set_to_create
 

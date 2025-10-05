@@ -25,8 +25,37 @@ static func get_uid_from_tscn(scene_path : String) -> String:
 
 
 static func get_path_from_uid(scene_uid : String) -> String:
-	var scene_resource : PackedScene = load_from_uid(scene_uid)
+	var scene_resource := load_from_uid(scene_uid)
 	return scene_resource.resource_path
+
+
+static func get_name_from_uid(scene_uid : String) -> String:
+	var scene_path := get_path_from_uid(scene_uid)
+	return get_name_from_path(scene_path)
+
+
+static func get_name_from_path(scene_path : String) -> String:
+	var file_name = scene_path.get_file().get_file()
+	var extension = scene_path.get_file().get_extension()
+	
+	var regex = RegEx.new()
+
+	var temp = file_name.replace("."+extension, "") # Removes the file extension
+	temp = temp.replace("_", " ") # Replaces underscores for spaces
+
+	regex.compile("([a-zA-Z])([0-9]+)")
+	temp = regex.sub(temp, "\\1 \\2", true) # Separates numbers from letters but keeps them united by hyphen
+
+	regex.compile("([a-z])([A-Z])")
+	temp = regex.sub(temp, "\\1 \\2", true) # Separates camel-case letters
+
+	# Capitalizes each word
+	var words = temp.split(" ")
+	for i in range(words.size()):
+		words[i] = words[i].capitalize()
+
+	var name = " ".join(words)
+	return name
 
 
 static func load_from_uid(scene_uid : String) -> PackedScene:

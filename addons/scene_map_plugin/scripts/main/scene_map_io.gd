@@ -22,7 +22,7 @@ static func save(graph : SceneMapGraph) -> void:
 		if node is SceneMapNode:
 			var node_res := SM_NodeResource.new()
 			node_res.offset = node.position_offset
-			node_res.scene_path = node.scene_path
+			node_res.scene_name = node.scene_name
 			node_res.scene_uid = node.scene_uid
 			node_res.component_slots = []
 
@@ -70,7 +70,7 @@ static func load(graph : SceneMapGraph) -> void:
 	for node_resource in graph_resource.nodes:
 
 		# Creates an actual graph node
-		var node = SceneMapNode.new(node_resource.scene_uid, node_resource.scene_path, false)
+		var node = SceneMapNode.new(node_resource.scene_uid, node_resource.scene_name, false)
 		node.position_offset = node_resource.offset
 
 		graph.add_child(node)
