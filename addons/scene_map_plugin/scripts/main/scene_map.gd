@@ -7,6 +7,10 @@ var main_panel : Control
 
 func _enter_tree() -> void:
 
+	# Waits until the filesystem is fully loaded
+	while EditorInterface.get_resource_filesystem().is_scanning():
+		await Engine.get_main_loop().process_frame
+
 	# Loads the config file
 	if _load_config_file() != OK:
 		EditorInterface.set_plugin_enabled.call_deferred(_get_plugin_name, false)

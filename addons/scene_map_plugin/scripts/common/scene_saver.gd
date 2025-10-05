@@ -20,7 +20,7 @@ static func open_scene(scene_uid : String) -> Dictionary:
 		return scenes[scene_uid]
 
 	# If the scene is not open, loads the resource and instantiates the scene
-	var scene_resource : PackedScene = load("uid://"+scene_uid) as PackedScene
+	var scene_resource : PackedScene = SM_UIDTools.load_from_uid(scene_uid)
 	var scene_instance : Node = scene_resource.instantiate()
 	var scene_path := scene_resource.resource_path
 

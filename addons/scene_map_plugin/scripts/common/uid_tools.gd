@@ -25,5 +25,12 @@ static func get_uid_from_tscn(scene_path : String) -> String:
 
 
 static func get_path_from_uid(scene_uid : String) -> String:
-	var scene_resource := load("uid://"+scene_uid)
+	var scene_resource : PackedScene = load_from_uid(scene_uid)
 	return scene_resource.resource_path
+
+
+static func load_from_uid(scene_uid : String) -> PackedScene:
+	var uid := "uid://" + scene_uid if scene_uid != null and scene_uid != "" else null
+	if uid != null:
+		return load(uid) as PackedScene
+	return null

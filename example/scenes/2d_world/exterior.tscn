@@ -45,9 +45,9 @@ position = Vector2(475, 260)
 shape = SubResource("RectangleShape2D_j5mi0")
 
 [node name="SceneMapComponent1" parent="RedHouse" index="2"]
-metadata/_component_uid = "3075592107500749490"
+metadata/_component_uid = "1930577917701187799"
 metadata/_next_scene_uid = "di56ddpupkoyd"
-metadata/_next_component_uid = "5530327008182862121"
+metadata/_next_component_uid = "228618971431237567"
 
 [node name="CollisionShape2D" parent="RedHouse/SceneMapComponent1/Area2D" index="0"]
 shape = SubResource("RectangleShape2D_n8xp1")
@@ -56,9 +56,9 @@ shape = SubResource("RectangleShape2D_n8xp1")
 position = Vector2(0, -54)
 script = ExtResource("5_ndlqu")
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "6370160181701168318"
+metadata/_component_uid = "8010103381737161745"
 metadata/_next_scene_uid = "di56ddpupkoyd"
-metadata/_next_component_uid = "3119571677164749074"
+metadata/_next_component_uid = "7811540873175060923"
 
 [node name="Area2D" type="Area2D" parent="RedHouse/SceneMapComponent2"]
 position = Vector2(0, 66)
@@ -78,9 +78,9 @@ texture = ExtResource("6_x4ysd")
 shape = SubResource("RectangleShape2D_wi4n8")
 
 [node name="SceneMapComponent1" parent="BlueHouse" index="2"]
-metadata/_component_uid = "7776299058357570259"
+metadata/_component_uid = "4655673812669995859"
 metadata/_next_scene_uid = "cwtf45gw77uak"
-metadata/_next_component_uid = "2477650035068135716"
+metadata/_next_component_uid = "4940733779908875691"
 
 [node name="CollisionShape2D" parent="BlueHouse/SceneMapComponent1/Area2D" index="0"]
 shape = SubResource("RectangleShape2D_7aome")

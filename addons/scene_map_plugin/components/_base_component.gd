@@ -3,6 +3,7 @@ class_name SceneMapComponent extends Node2D
 ## Base component for being used as an interactable Area2D.
 
 const SceneMapComponentFinder := preload("uid://bm5cgkk8r2tb5")
+const SM_UIDTools := preload("uid://cwik34k5w34y1")
 
 ## Defines which actions will the player be able to perform.
 @export var type := Type.TWO_WAY
@@ -78,7 +79,7 @@ func get_next_component_uid() -> String:
 func get_next_scene_instance() -> Node:
 	var next_scene_uid = get_next_scene_uid()
 	if next_scene_uid:
-		return load("uid://"+next_scene_uid).instantiate()
+		return SM_UIDTools.load_from_uid(next_scene_uid).instantiate()
 	return null
 
 
