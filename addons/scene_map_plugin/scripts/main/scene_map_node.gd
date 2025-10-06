@@ -72,5 +72,8 @@ func _delete() -> void:
 	node_deleted.emit(self)
 
 
-func get_component_slot(index : int) -> SceneMapSlot:
-	return component_slots.get(index-1)
+func get_component_slot(index : int, side : int) -> SceneMapSlot:
+	for slot in component_slots:
+		if slot.specific_index == index and slot.side == side:
+			return slot
+	return null

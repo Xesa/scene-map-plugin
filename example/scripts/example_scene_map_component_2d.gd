@@ -1,6 +1,7 @@
 @tool
 class_name ExampleSceneMapComponent2D extends SceneMapComponent2D
-## This is an example class that extends the SceneMapComponent2D with minimum implementation.
+## This is an example class that extends the [SceneMapComponent2D] with minimum implementation for demonstration purposes.
+## Check the [SceneMapComponent2D] documentation for more information.
 
 
 ## The developer is in charge of defining the logic for this method.

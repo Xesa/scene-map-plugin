@@ -11,4 +11,4 @@ class_name SceneControllerWithPredefinedPosition extends Node2D
 
 
 func _ready() -> void:
-    player.global_position = spawn_position
+	player.global_position = spawn_position

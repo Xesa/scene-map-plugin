@@ -10,7 +10,7 @@ const SM_SlotResource := preload("uid://p2mmnni4huyo")
 var graph_node : SceneMapNode
 
 var general_counter : int
-var specific_counters : Dictionary
+var specific_counters : Array
 
 var slot_config : Dictionary
 
@@ -28,12 +28,7 @@ func register_slots() -> void:
 
 	# Resets all slot counters
 	general_counter = 0
-	specific_counters = {
-		"funnels" : 0,
-		"entrances" : 0,
-		"exits" : 0,
-		"two_ways" : 0
-	}
+	specific_counters = [0,0]
 
 	# Gets the scene instance
 	var scene_values := await SM_SceneSaver.open_scene(graph_node.scene_uid)
@@ -45,18 +40,16 @@ func register_slots() -> void:
 	graph_node.set_slot(0, true, 1, Color.TRANSPARENT, true, 1, Color.TRANSPARENT)
 
 	# Iterates each component from each type and registers them
-	for key in specific_counters.keys():
+	for key in components.keys():
 		for component in components[key]:
-			general_counter += 1
-			specific_counters[key] += 1
-			register_new_slot(component, key)
+			register_new_slot(component)
 
 	# Saves the scene
 	await SM_SceneSaver.save()
 
 
-func register_new_slot(component: SceneMapComponent2D, key: String) -> SceneMapSlot:
-	var slot_sides = _get_slot_sides(component, key)
+func register_new_slot(component: SceneMapComponent2D) -> SceneMapSlot:
+	var slot_sides = _get_slot_sides(component)
 	var left_side = slot_sides[0]
 	var right_side = slot_sides[1]
 	var left_icon_path = slot_sides[2]
@@ -64,18 +57,31 @@ func register_new_slot(component: SceneMapComponent2D, key: String) -> SceneMapS
 
 	var component_name = component.custom_name if component.custom_name else SM_ResourceTools.convert_string_to_readable_name(component.name)
 
+	# Increases the counters
+	general_counter += 1
+
+	if component.type == SceneMapComponent2D.Type.FUNNEL:
+		specific_counters[0] += 1
+		specific_counters[1] += 1
+
+	elif component.side == SceneMapComponent2D.Side.LEFT:
+		specific_counters[0] += 1
+
+	elif component.side == SceneMapComponent2D.Side.RIGHT:
+		specific_counters[1] += 1
+
 	var data := {
 		"type": component.type,
 		"side": component.side,
 		"index": general_counter,
-		"specific_index": specific_counters[key],
+		"specific_index": specific_counters[component.side],
 		"left": left_side,
 		"right": right_side,
 		"left_icon": left_icon_path,
 		"right_icon": right_icon_path,
 		"scene_uid": graph_node.scene_uid,
 		"component_name": component_name,
-		"component_uid": null,
+		"component_uid": null
 	}
 
 	var slot = _create_and_attach_slot(data)
@@ -121,7 +127,7 @@ func _create_and_attach_slot(data: Dictionary) -> SceneMapSlot:
 		data.component_uid
 	)
 
-	generate_slot_controls(data.component_name, data.type, data.side, slot)
+	generate_slot_controls(data.index, data.component_name, data.type, data.side, slot)
 	set_slot(data.index, data.left, data.right, data.left_icon, data.right_icon)
 
 	graph_node.add_child(slot)
@@ -130,7 +136,7 @@ func _create_and_attach_slot(data: Dictionary) -> SceneMapSlot:
 	return slot
 
 
-func _get_slot_sides(component : SceneMapComponent2D, key : String) -> Array:
+func _get_slot_sides(component : SceneMapComponent2D) -> Array:
 
 	# Gets the slot configuration for this component type
 	var config = SM_Constants.SLOT_CONFIG[component.type]
@@ -182,25 +188,25 @@ func set_slot(index, left_side, right_side, left_icon_path, right_icon_path) -> 
 	)
 
 
-func generate_slot_controls(name : String, type : SceneMapComponent2D.Type, side : SceneMapComponent2D.Side, slot : SceneMapSlot) -> void:
+func generate_slot_controls(index : int, name : String, type : SceneMapComponent2D.Type, side : SceneMapComponent2D.Side, slot : SceneMapSlot) -> void:
 	var control := _create_control()
 
 	if type == SceneMapComponent2D.Type.FUNNEL:
 
 		_create_disconnect_button(control, slot, 0)
-		_create_label(control, name)
+		_create_label(control, index, name)
 		_create_disconnect_button(control, slot, 1)
 
 	else:
 
 		if side == SceneMapComponent2D.Side.LEFT:
 			_create_disconnect_button(control, slot, 0)
-			_create_label(control, name)
+			_create_label(control, index, name)
 			_create_empty_space(control)
 
 		if side == SceneMapComponent2D.Side.RIGHT:
 			_create_empty_space(control)
-			_create_label(control, name)
+			_create_label(control, index, name)
 			_create_disconnect_button(control, slot, 1)
 
 
@@ -218,9 +224,9 @@ func _create_disconnect_button(control : HBoxContainer, slot : SceneMapSlot, sid
 	return button
 
 
-func _create_label(control : HBoxContainer, text : String) -> Label:
+func _create_label(control : HBoxContainer, index, text : String) -> Label:
 	var label = Label.new()
-	label.text = text
+	label.text = str(index) + ". " + text
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL

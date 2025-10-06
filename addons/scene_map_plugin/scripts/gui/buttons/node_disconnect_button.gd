@@ -92,16 +92,16 @@ func _remove_connections() -> void:
 		for connection in connections:
 			graph_edit.disconnection_request.emit(
 				connection.scene_uid,
-				connection.index,
+				connection.specific_index,
 				slot.scene_uid,
-				slot.index
+				slot.specific_index
 			)
 
 	else:
 		for connection in connections:
 			graph_edit.disconnection_request.emit(
 				slot.scene_uid,
-				slot.index,
+				slot.specific_index,
 				connection.scene_uid,
-				connection.index
+				connection.specific_index
 			)

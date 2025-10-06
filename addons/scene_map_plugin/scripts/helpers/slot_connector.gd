@@ -22,8 +22,8 @@ static func make_connection(from_node, from_port, to_node, to_port, connect : bo
 	if not graph:
 		graph = _graph
 
-	var from_slot := graph.get_slot_info(from_node, from_port)
-	var to_slot := graph.get_slot_info(to_node, to_port)
+	var from_slot := graph.get_slot_info(from_node, from_port, 1)
+	var to_slot := graph.get_slot_info(to_node, to_port, 0)
 
 	var connection_type := SM_ConnectionValidator.get_connection_type(from_slot, to_slot, connect)
 	var action := Action.CONNECT if connect else Action.DISCONNECT

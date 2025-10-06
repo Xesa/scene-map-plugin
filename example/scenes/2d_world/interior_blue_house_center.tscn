@@ -1,24 +1,20 @@
-[gd_scene load_steps=11 format=4 uid="uid://di56ddpupkoyd"]
+[gd_scene load_steps=10 format=4 uid="uid://cwtf45gw77uak"]
 
-[ext_resource type="Script" uid="uid://dwu4scnijfokr" path="res://example/scripts/scene_controller_custom_positions.gd" id="1_1h868"]
-[ext_resource type="TileSet" uid="uid://cbbme12ie4eex" path="res://example/resources/interior_tileset.tres" id="2_5aepf"]
-[ext_resource type="Script" uid="uid://dnv7lj6i0r7u8" path="res://example/scripts/example_scene_map_component_2d.gd" id="3_4kahw"]
-[ext_resource type="Texture2D" uid="uid://bqkdpqqmo8lgm" path="res://example/assets/carpet_red.png" id="4_4kahw"]
-[ext_resource type="PackedScene" uid="uid://ogkvmsxudtdj" path="res://example/elements/player.tscn" id="4_5aepf"]
-[ext_resource type="Script" uid="uid://ra3t033pr4q" path="res://example/scripts/player.gd" id="4_abwjd"]
-[ext_resource type="Script" uid="uid://dq0hvvxswuvvk" path="res://addons/scene_map_plugin/components/area_2d_component.gd" id="6_kfr51"]
-[ext_resource type="Script" uid="uid://csoa2vk3e62ao" path="res://addons/scene_map_plugin/components/marker_2d_component.gd" id="7_7h6j0"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kfr51"]
-size = Vector2(73, 21)
+[ext_resource type="Script" uid="uid://dwu4scnijfokr" path="res://example/scripts/scene_controller_custom_positions.gd" id="1_yyfmu"]
+[ext_resource type="TileSet" uid="uid://cbbme12ie4eex" path="res://example/resources/interior_tileset.tres" id="2_eqmnl"]
+[ext_resource type="PackedScene" uid="uid://ogkvmsxudtdj" path="res://example/elements/player.tscn" id="3_51no1"]
+[ext_resource type="Script" uid="uid://dnv7lj6i0r7u8" path="res://example/scripts/example_scene_map_component_2d.gd" id="4_leja7"]
+[ext_resource type="Script" uid="uid://ra3t033pr4q" path="res://example/scripts/player.gd" id="4_x44pn"]
+[ext_resource type="Texture2D" uid="uid://b04ycscbnnrhd" path="res://example/assets/carpet_blue.png" id="5_ukkr6"]
+[ext_resource type="Script" uid="uid://dq0hvvxswuvvk" path="res://addons/scene_map_plugin/components/area_2d_component.gd" id="6_hvcil"]
+[ext_resource type="Script" uid="uid://csoa2vk3e62ao" path="res://addons/scene_map_plugin/components/marker_2d_component.gd" id="8_ou5x1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_abwjd"]
 size = Vector2(73, 21)
 
-[node name="RedHouse" type="Node2D" node_paths=PackedStringArray("default_spawn_node")]
+[node name="BlueHouse" type="Node2D"]
 y_sort_enabled = true
-script = ExtResource("1_1h868")
-default_spawn_node = NodePath("SceneMapComponent1")
+script = ExtResource("1_yyfmu")
 metadata/_custom_type_script = "uid://dwu4scnijfokr"
 
 [node name="TileMap" type="Node2D" parent="."]
@@ -30,80 +26,198 @@ z_index = -1
 texture_filter = 1
 position = Vector2(-576, -288)
 tile_map_data = PackedByteArray("AAAAAAwAAAAAAAUAAAABAAwAAAABAAUAAAACAAwAAAABAAUAAAADAAwAAAABAAUAAAAEAAwAAAABAAUAAAAFAAwAAAABAAUAAAAGAAwAAAABAAUAAAAHAAwAAAABAAUAAAAIAAwAAAABAAUAAAAJAAwAAAABAAUAAAAKAAwAAAABAAUAAAALAAwAAAABAAUAAAAMAAwAAAABAAUAAAANAAwAAAABAAUAAAAOAAwAAAABAAUAAAAPAAwAAAABAAUAAAAQAAwAAAABAAUAAAARAAwAAAABAAUAAAASAAwAAAABAAUAAAATAAwAAAABAAUAAAAUAAwAAAABAAUAAAAVAAwAAAABAAUAAAAWAAwAAAABAAUAAAAXAAwAAAACAAUAAAAXAAsAAAACAAQAAAAXAAoAAAACAAQAAAAXAAkAAAACAAQAAAAXAAgAAAACAAQAAAAXAAcAAAACAAQAAAAXAAIAAAACAAMAAAAXAAMAAAACAAQAAAAXAAQAAAACAAQAAAAXAAUAAAACAAQAAAAXAAYAAAACAAQAAAAAAAsAAAAAAAQAAAAAAAoAAAAAAAQAAAAAAAkAAAAAAAQAAAAAAAgAAAAAAAQAAAAAAAcAAAAAAAQAAAAAAAYAAAAAAAQAAAAAAAUAAAAAAAQAAAAAAAQAAAAAAAQAAAAAAAMAAAAAAAQAAAAAAAIAAAAAAAMAAAABAAIAAAABAAMAAAABAAMAAAABAAQAAAABAAQAAAABAAQAAAABAAUAAAABAAQAAAABAAYAAAABAAQAAAABAAcAAAABAAQAAAABAAgAAAABAAQAAAABAAkAAAABAAQAAAABAAoAAAABAAQAAAABAAsAAAABAAQAAAACAAIAAAABAAMAAAACAAMAAAABAAQAAAACAAQAAAABAAQAAAACAAUAAAABAAQAAAACAAYAAAABAAQAAAACAAcAAAABAAQAAAACAAgAAAABAAQAAAACAAkAAAABAAQAAAACAAoAAAABAAQAAAACAAsAAAABAAQAAAADAAIAAAABAAMAAAADAAMAAAABAAQAAAADAAQAAAABAAQAAAADAAUAAAABAAQAAAADAAYAAAABAAQAAAADAAcAAAABAAQAAAADAAgAAAABAAQAAAADAAkAAAABAAQAAAADAAoAAAABAAQAAAADAAsAAAABAAQAAAAEAAIAAAABAAMAAAAEAAMAAAABAAQAAAAEAAQAAAABAAQAAAAEAAUAAAABAAQAAAAEAAYAAAABAAQAAAAEAAcAAAABAAQAAAAEAAgAAAABAAQAAAAEAAkAAAABAAQAAAAEAAoAAAABAAQAAAAEAAsAAAABAAQAAAAFAAIAAAABAAMAAAAFAAMAAAABAAQAAAAFAAQAAAABAAQAAAAFAAUAAAABAAQAAAAFAAYAAAABAAQAAAAFAAcAAAABAAQAAAAFAAgAAAABAAQAAAAFAAkAAAABAAQAAAAFAAoAAAABAAQAAAAFAAsAAAABAAQAAAAGAAIAAAABAAMAAAAGAAMAAAABAAQAAAAGAAQAAAABAAQAAAAGAAUAAAABAAQAAAAGAAYAAAABAAQAAAAGAAcAAAABAAQAAAAGAAgAAAABAAQAAAAGAAkAAAABAAQAAAAGAAoAAAABAAQAAAAGAAsAAAABAAQAAAAHAAIAAAABAAMAAAAHAAMAAAABAAQAAAAHAAQAAAABAAQAAAAHAAUAAAABAAQAAAAHAAYAAAABAAQAAAAHAAcAAAABAAQAAAAHAAgAAAABAAQAAAAHAAkAAAABAAQAAAAHAAoAAAABAAQAAAAHAAsAAAABAAQAAAAIAAIAAAABAAMAAAAIAAMAAAABAAQAAAAIAAQAAAABAAQAAAAIAAUAAAABAAQAAAAIAAYAAAABAAQAAAAIAAcAAAABAAQAAAAIAAgAAAABAAQAAAAIAAkAAAABAAQAAAAIAAoAAAABAAQAAAAIAAsAAAABAAQAAAAJAAIAAAABAAMAAAAJAAMAAAABAAQAAAAJAAQAAAABAAQAAAAJAAUAAAABAAQAAAAJAAYAAAABAAQAAAAJAAcAAAABAAQAAAAJAAgAAAABAAQAAAAJAAkAAAABAAQAAAAJAAoAAAABAAQAAAAJAAsAAAABAAQAAAAKAAIAAAABAAMAAAAKAAMAAAABAAQAAAAKAAQAAAABAAQAAAAKAAUAAAABAAQAAAAKAAYAAAABAAQAAAAKAAcAAAABAAQAAAAKAAgAAAABAAQAAAAKAAkAAAABAAQAAAAKAAoAAAABAAQAAAAKAAsAAAABAAQAAAALAAIAAAABAAMAAAALAAMAAAABAAQAAAALAAQAAAABAAQAAAALAAUAAAABAAQAAAALAAYAAAABAAQAAAALAAcAAAABAAQAAAALAAgAAAABAAQAAAALAAkAAAABAAQAAAALAAoAAAABAAQAAAALAAsAAAABAAQAAAAMAAIAAAABAAMAAAAMAAMAAAABAAQAAAAMAAQAAAABAAQAAAAMAAUAAAABAAQAAAAMAAYAAAABAAQAAAAMAAcAAAABAAQAAAAMAAgAAAABAAQAAAAMAAkAAAABAAQAAAAMAAoAAAABAAQAAAAMAAsAAAABAAQAAAANAAIAAAABAAMAAAANAAMAAAABAAQAAAANAAQAAAABAAQAAAANAAUAAAABAAQAAAANAAYAAAABAAQAAAANAAcAAAABAAQAAAANAAgAAAABAAQAAAANAAkAAAABAAQAAAANAAoAAAABAAQAAAANAAsAAAABAAQAAAAOAAIAAAABAAMAAAAOAAMAAAABAAQAAAAOAAQAAAABAAQAAAAOAAUAAAABAAQAAAAOAAYAAAABAAQAAAAOAAcAAAABAAQAAAAOAAgAAAABAAQAAAAOAAkAAAABAAQAAAAOAAoAAAABAAQAAAAOAAsAAAABAAQAAAAPAAIAAAABAAMAAAAPAAMAAAABAAQAAAAPAAQAAAABAAQAAAAPAAUAAAABAAQAAAAPAAYAAAABAAQAAAAPAAcAAAABAAQAAAAPAAgAAAABAAQAAAAPAAkAAAABAAQAAAAPAAoAAAABAAQAAAAPAAsAAAABAAQAAAAQAAIAAAABAAMAAAAQAAMAAAABAAQAAAAQAAQAAAABAAQAAAAQAAUAAAABAAQAAAAQAAYAAAABAAQAAAAQAAcAAAABAAQAAAAQAAgAAAABAAQAAAAQAAkAAAABAAQAAAAQAAoAAAABAAQAAAAQAAsAAAABAAQAAAARAAIAAAABAAMAAAARAAMAAAABAAQAAAARAAQAAAABAAQAAAARAAUAAAABAAQAAAARAAYAAAABAAQAAAARAAcAAAABAAQAAAARAAgAAAABAAQAAAARAAkAAAABAAQAAAARAAoAAAABAAQAAAARAAsAAAABAAQAAAASAAIAAAABAAMAAAASAAMAAAABAAQAAAASAAQAAAABAAQAAAASAAUAAAABAAQAAAASAAYAAAABAAQAAAASAAcAAAABAAQAAAASAAgAAAABAAQAAAASAAkAAAABAAQAAAASAAoAAAABAAQAAAASAAsAAAABAAQAAAATAAIAAAABAAMAAAATAAMAAAABAAQAAAATAAQAAAABAAQAAAATAAUAAAABAAQAAAATAAYAAAABAAQAAAATAAcAAAABAAQAAAATAAgAAAABAAQAAAATAAkAAAABAAQAAAATAAoAAAABAAQAAAATAAsAAAABAAQAAAAUAAIAAAABAAMAAAAUAAMAAAABAAQAAAAUAAQAAAABAAQAAAAUAAUAAAABAAQAAAAUAAYAAAABAAQAAAAUAAcAAAABAAQAAAAUAAgAAAABAAQAAAAUAAkAAAABAAQAAAAUAAoAAAABAAQAAAAUAAsAAAABAAQAAAAVAAIAAAABAAMAAAAVAAMAAAABAAQAAAAVAAQAAAABAAQAAAAVAAUAAAABAAQAAAAVAAYAAAABAAQAAAAVAAcAAAABAAQAAAAVAAgAAAABAAQAAAAVAAkAAAABAAQAAAAVAAoAAAABAAQAAAAVAAsAAAABAAQAAAAWAAIAAAABAAMAAAAWAAMAAAABAAQAAAAWAAQAAAABAAQAAAAWAAUAAAABAAQAAAAWAAYAAAABAAQAAAAWAAcAAAABAAQAAAAWAAgAAAABAAQAAAAWAAkAAAABAAQAAAAWAAoAAAABAAQAAAAWAAsAAAABAAQAAAABAAEAAAABAAIAAAACAAEAAAABAAIAAAADAAEAAAABAAIAAAAEAAEAAAABAAIAAAAFAAEAAAABAAIAAAAGAAEAAAABAAIAAAAHAAEAAAABAAIAAAAIAAEAAAABAAIAAAAJAAEAAAABAAIAAAAKAAEAAAABAAIAAAALAAEAAAABAAIAAAAMAAEAAAABAAIAAAANAAEAAAABAAIAAAAOAAEAAAABAAIAAAAPAAEAAAABAAIAAAAQAAEAAAABAAIAAAARAAEAAAABAAIAAAASAAEAAAABAAIAAAATAAEAAAABAAIAAAAUAAEAAAABAAIAAAAVAAEAAAABAAIAAAAWAAEAAAABAAIAAAAXAAEAAAACAAIAAAAAAAEAAAAAAAIAAAAAAP//AAAAAAAAAAAAAAAAAAAAAAEAAAAWAP//AAABAAAAAAAWAAAAAAABAAEAAAAXAP//AAACAAAAAAAXAAAAAAACAAEAAAABAAAAAAABAAEAAAACAAAAAAABAAEAAAADAAAAAAABAAEAAAAEAAAAAAABAAEAAAAFAAAAAAABAAEAAAAGAAAAAAABAAEAAAAHAAAAAAABAAEAAAAIAAAAAAABAAEAAAAJAAAAAAABAAEAAAAKAAAAAAABAAEAAAALAAAAAAABAAEAAAAMAAAAAAABAAEAAAANAAAAAAABAAEAAAAOAAAAAAABAAEAAAAPAAAAAAABAAEAAAAQAAAAAAABAAEAAAARAAAAAAABAAEAAAASAAAAAAABAAEAAAATAAAAAAABAAEAAAAUAAAAAAABAAEAAAAVAAAAAAABAAEAAAABAP//AAABAAAAAAACAP//AAABAAAAAAADAP//AAABAAAAAAAEAP//AAABAAAAAAAFAP//AAABAAAAAAAGAP//AAABAAAAAAAHAP//AAABAAAAAAAIAP//AAABAAAAAAAJAP//AAABAAAAAAAKAP//AAABAAAAAAALAP//AAABAAAAAAAMAP//AAABAAAAAAANAP//AAABAAAAAAAOAP//AAABAAAAAAAPAP//AAABAAAAAAAQAP//AAABAAAAAAARAP//AAABAAAAAAASAP//AAABAAAAAAATAP//AAABAAAAAAAUAP//AAABAAAAAAAVAP//AAABAAAAAAD/////AAABAAEAAAD//wAAAAABAAEAAAD//wEAAAABAAEAAAD//wIAAAABAAEAAAD//wMAAAABAAEAAAD//wQAAAABAAEAAAD//wUAAAABAAEAAAD//wYAAAABAAEAAAD//wcAAAABAAEAAAD//wgAAAABAAEAAAD//wkAAAABAAEAAAD//woAAAABAAEAAAD//wsAAAABAAEAAAD//wwAAAABAAEAAAD//w0AAAABAAEAAAAAAA0AAAABAAEAAAABAA0AAAABAAEAAAACAA0AAAABAAEAAAADAA0AAAABAAEAAAAEAA0AAAABAAEAAAAFAA0AAAABAAEAAAAGAA0AAAABAAEAAAAHAA0AAAABAAEAAAAIAA0AAAABAAEAAAAJAA0AAAABAAEAAAAKAA0AAAABAAEAAAALAA0AAAABAAEAAAAMAA0AAAABAAEAAAANAA0AAAABAAEAAAAOAA0AAAABAAEAAAAPAA0AAAABAAEAAAAQAA0AAAABAAEAAAARAA0AAAABAAEAAAASAA0AAAABAAEAAAATAA0AAAABAAEAAAAUAA0AAAABAAEAAAAVAA0AAAABAAEAAAAWAA0AAAABAAEAAAAXAA0AAAABAAEAAAAYAA0AAAABAAEAAAAYAAwAAAABAAEAAAAYAAsAAAABAAEAAAAYAAoAAAABAAEAAAAYAAkAAAABAAEAAAAYAAgAAAABAAEAAAAYAAcAAAABAAEAAAAYAAYAAAABAAEAAAAYAAUAAAABAAEAAAAYAAQAAAABAAEAAAAYAAMAAAABAAEAAAAYAAIAAAABAAEAAAAYAAEAAAABAAEAAAAYAAAAAAABAAEAAAAYAP//AAABAAEAAAA=")
-tile_set = ExtResource("2_5aepf")
+tile_set = ExtResource("2_eqmnl")
 
 [node name="TileMapLayer2" type="TileMapLayer" parent="TileMap"]
 y_sort_enabled = true
 texture_filter = 1
 position = Vector2(-576, -312)
-tile_map_data = PackedByteArray("AAACAAUAAQADAAMAAAACAAYAAQADAAQAAAACAAcAAQADAAMAAAACAAgAAQADAAQAAAADAAUAAQAEAAEAAAADAAYAAQAEAAQAAAADAAcAAQAEAAIAAAADAAgAAQAEAAQAAAADAAkAAQAEAAMAAAAEAAUAAQAFAAEAAAAEAAYAAQAFAAIAAAAEAAcAAQAFAAIAAAAEAAgAAQAFAAIAAAAEAAkAAQAFAAMAAAAFAAUAAQAFAAEAAAAFAAYAAQAFAAIAAAAFAAcAAQAFAAIAAAAFAAgAAQAFAAIAAAAFAAkAAQAFAAMAAAAGAAUAAQAFAAEAAAAGAAYAAQAFAAIAAAAGAAcAAQAFAAIAAAAGAAgAAQAFAAIAAAAGAAkAAQAFAAMAAAAHAAUAAQAGAAEAAAAHAAYAAQAGAAQAAAAHAAcAAQAGAAIAAAAHAAgAAQAGAAQAAAAHAAkAAQAGAAMAAAAIAAUAAQAHAAMAAAAIAAYAAQAHAAQAAAAIAAcAAQAHAAMAAAAIAAgAAQAHAAQAAAAPAAUAAQADAAMAAAAPAAYAAQADAAQAAAAPAAcAAQADAAMAAAAPAAgAAQADAAQAAAAQAAUAAQAEAAEAAAAQAAYAAQAEAAQAAAAQAAcAAQAEAAIAAAAQAAgAAQAEAAQAAAAQAAkAAQAEAAMAAAARAAUAAQAFAAEAAAARAAYAAQAFAAIAAAARAAcAAQAFAAIAAAARAAgAAQAFAAIAAAARAAkAAQAFAAMAAAASAAUAAQAFAAEAAAASAAYAAQAFAAIAAAASAAcAAQAFAAIAAAASAAgAAQAFAAIAAAASAAkAAQAFAAMAAAATAAUAAQAFAAEAAAATAAYAAQAFAAIAAAATAAcAAQAFAAIAAAATAAgAAQAFAAIAAAATAAkAAQAFAAMAAAAUAAUAAQAGAAEAAAAUAAYAAQAGAAQAAAAUAAcAAQAGAAIAAAAUAAgAAQAGAAQAAAAUAAkAAQAGAAMAAAAVAAUAAQAHAAMAAAAVAAYAAQAHAAQAAAAVAAcAAQAHAAMAAAAVAAgAAQAHAAQAAAAMAAEAAQAAAAAAAAAMAAIAAQAAAAEAAAA=")
-tile_set = ExtResource("2_5aepf")
+tile_map_data = PackedByteArray("AAAHAAsAAQACAAEAAAACAAkAAQACAAEAAAATAAYAAQACAAEAAAAVAAoAAQACAAEAAAAFAAcAAQABAAEAAAAQAAcAAQABAAEAAAATAAkAAQABAAEAAAAWAAMAAQABAAEAAAABAAQAAQABAAEAAAADAAEAAQAAAAAAAAADAAIAAQAAAAEAAAAUAAEAAQAAAAAAAAAUAAIAAQAAAAEAAAAIAAEAAQAAAAAAAAAIAAIAAQAAAAEAAAA=")
+tile_set = ExtResource("2_eqmnl")
 
-[node name="Player" type="CharacterBody2D" parent="." instance=ExtResource("4_5aepf")]
+[node name="Player" type="CharacterBody2D" parent="." instance=ExtResource("3_51no1")]
 y_sort_enabled = true
 position = Vector2(602, 747)
 collision_layer = 16
 collision_mask = 2
 motion_mode = 1
-script = ExtResource("4_abwjd")
+script = ExtResource("4_x44pn")
 metadata/_custom_type_script = "uid://ra3t033pr4q"
 
-[node name="SceneMapComponent1" type="Node2D" parent="."]
+[node name="SceneMapComponent" type="Node2D" parent="."]
 z_index = -1
-position = Vector2(475, 610)
-script = ExtResource("3_4kahw")
-custom_name = "Exit Bottom"
+position = Vector2(675, 610)
+script = ExtResource("4_leja7")
+custom_name = "Exit"
 side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "333307128958430583"
+metadata/_component_uid = "3350886872102508272"
 metadata/_next_scene_uid = "bhc4y1rku2jb1"
-metadata/_next_component_uid = "6762948508013539940"
+metadata/_next_component_uid = "8334401149217882153"
 
-[node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent1"]
-texture = ExtResource("4_4kahw")
+[node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent"]
+texture = ExtResource("5_ukkr6")
 
-[node name="SceneMapComponentMarker2D" type="Marker2D" parent="SceneMapComponent1"]
+[node name="SceneMapComponentMarker2D" type="Marker2D" parent="SceneMapComponent"]
 position = Vector2(0, -36)
 gizmo_extents = 20.0
-script = ExtResource("7_7h6j0")
+script = ExtResource("8_ou5x1")
 metadata/_custom_type_script = "uid://csoa2vk3e62ao"
 
-[node name="SceneMapComponentArea2D" type="Area2D" parent="SceneMapComponent1"]
+[node name="SceneMapComponentArea2D" type="Area2D" parent="SceneMapComponent"]
 position = Vector2(0, 36)
 collision_layer = 0
 collision_mask = 16
-script = ExtResource("6_kfr51")
+script = ExtResource("6_hvcil")
 metadata/_custom_type_script = "uid://dq0hvvxswuvvk"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneMapComponent1/SceneMapComponentArea2D"]
-shape = SubResource("RectangleShape2D_kfr51")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneMapComponent/SceneMapComponentArea2D"]
+shape = SubResource("RectangleShape2D_abwjd")
 
 [node name="SceneMapComponent2" type="Node2D" parent="."]
 z_index = -1
-position = Vector2(600, 150)
-script = ExtResource("3_4kahw")
-custom_name = "Exit Top"
-side = 0
+position = Vector2(166, 150)
+rotation = 3.14159
+script = ExtResource("4_leja7")
+custom_name = "Top-Left"
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "4347348629189861278"
-metadata/_next_scene_uid = "bhc4y1rku2jb1"
-metadata/_next_component_uid = "7335913190058558731"
+metadata/_component_uid = "3740615601006633823"
+metadata/_next_scene_uid = "fba1sv6bbw15"
+metadata/_next_component_uid = "3879127431968190506"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent2"]
-texture = ExtResource("4_4kahw")
+texture = ExtResource("5_ukkr6")
 
 [node name="SceneMapComponentMarker2D" type="Marker2D" parent="SceneMapComponent2"]
-position = Vector2(0, 36)
+position = Vector2(0, -36)
 gizmo_extents = 20.0
-script = ExtResource("7_7h6j0")
+script = ExtResource("8_ou5x1")
 metadata/_custom_type_script = "uid://csoa2vk3e62ao"
 
 [node name="SceneMapComponentArea2D" type="Area2D" parent="SceneMapComponent2"]
-position = Vector2(0, -36)
+position = Vector2(0, 36)
 collision_layer = 0
 collision_mask = 16
-script = ExtResource("6_kfr51")
+script = ExtResource("6_hvcil")
 metadata/_custom_type_script = "uid://dq0hvvxswuvvk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SceneMapComponent2/SceneMapComponentArea2D"]
+shape = SubResource("RectangleShape2D_abwjd")
+
+[node name="SceneMapComponent3" type="Node2D" parent="."]
+z_index = -1
+position = Vector2(405, 150)
+rotation = 3.14159
+script = ExtResource("4_leja7")
+custom_name = "Top-Center"
+metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_uid = "5762110051137728795"
+metadata/_next_scene_uid = "boo8bhc3f58y2"
+metadata/_next_component_uid = "680448910226395450"
+
+[node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent3"]
+texture = ExtResource("5_ukkr6")
+
+[node name="SceneMapComponentMarker2D" type="Marker2D" parent="SceneMapComponent3"]
+position = Vector2(0, -36)
+gizmo_extents = 20.0
+script = ExtResource("8_ou5x1")
+metadata/_custom_type_script = "uid://csoa2vk3e62ao"
+
+[node name="SceneMapComponentArea2D" type="Area2D" parent="SceneMapComponent3"]
+position = Vector2(0, 36)
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("6_hvcil")
+metadata/_custom_type_script = "uid://dq0hvvxswuvvk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneMapComponent3/SceneMapComponentArea2D"]
+shape = SubResource("RectangleShape2D_abwjd")
+
+[node name="SceneMapComponent4" type="Node2D" parent="."]
+z_index = -1
+position = Vector2(983, 150)
+rotation = 3.14159
+script = ExtResource("4_leja7")
+custom_name = "Top-Right"
+metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_uid = "6613081262817374635"
+metadata/_next_scene_uid = "b8h1kwmnkqlja"
+metadata/_next_component_uid = "1779271716739805028"
+
+[node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent4"]
+texture = ExtResource("5_ukkr6")
+
+[node name="SceneMapComponentMarker2D" type="Marker2D" parent="SceneMapComponent4"]
+position = Vector2(0, -36)
+gizmo_extents = 20.0
+script = ExtResource("8_ou5x1")
+metadata/_custom_type_script = "uid://csoa2vk3e62ao"
+
+[node name="SceneMapComponentArea2D" type="Area2D" parent="SceneMapComponent4"]
+position = Vector2(0, 36)
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("6_hvcil")
+metadata/_custom_type_script = "uid://dq0hvvxswuvvk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneMapComponent4/SceneMapComponentArea2D"]
+shape = SubResource("RectangleShape2D_abwjd")
+
+[node name="SceneMapComponent5" type="Node2D" parent="."]
+z_index = -1
+position = Vector2(1115, 350)
+rotation = -1.5708
+script = ExtResource("4_leja7")
+custom_name = "Right"
+metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_uid = "3693832471086942696"
+metadata/_next_scene_uid = "b0yoj2ndui8si"
+metadata/_next_component_uid = "5057964285621609327"
+
+[node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent5"]
+texture = ExtResource("5_ukkr6")
+
+[node name="SceneMapComponentMarker2D" type="Marker2D" parent="SceneMapComponent5"]
+position = Vector2(0, -36)
+gizmo_extents = 20.0
+script = ExtResource("8_ou5x1")
+metadata/_custom_type_script = "uid://csoa2vk3e62ao"
+
+[node name="SceneMapComponentArea2D" type="Area2D" parent="SceneMapComponent5"]
+position = Vector2(0, 36)
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("6_hvcil")
+metadata/_custom_type_script = "uid://dq0hvvxswuvvk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneMapComponent5/SceneMapComponentArea2D"]
+shape = SubResource("RectangleShape2D_abwjd")
+
+[node name="SceneMapComponent6" type="Node2D" parent="."]
+z_index = -1
+position = Vector2(35, 350)
+rotation = 1.57079
+script = ExtResource("4_leja7")
+custom_name = "Left"
+metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_uid = "2384931588909321892"
+
+[node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent6"]
+texture = ExtResource("5_ukkr6")
+
+[node name="SceneMapComponentMarker2D" type="Marker2D" parent="SceneMapComponent6"]
+position = Vector2(0, -36)
+gizmo_extents = 20.0
+script = ExtResource("8_ou5x1")
+metadata/_custom_type_script = "uid://csoa2vk3e62ao"
+
+[node name="SceneMapComponentArea2D" type="Area2D" parent="SceneMapComponent6"]
+position = Vector2(0, 36)
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("6_hvcil")
+metadata/_custom_type_script = "uid://dq0hvvxswuvvk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneMapComponent6/SceneMapComponentArea2D"]
 shape = SubResource("RectangleShape2D_abwjd")

@@ -1,5 +1,5 @@
 class_name Player extends CharacterBody2D
-
+## Just a simple player controller, noting to see here.
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
