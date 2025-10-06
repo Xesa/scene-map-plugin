@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dfawd4xhm7kd0"]
+[gd_scene load_steps=7 format=3 uid="uid://dfawd4xhm7kd0"]
 
 [ext_resource type="Texture2D" uid="uid://bvehs0do7gxn6" path="res://example/assets/exterior_house_red.png" id="1_uiy41"]
-[ext_resource type="Script" uid="uid://dnv7lj6i0r7u8" path="res://example/scripts/example_area_2d.gd" id="2_y0by5"]
+[ext_resource type="Script" uid="uid://dnv7lj6i0r7u8" path="res://example/scripts/example_scene_map_component_2d.gd" id="2_y0by5"]
+[ext_resource type="Script" uid="uid://dq0hvvxswuvvk" path="res://addons/scene_map_plugin/components/area_2d_component.gd" id="3_n7gpd"]
+[ext_resource type="Script" uid="uid://csoa2vk3e62ao" path="res://addons/scene_map_plugin/components/marker_2d_component.gd" id="4_rxtl5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wi4n8"]
 size = Vector2(86, 60)
@@ -24,14 +26,21 @@ shape = SubResource("RectangleShape2D_wi4n8")
 debug_color = Color(0.818575, 0.366237, 0.457979, 0.42)
 
 [node name="SceneMapComponent1" type="Node2D" parent="."]
-position = Vector2(0, 98)
+position = Vector2(0, 72)
 script = ExtResource("2_y0by5")
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
 
-[node name="Area2D" type="Area2D" parent="SceneMapComponent1"]
-position = Vector2(0, -28)
+[node name="SceneMapComponentMarker2D" type="Marker2D" parent="SceneMapComponent1"]
+position = Vector2(0, 36)
+gizmo_extents = 20.0
+script = ExtResource("4_rxtl5")
+metadata/_custom_type_script = "uid://csoa2vk3e62ao"
+
+[node name="SceneMapComponentArea2D" type="Area2D" parent="SceneMapComponent1"]
 collision_layer = 0
 collision_mask = 16
+script = ExtResource("3_n7gpd")
+metadata/_custom_type_script = "uid://dq0hvvxswuvvk"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneMapComponent1/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneMapComponent1/SceneMapComponentArea2D"]
 shape = SubResource("RectangleShape2D_7aome")

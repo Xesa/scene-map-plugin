@@ -19,8 +19,8 @@ func _init(_graph_node : SceneMapNode) -> void:
 	graph_node = _graph_node
 	
 
-## Creates connection slots for each [SceneMapComponent] found in the scene.
-## Depending on the property [type] of the [SceneMapComponent], the connection slot will be either on the left side, right side or both sides.
+## Creates connection slots for each [SceneMapComponent2D] found in the scene.
+## Depending on the property [type] of the [SceneMapComponent2D], the connection slot will be either on the left side, right side or both sides.
 func register_slots() -> void:
 
 	# Sets a blank list for the component slots
@@ -38,7 +38,7 @@ func register_slots() -> void:
 	# Gets the scene instance
 	var scene_values := await SM_SceneSaver.open_scene(graph_node.scene_uid)
 	
-	# Gets all the [SceneMapComponent] in the scene
+	# Gets all the [SceneMapComponent2D] in the scene
 	var components := SM_ComponentFinder.find_all_components(scene_values.instance)
 
 	# Sets an invisible node, otherwise the rest of nodes won't work properly
@@ -55,7 +55,7 @@ func register_slots() -> void:
 	await SM_SceneSaver.save()
 
 
-func register_new_slot(component: SceneMapComponent, key: String) -> SceneMapSlot:
+func register_new_slot(component: SceneMapComponent2D, key: String) -> SceneMapSlot:
 	var slot_sides = _get_slot_sides(component, key)
 	var left_side = slot_sides[0]
 	var right_side = slot_sides[1]
@@ -130,7 +130,7 @@ func _create_and_attach_slot(data: Dictionary) -> SceneMapSlot:
 	return slot
 
 
-func _get_slot_sides(component : SceneMapComponent, key : String) -> Array:
+func _get_slot_sides(component : SceneMapComponent2D, key : String) -> Array:
 
 	# Gets the slot configuration for this component type
 	var config = SM_Constants.SLOT_CONFIG[component.type]
@@ -142,15 +142,15 @@ func _get_slot_sides(component : SceneMapComponent, key : String) -> Array:
 	var right_icon_path : String
 
 	# Sets the values if the component type is Funnel
-	if component.type == SceneMapComponent.Type.FUNNEL:
+	if component.type == SceneMapComponent2D.Type.FUNNEL:
 		left_side = true
 		right_side = true
 
-		if component.side == SceneMapComponent.Side.LEFT:
+		if component.side == SceneMapComponent2D.Side.LEFT:
 			left_icon_path = config["icons"][0]
 			right_icon_path = config["icons"][0]
 
-		if component.side == SceneMapComponent.Side.RIGHT:
+		if component.side == SceneMapComponent2D.Side.RIGHT:
 			left_icon_path = config["icons"][1]
 			right_icon_path = config["icons"][1]
 
@@ -159,10 +159,10 @@ func _get_slot_sides(component : SceneMapComponent, key : String) -> Array:
 		left_icon_path = config["icons"][0]
 		right_icon_path = config["icons"][1]
 
-		if component.side == SceneMapComponent.Side.LEFT:
+		if component.side == SceneMapComponent2D.Side.LEFT:
 			left_side = true
 
-		if component.side == SceneMapComponent.Side.RIGHT:
+		if component.side == SceneMapComponent2D.Side.RIGHT:
 			right_side = true
 
 	return [left_side, right_side, left_icon_path, right_icon_path]
@@ -182,10 +182,10 @@ func set_slot(index, left_side, right_side, left_icon_path, right_icon_path) -> 
 	)
 
 
-func generate_slot_controls(name : String, type : SceneMapComponent.Type, side : SceneMapComponent.Side, slot : SceneMapSlot) -> void:
+func generate_slot_controls(name : String, type : SceneMapComponent2D.Type, side : SceneMapComponent2D.Side, slot : SceneMapSlot) -> void:
 	var control := _create_control()
 
-	if type == SceneMapComponent.Type.FUNNEL:
+	if type == SceneMapComponent2D.Type.FUNNEL:
 
 		_create_disconnect_button(control, slot, 0)
 		_create_label(control, name)
@@ -193,12 +193,12 @@ func generate_slot_controls(name : String, type : SceneMapComponent.Type, side :
 
 	else:
 
-		if side == SceneMapComponent.Side.LEFT:
+		if side == SceneMapComponent2D.Side.LEFT:
 			_create_disconnect_button(control, slot, 0)
 			_create_label(control, name)
 			_create_empty_space(control)
 
-		if side == SceneMapComponent.Side.RIGHT:
+		if side == SceneMapComponent2D.Side.RIGHT:
 			_create_empty_space(control)
 			_create_label(control, name)
 			_create_disconnect_button(control, slot, 1)

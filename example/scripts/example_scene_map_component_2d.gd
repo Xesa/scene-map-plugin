@@ -1,17 +1,6 @@
 @tool
-class_name ExampleSceneMapArea2D extends SceneMapComponent
-## This is an example class that extends the SceneMapComponent for being used with an Area2D.
-## In this case, this class will load the target scene when a body enters the area.
-
-@onready var area : Area2D = $Area2D
-
-
-func _ready() -> void:
-	area.body_entered.connect(_on_body_entered)
-
-
-func _on_body_entered(_body : Node2D) -> void:
-	go_to_next_scene()
+class_name ExampleSceneMapComponent2D extends SceneMapComponent2D
+## This is an example class that extends the SceneMapComponent2D with minimum implementation.
 
 
 ## The developer is in charge of defining the logic for this method.

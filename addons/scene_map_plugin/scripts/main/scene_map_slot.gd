@@ -19,8 +19,8 @@ var scene_uid : String
 var component_uid : String
 var component_name : String
 
-var type : SceneMapComponent.Type
-var side : SceneMapComponent.Side
+var type : SceneMapComponent2D.Type
+var side : SceneMapComponent2D.Side
 var type_string : String
 
 var connected_to_ids : Array[String]
@@ -33,7 +33,7 @@ signal connection_added(connection : SceneMapSlot, direction : int)
 signal connection_removed(connection : SceneMapSlot, direction : int)
 
 
-func _init(_type : SceneMapComponent.Type = 0, _side : SceneMapComponent.Side = 0,
+func _init(_type : SceneMapComponent2D.Type = 0, _side : SceneMapComponent2D.Side = 0,
 		_index : int = 0, _specific_index : int = 0,
 		_left : bool = false, _right : bool = false,
 		_left_icon : String = "", _right_icon : String = "",
@@ -62,13 +62,13 @@ func _init(_type : SceneMapComponent.Type = 0, _side : SceneMapComponent.Side = 
 	_set_type(_type)
 
 
-func _set_type(_type : SceneMapComponent.Type) -> void:
+func _set_type(_type : SceneMapComponent2D.Type) -> void:
 	type = _type
 	match type:
-		SceneMapComponent.Type.ENTRY: type_string = "Entrance"
-		SceneMapComponent.Type.EXIT: type_string = "Exit"
-		SceneMapComponent.Type.TWO_WAY: type_string = "Two-way"
-		SceneMapComponent.Type.FUNNEL: type_string = "Funnel"
+		SceneMapComponent2D.Type.ENTRY: type_string = "Entrance"
+		SceneMapComponent2D.Type.EXIT: type_string = "Exit"
+		SceneMapComponent2D.Type.TWO_WAY: type_string = "Two-way"
+		SceneMapComponent2D.Type.FUNNEL: type_string = "Funnel"
 
 
 func add_connection(connection : SceneMapSlot, direction : int) -> void:

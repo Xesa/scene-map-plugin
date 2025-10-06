@@ -6,7 +6,7 @@
 
 [sub_resource type="Resource" id="Resource_yln3w"]
 script = ExtResource("2_yln3w")
-slot_id = "bhc4y1rku2jb1:7445845752887952232"
+slot_id = "bhc4y1rku2jb1:5186163159429679344"
 index = 1
 specific_index = 1
 left = false
@@ -14,17 +14,17 @@ right = true
 left_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
 right_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
 scene_uid = "bhc4y1rku2jb1"
-component_uid = "7445845752887952232"
-component_name = "Red House Bottom Entrance"
+component_uid = "5186163159429679344"
+component_name = "Red House Bottom"
 type = 2
 side = 1
 type_string = "Two-way"
-connected_to_ids = Array[String](["di56ddpupkoyd:2975549928602511674"])
-connected_from_ids = Array[String](["di56ddpupkoyd:2975549928602511674"])
+connected_to_ids = Array[String](["di56ddpupkoyd:2835801783798015870"])
+connected_from_ids = Array[String](["di56ddpupkoyd:2835801783798015870"])
 
 [sub_resource type="Resource" id="Resource_8v2go"]
 script = ExtResource("2_yln3w")
-slot_id = "bhc4y1rku2jb1:7420143796949489103"
+slot_id = "bhc4y1rku2jb1:4673212826755748807"
 index = 2
 specific_index = 2
 left = false
@@ -32,17 +32,17 @@ right = true
 left_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
 right_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
 scene_uid = "bhc4y1rku2jb1"
-component_uid = "7420143796949489103"
-component_name = "Red House Top Entrance"
+component_uid = "4673212826755748807"
+component_name = "Red House Top"
 type = 2
 side = 1
 type_string = "Two-way"
-connected_to_ids = Array[String](["di56ddpupkoyd:1681468742710000557"])
-connected_from_ids = Array[String](["di56ddpupkoyd:1681468742710000557"])
+connected_to_ids = Array[String](["di56ddpupkoyd:7525712231722361020"])
+connected_from_ids = Array[String](["di56ddpupkoyd:7525712231722361020"])
 
 [sub_resource type="Resource" id="Resource_1rojr"]
 script = ExtResource("2_yln3w")
-slot_id = "bhc4y1rku2jb1:1407151085931374687"
+slot_id = "bhc4y1rku2jb1:3967857523148172086"
 index = 3
 specific_index = 3
 left = false
@@ -50,13 +50,13 @@ right = true
 left_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
 right_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
 scene_uid = "bhc4y1rku2jb1"
-component_uid = "1407151085931374687"
-component_name = "Blue House Entrance"
+component_uid = "3967857523148172086"
+component_name = "Blue House"
 type = 2
 side = 1
 type_string = "Two-way"
-connected_to_ids = Array[String](["cwtf45gw77uak:2234335045504275665"])
-connected_from_ids = Array[String](["cwtf45gw77uak:2234335045504275665"])
+connected_to_ids = Array[String](["cwtf45gw77uak:4063968637118946300"])
+connected_from_ids = Array[String](["cwtf45gw77uak:4063968637118946300"])
 
 [sub_resource type="Resource" id="Resource_is818"]
 script = ExtResource("1_yln3w")
@@ -67,7 +67,7 @@ component_slots = Array[ExtResource("2_yln3w")]([SubResource("Resource_yln3w"), 
 
 [sub_resource type="Resource" id="Resource_jn6tc"]
 script = ExtResource("2_yln3w")
-slot_id = "cwtf45gw77uak:2234335045504275665"
+slot_id = "cwtf45gw77uak:4063968637118946300"
 index = 1
 specific_index = 1
 left = true
@@ -75,24 +75,24 @@ right = false
 left_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
 right_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
 scene_uid = "cwtf45gw77uak"
-component_uid = "2234335045504275665"
+component_uid = "4063968637118946300"
 component_name = "Exit"
 type = 2
 side = 0
 type_string = "Two-way"
-connected_to_ids = Array[String](["bhc4y1rku2jb1:1407151085931374687"])
-connected_from_ids = Array[String](["bhc4y1rku2jb1:1407151085931374687"])
+connected_to_ids = Array[String](["bhc4y1rku2jb1:3967857523148172086"])
+connected_from_ids = Array[String](["bhc4y1rku2jb1:3967857523148172086"])
 
 [sub_resource type="Resource" id="Resource_plngk"]
 script = ExtResource("1_yln3w")
-offset = Vector2(400, 220)
+offset = Vector2(440, 220)
 scene_name = "Interior Blue House"
 scene_uid = "cwtf45gw77uak"
 component_slots = Array[ExtResource("2_yln3w")]([SubResource("Resource_jn6tc")])
 
 [sub_resource type="Resource" id="Resource_6cui4"]
 script = ExtResource("2_yln3w")
-slot_id = "di56ddpupkoyd:2975549928602511674"
+slot_id = "di56ddpupkoyd:2835801783798015870"
 index = 1
 specific_index = 1
 left = true
@@ -100,17 +100,17 @@ right = false
 left_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
 right_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
 scene_uid = "di56ddpupkoyd"
-component_uid = "2975549928602511674"
+component_uid = "2835801783798015870"
 component_name = "Exit Bottom"
 type = 2
 side = 0
 type_string = "Two-way"
-connected_to_ids = Array[String](["bhc4y1rku2jb1:7445845752887952232"])
-connected_from_ids = Array[String](["bhc4y1rku2jb1:7445845752887952232"])
+connected_to_ids = Array[String](["bhc4y1rku2jb1:5186163159429679344"])
+connected_from_ids = Array[String](["bhc4y1rku2jb1:5186163159429679344"])
 
 [sub_resource type="Resource" id="Resource_3amfr"]
 script = ExtResource("2_yln3w")
-slot_id = "di56ddpupkoyd:1681468742710000557"
+slot_id = "di56ddpupkoyd:7525712231722361020"
 index = 2
 specific_index = 2
 left = true
@@ -118,17 +118,17 @@ right = false
 left_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
 right_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
 scene_uid = "di56ddpupkoyd"
-component_uid = "1681468742710000557"
+component_uid = "7525712231722361020"
 component_name = "Exit Top"
 type = 2
 side = 0
 type_string = "Two-way"
-connected_to_ids = Array[String](["bhc4y1rku2jb1:7420143796949489103"])
-connected_from_ids = Array[String](["bhc4y1rku2jb1:7420143796949489103"])
+connected_to_ids = Array[String](["bhc4y1rku2jb1:4673212826755748807"])
+connected_from_ids = Array[String](["bhc4y1rku2jb1:4673212826755748807"])
 
 [sub_resource type="Resource" id="Resource_uqefw"]
 script = ExtResource("1_yln3w")
-offset = Vector2(400, -140)
+offset = Vector2(440, -160)
 scene_name = "Interior Red House"
 scene_uid = "di56ddpupkoyd"
 component_slots = Array[ExtResource("2_yln3w")]([SubResource("Resource_6cui4"), SubResource("Resource_3amfr")])

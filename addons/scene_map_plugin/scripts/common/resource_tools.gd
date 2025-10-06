@@ -46,10 +46,10 @@ static func convert_string_to_readable_name(string : String) -> String:
 	var regex = RegEx.new()
 
 	regex.compile("([a-zA-Z])([0-9]+)")
-	temp = regex.sub(temp, "\\1 \\2", true) # Separates numbers from letters but keeps them united by hyphen
+	temp = regex.sub(temp, "$1 $2") # Separates numbers from letters but keeps them united by hyphen
 
 	regex.compile("([a-z])([A-Z])")
-	temp = regex.sub(temp, "\\1 \\2", true) # Separates camel-case letters
+	temp = regex.sub(temp, "$1 $2") # Separates camel-case letters
 
 	# Capitalizes each word
 	var words = temp.split(" ")

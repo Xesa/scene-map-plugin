@@ -57,14 +57,14 @@ func _has_connections() -> bool:
 	var outgoing = slot.has_outgoing_connections()
 
 	match slot.type:
-		SceneMapComponent.Type.FUNNEL:
-			return (slot.side == SceneMapComponent.Side.LEFT and ((side == 0 and incoming) or (side == 1 and outgoing))) \
-				or (slot.side == SceneMapComponent.Side.RIGHT and ((side == 0 and outgoing) or (side == 1 and incoming)))
-		SceneMapComponent.Type.TWO_WAY:
+		SceneMapComponent2D.Type.FUNNEL:
+			return (slot.side == SceneMapComponent2D.Side.LEFT and ((side == 0 and incoming) or (side == 1 and outgoing))) \
+				or (slot.side == SceneMapComponent2D.Side.RIGHT and ((side == 0 and outgoing) or (side == 1 and incoming)))
+		SceneMapComponent2D.Type.TWO_WAY:
 			return incoming or outgoing
-		SceneMapComponent.Type.EXIT:
+		SceneMapComponent2D.Type.EXIT:
 			return outgoing
-		SceneMapComponent.Type.ENTRY:
+		SceneMapComponent2D.Type.ENTRY:
 			return incoming
 		_:
 			return false
@@ -72,14 +72,14 @@ func _has_connections() -> bool:
 
 func _get_connections() -> Array[SceneMapSlot]:
 	match slot.type:
-		SceneMapComponent.Type.FUNNEL:
-			var reverse := (slot.side == SceneMapComponent.Side.RIGHT) != (side == 0)
+		SceneMapComponent2D.Type.FUNNEL:
+			var reverse := (slot.side == SceneMapComponent2D.Side.RIGHT) != (side == 0)
 			return slot.get_connections(int(reverse))
-		SceneMapComponent.Type.TWO_WAY:
+		SceneMapComponent2D.Type.TWO_WAY:
 			return slot.get_connections(side)
-		SceneMapComponent.Type.EXIT:
+		SceneMapComponent2D.Type.EXIT:
 			return slot.get_connections(1)
-		SceneMapComponent.Type.ENTRY:
+		SceneMapComponent2D.Type.ENTRY:
 			return slot.get_connections(0)
 		_:
 			return []

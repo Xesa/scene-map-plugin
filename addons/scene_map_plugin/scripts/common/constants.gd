@@ -18,14 +18,15 @@ const ARROW_LEFT := ASSETS_PATH + "arrow-left.svg"
 const ARROW_RIGHT := ASSETS_PATH + "arrow-right.svg"
 const ARROW_DOUBLE := ASSETS_PATH + "arrow-double.svg"
 const DISCONNECT_ICON := ASSETS_PATH + "disconnect-icon.svg"
+const MARKER_ICON := ASSETS_PATH + "marker-icon.svg"
 
 const VIEWPORT_SIZE := Vector2i(256,256)
 
 const GITHUB_LINK := "http://www.google.com/"
 
 const SLOT_CONFIG := {
-		SceneMapComponent.Type.ENTRY:	{"label": "Entrance",	"icons": [ARROW_RIGHT, ARROW_LEFT]},
-		SceneMapComponent.Type.EXIT:	{"label": "Exit",		"icons": [ARROW_LEFT, ARROW_RIGHT]},
-		SceneMapComponent.Type.TWO_WAY:	{"label": "Two-way",	"icons": [ARROW_DOUBLE, ARROW_DOUBLE]},
-		SceneMapComponent.Type.FUNNEL:	{"label": "Funnel",		"icons": [ARROW_RIGHT, ARROW_LEFT]},
+		SceneMapComponent2D.Type.ENTRY:	{"label": "Entrance",	"icons": [ARROW_RIGHT, ARROW_LEFT]},
+		SceneMapComponent2D.Type.EXIT:	{"label": "Exit",		"icons": [ARROW_LEFT, ARROW_RIGHT]},
+		SceneMapComponent2D.Type.TWO_WAY:	{"label": "Two-way",	"icons": [ARROW_DOUBLE, ARROW_DOUBLE]},
+		SceneMapComponent2D.Type.FUNNEL:	{"label": "Funnel",		"icons": [ARROW_RIGHT, ARROW_LEFT]},
 	}

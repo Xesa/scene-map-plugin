@@ -13,8 +13,8 @@ extends Resource
 @export var component_uid : String
 @export var component_name : String
 
-@export var type : SceneMapComponent.Type
-@export var side : SceneMapComponent.Side
+@export var type : SceneMapComponent2D.Type
+@export var side : SceneMapComponent2D.Side
 @export var type_string : String
 
 @export var connected_to_ids : Array[String]
