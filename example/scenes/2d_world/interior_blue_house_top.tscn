@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=4 uid="uid://boo8bhc3f58y2"]
+[gd_scene load_steps=11 format=4 uid="uid://boo8bhc3f58y2"]
 
 [ext_resource type="Script" uid="uid://dwu4scnijfokr" path="res://example/scripts/scene_controller_custom_positions.gd" id="1_a4udl"]
 [ext_resource type="TileSet" uid="uid://cbbme12ie4eex" path="res://example/resources/interior_tileset.tres" id="2_is55p"]
 [ext_resource type="PackedScene" uid="uid://ogkvmsxudtdj" path="res://example/elements/player.tscn" id="3_ie4b7"]
+[ext_resource type="Script" uid="uid://ra3t033pr4q" path="res://example/scripts/player.gd" id="4_kpgfb"]
 [ext_resource type="Script" uid="uid://dnv7lj6i0r7u8" path="res://example/scripts/example_scene_map_component_2d.gd" id="4_onhk4"]
 [ext_resource type="Texture2D" uid="uid://b04ycscbnnrhd" path="res://example/assets/carpet_blue.png" id="5_4j1de"]
 [ext_resource type="Script" uid="uid://csoa2vk3e62ao" path="res://addons/scene_map_plugin/components/marker_2d_component.gd" id="6_wktq4"]
@@ -37,19 +38,24 @@ position = Vector2(-576, -312)
 tile_map_data = PackedByteArray("AAAMAAIAAQABAAQAAAALAAEAAQAAAAMAAAALAAIAAQAAAAQAAAAMAAAAAQABAAIAAAAMAAEAAQABAAMAAAANAAEAAQACAAMAAAANAAIAAQACAAQAAAAMAP//AQABAAIAAAALAAQAAQAEAAEAAAALAAUAAQAEAAQAAAALAAYAAQAEAAMAAAAMAAQAAQAFAAEAAAAMAAUAAQAFAAIAAAAMAAYAAQAFAAMAAAANAAQAAQAGAAEAAAANAAUAAQAGAAQAAAANAAYAAQAGAAMAAAAKAAQAAQADAAMAAAAKAAUAAQADAAQAAAAOAAQAAQAHAAMAAAAOAAUAAQAHAAQAAAA=")
 tile_set = ExtResource("2_is55p")
 
-[node name="Player" parent="." instance=ExtResource("3_ie4b7")]
+[node name="Player" type="CharacterBody2D" parent="." instance=ExtResource("3_ie4b7")]
+y_sort_enabled = true
 position = Vector2(602, 747)
+collision_layer = 16
+collision_mask = 2
+motion_mode = 1
+script = ExtResource("4_kpgfb")
+metadata/_custom_type_script = "uid://ra3t033pr4q"
 
 [node name="SceneMapComponent" type="Node2D" parent="."]
 z_index = -1
 position = Vector2(405, 610)
 script = ExtResource("4_onhk4")
 custom_name = "Bottom"
+type = 3
 side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "680448910226395450"
-metadata/_next_scene_uid = "cwtf45gw77uak"
-metadata/_next_component_uid = "5762110051137728795"
+metadata/_component_uid = "7683620220407820200"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent"]
 texture = ExtResource("5_4j1de")
@@ -76,10 +82,10 @@ position = Vector2(1115, 350)
 rotation = -1.5708
 script = ExtResource("4_onhk4")
 custom_name = "Right"
+type = 3
+side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "1634418103413182187"
-metadata/_next_scene_uid = "b8h1kwmnkqlja"
-metadata/_next_component_uid = "5342208111613583741"
+metadata/_component_uid = "400110669613973485"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent5"]
 texture = ExtResource("5_4j1de")
@@ -106,11 +112,12 @@ position = Vector2(35, 350)
 rotation = 1.57079
 script = ExtResource("4_onhk4")
 custom_name = "Left"
+type = 3
 side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "5370144296977997349"
-metadata/_next_scene_uid = "fba1sv6bbw15"
-metadata/_next_component_uid = "1676351820225038257"
+metadata/_component_uid = "1729010102247777592"
+metadata/_next_scene_uid = "b8h1kwmnkqlja"
+metadata/_next_component_uid = "603491269971838548"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent6"]
 texture = ExtResource("5_4j1de")

@@ -8,10 +8,10 @@
 [ext_resource type="Script" uid="uid://csoa2vk3e62ao" path="res://addons/scene_map_plugin/components/marker_2d_component.gd" id="6_1r32g"]
 [ext_resource type="Script" uid="uid://dq0hvvxswuvvk" path="res://addons/scene_map_plugin/components/area_2d_component.gd" id="7_1ix5g"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vjsnb"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ol6pp"]
 size = Vector2(73, 21)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ol6pp"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vjsnb"]
 size = Vector2(73, 21)
 
 [node name="BlueHouse" type="Node2D"]
@@ -40,16 +40,45 @@ tile_set = ExtResource("2_ol6pp")
 [node name="Player" parent="." instance=ExtResource("3_4synv")]
 position = Vector2(602, 747)
 
+[node name="SceneMapComponent6" type="Node2D" parent="."]
+z_index = -1
+position = Vector2(35, 350)
+rotation = 1.57079
+script = ExtResource("4_gm4e1")
+custom_name = "Left"
+type = 3
+side = 0
+metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_uid = "603491269971838548"
+
+[node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent6"]
+texture = ExtResource("5_d0cu5")
+
+[node name="SceneMapComponentMarker2D" type="Marker2D" parent="SceneMapComponent6"]
+position = Vector2(0, -36)
+gizmo_extents = 20.0
+script = ExtResource("6_1r32g")
+metadata/_custom_type_script = "uid://csoa2vk3e62ao"
+
+[node name="SceneMapComponentArea2D" type="Area2D" parent="SceneMapComponent6"]
+position = Vector2(0, 36)
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("7_1ix5g")
+metadata/_custom_type_script = "uid://dq0hvvxswuvvk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneMapComponent6/SceneMapComponentArea2D"]
+shape = SubResource("RectangleShape2D_ol6pp")
+
 [node name="SceneMapComponent" type="Node2D" parent="."]
 z_index = -1
 position = Vector2(166, 610)
 script = ExtResource("4_gm4e1")
 custom_name = "Bottom-Left"
+type = 3
 side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "1779271716739805028"
-metadata/_next_scene_uid = "cwtf45gw77uak"
-metadata/_next_component_uid = "6613081262817374635"
+metadata/_component_uid = "4319561194604673633"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent"]
 texture = ExtResource("5_d0cu5")
@@ -75,11 +104,9 @@ z_index = -1
 position = Vector2(983, 610)
 script = ExtResource("4_gm4e1")
 custom_name = "Bottom-Right"
-side = 0
+type = 3
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "5410055431889035227"
-metadata/_next_scene_uid = "b0yoj2ndui8si"
-metadata/_next_component_uid = "7624968269541512515"
+metadata/_component_uid = "2120347292521994269"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent2"]
 texture = ExtResource("5_d0cu5")
@@ -99,34 +126,3 @@ metadata/_custom_type_script = "uid://dq0hvvxswuvvk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SceneMapComponent2/SceneMapComponentArea2D"]
 shape = SubResource("RectangleShape2D_vjsnb")
-
-[node name="SceneMapComponent6" type="Node2D" parent="."]
-z_index = -1
-position = Vector2(35, 350)
-rotation = 1.57079
-script = ExtResource("4_gm4e1")
-custom_name = "Left"
-side = 0
-metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "5342208111613583741"
-metadata/_next_scene_uid = "boo8bhc3f58y2"
-metadata/_next_component_uid = "1634418103413182187"
-
-[node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent6"]
-texture = ExtResource("5_d0cu5")
-
-[node name="SceneMapComponentMarker2D" type="Marker2D" parent="SceneMapComponent6"]
-position = Vector2(0, -36)
-gizmo_extents = 20.0
-script = ExtResource("6_1r32g")
-metadata/_custom_type_script = "uid://csoa2vk3e62ao"
-
-[node name="SceneMapComponentArea2D" type="Area2D" parent="SceneMapComponent6"]
-position = Vector2(0, 36)
-collision_layer = 0
-collision_mask = 16
-script = ExtResource("7_1ix5g")
-metadata/_custom_type_script = "uid://dq0hvvxswuvvk"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneMapComponent6/SceneMapComponentArea2D"]
-shape = SubResource("RectangleShape2D_ol6pp")

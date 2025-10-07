@@ -74,6 +74,6 @@ func _delete() -> void:
 
 func get_component_slot(index : int, side : int) -> SceneMapSlot:
 	for slot in component_slots:
-		if slot.specific_index == index and slot.side == side:
+		if slot.specific_index == index and (slot.side == side or slot.type == SceneMapComponent2D.Type.FUNNEL):
 			return slot
 	return null

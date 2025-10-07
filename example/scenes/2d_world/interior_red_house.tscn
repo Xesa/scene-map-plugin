@@ -55,9 +55,6 @@ script = ExtResource("3_4kahw")
 custom_name = "Exit Bottom"
 side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "333307128958430583"
-metadata/_next_scene_uid = "bhc4y1rku2jb1"
-metadata/_next_component_uid = "6762948508013539940"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent1"]
 texture = ExtResource("4_4kahw")
@@ -85,9 +82,6 @@ script = ExtResource("3_4kahw")
 custom_name = "Exit Top"
 side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "4347348629189861278"
-metadata/_next_scene_uid = "bhc4y1rku2jb1"
-metadata/_next_component_uid = "7335913190058558731"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent2"]
 texture = ExtResource("4_4kahw")

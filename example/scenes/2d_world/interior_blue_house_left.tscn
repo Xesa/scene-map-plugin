@@ -46,11 +46,9 @@ position = Vector2(1115, 350)
 rotation = -1.5708
 script = ExtResource("4_mlq7p")
 custom_name = "Right"
-side = 0
+type = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "5039617141109079025"
-metadata/_next_scene_uid = "cwtf45gw77uak"
-metadata/_next_component_uid = "2384931588909321892"
+metadata/_component_uid = "3619161173351847836"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent5"]
 texture = ExtResource("5_1ktcm")
@@ -77,10 +75,11 @@ position = Vector2(166, 150)
 rotation = 3.14159
 script = ExtResource("4_mlq7p")
 custom_name = "Top-Left"
+type = 1
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "7669065803481459638"
-metadata/_next_scene_uid = "fba1sv6bbw15"
-metadata/_next_component_uid = "4885896281310272721"
+metadata/_component_uid = "9157512022628585108"
+metadata/_next_scene_uid = "boo8bhc3f58y2"
+metadata/_next_component_uid = "1729010102247777592"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent2"]
 texture = ExtResource("5_1ktcm")

@@ -32,8 +32,21 @@ func _on_button_pressed() -> void:
 		_disable()
 
 
-func _on_connection_added(_connection : SceneMapSlot, _direction : int) -> void:
-	_enable()
+func _on_connection_added(_connection : SceneMapSlot, direction : int) -> void:
+	if slot.type != SceneMapComponent2D.Type.FUNNEL:
+		_enable()
+
+	elif side == 0 and slot.side == SceneMapComponent2D.Side.LEFT and direction == 0:
+		_enable()
+
+	elif side == 0 and slot.side == SceneMapComponent2D.Side.RIGHT and direction == 1:
+		_enable()
+
+	elif side == 1 and slot.side == SceneMapComponent2D.Side.LEFT and direction == 1:
+		_enable()
+
+	elif side == 1 and slot.side == SceneMapComponent2D.Side.RIGHT and direction == 0:
+		_enable()
 
 
 func _on_connection_removed(_connection : SceneMapSlot, _direction : int) -> void:
@@ -73,8 +86,17 @@ func _has_connections() -> bool:
 func _get_connections() -> Array[SceneMapSlot]:
 	match slot.type:
 		SceneMapComponent2D.Type.FUNNEL:
-			var reverse := (slot.side == SceneMapComponent2D.Side.RIGHT) != (side == 0)
-			return slot.get_connections(int(reverse))
+			if side == 0 and slot.side == SceneMapComponent2D.Side.LEFT:
+				return slot.get_connections(0)
+			if side == 0 and slot.side == SceneMapComponent2D.Side.RIGHT:
+				return slot.get_connections(1)
+			if side == 1 and slot.side == SceneMapComponent2D.Side.LEFT:
+				return slot.get_connections(1)
+			if side == 1 and slot.side == SceneMapComponent2D.Side.RIGHT:
+				return slot.get_connections(0)
+			else:
+				return []
+
 		SceneMapComponent2D.Type.TWO_WAY:
 			return slot.get_connections(side)
 		SceneMapComponent2D.Type.EXIT:
@@ -87,6 +109,8 @@ func _get_connections() -> Array[SceneMapSlot]:
 func _remove_connections() -> void:
 
 	var connections := _get_connections()
+
+	var conn : SceneMapSlot = connections[0]
 
 	if side == 0:
 		for connection in connections:
