@@ -2,7 +2,6 @@ extends Resource
 
 @export var slot_id : String
 @export var index : int
-@export var specific_index : int
 
 @export var left : bool
 @export var right : bool
@@ -15,7 +14,6 @@ extends Resource
 
 @export var type : SceneMapComponent2D.Type
 @export var side : SceneMapComponent2D.Side
-@export var type_string : String
 
 @export var connected_to_ids : Array[String]
 @export var connected_from_ids : Array[String]

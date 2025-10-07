@@ -1,11 +1,18 @@
 @tool
 class_name SceneMapNode extends GraphNode
+## Representation of a scene in the SceneMap plugin.
+##
+## This class represents a scene in the SceneMap plugin in the form of a node.
+## It is composed by a preview of the scene and slots that represent each [SceneMapComponent] inside the scene.[br]
+## Slots can be connected to other slots that are compatible and are represented by the [SceneMapSlot] class.
+## To get a reference to a specific slot, use the [get_component_slot()] method.[br]
+##
+## This class is instantiated from the [NodeRegistrator] helper class.[br]
+## In order to register the slots, this class makes use of the [SlotRegistrator] helper class.
 
-const SM_ResourceTools := preload("uid://b71h2bnocse6c")
 const SM_NodePreviewer := preload("uid://brgihuj5exdgu")
 const SM_SlotRegistrator := preload("uid://bj10g5ips4ubj")
 const SM_SceneSaver := preload("uid://7svcgc01kw2b")
-const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
 
 var scene_name : String
 var scene_uid : String
@@ -43,6 +50,7 @@ func _ready() -> void:
 		await SM_SceneSaver.save()
 		SceneMapIO.save(get_parent())
 
+	# Connects the node_deleted signal to the graph node
 	node_deleted.connect(get_parent()._on_node_deleted)
 	node_ready.emit()
 
@@ -50,10 +58,10 @@ func _ready() -> void:
 func _process(delta : float) -> void:
 	if Input.is_key_pressed(KEY_DELETE) and selected and not set_to_delete:
 		_delete()
-	if Input.is_key_pressed(KEY_CTRL) and selected and not set_to_delete:
-		pass
 
 
+## Deletes this node and all its connections. This will also clear the [component_uid] values
+## of each [SceneMapComponent] that is attached to every [SceneMapSlot] owned by this node.
 func _delete() -> void:
 	set_to_delete = true
 
@@ -72,8 +80,11 @@ func _delete() -> void:
 	node_deleted.emit(self)
 
 
+## Returns the [SceneMapSlot] from this node at the given [index] and [side].[br]
+## If the [SceneMapSlot] at the given [index] is of type [FUNNEL],
+## it will be returned no matter which value has been passed for the [side] parameter.
 func get_component_slot(index : int, side : int) -> SceneMapSlot:
 	for slot in component_slots:
-		if slot.specific_index == index and (slot.side == side or slot.type == SceneMapComponent2D.Type.FUNNEL):
+		if slot.index == index and (slot.side == side or slot.type == SceneMapComponent2D.Type.FUNNEL):
 			return slot
 	return null

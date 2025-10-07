@@ -3,11 +3,13 @@ extends Node
 const SM_ResourceTools := preload("uid://b71h2bnocse6c")
 
 
+## Registers a new scene to the SceneMap in the form of a [SceneMapNode].
+## If the scene is already present in the SceneMap it prints an error.
 static func register_scene(
 		graph : SceneMapGraph,
 		scene_path : String,
 		scene_uid : String = "",
-		shoud_register_slots : bool = true
+		should_register_slots : bool = true
 ) -> void:
 
 	# Gets the scene UID if not present
@@ -16,7 +18,6 @@ static func register_scene(
 
 	# Checks if the scene is already in the map
 	var existing_node : SceneMapNode = graph.get_node_or_null(scene_uid)
-
 	if existing_node:
 		printerr(scene_path + " is already in the map.")
 		return

@@ -1,9 +1,11 @@
 extends Node
+## Provides methods for creating or refreshing the preview of a scene
+## and adding different visual markers to it. 
 
 const SM_Constants := preload("uid://cjynbj0oq1sx1")
 const SM_SceneSaver := preload("uid://7svcgc01kw2b")
 
-## Creates the preview box and calls the [_refresh_preview] method.
+## Creates the preview box and calls the [_refresh_preview()] method.
 static func create_preview(graph_node : SceneMapNode) -> void:
 	var preview = TextureRect.new()
 	preview.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED

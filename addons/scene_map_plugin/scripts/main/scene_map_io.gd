@@ -35,7 +35,6 @@ static func save(graph : SceneMapGraph) -> void:
 				slot_res.component_name = slot.component_name
 
 				slot_res.index = slot.index
-				slot_res.specific_index = slot.specific_index
 				slot_res.left = slot.left
 				slot_res.right = slot.right
 				slot_res.left_icon = slot.left_icon
@@ -43,7 +42,6 @@ static func save(graph : SceneMapGraph) -> void:
 
 				slot_res.type = slot.type
 				slot_res.side = slot.side
-				slot_res.type_string = slot.type_string
 
 				slot_res.connected_to_ids = slot.connected_to_ids
 				slot_res.connected_from_ids = slot.connected_from_ids

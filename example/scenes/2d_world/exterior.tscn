@@ -45,7 +45,7 @@ shape = SubResource("RectangleShape2D_j5mi0")
 
 [node name="SceneMapComponent1" parent="RedHouse" index="2"]
 custom_name = "Red House Bottom"
-metadata/_component_uid = "3412875142448170756"
+metadata/_component_uid = "5748814872528597159"
 
 [node name="CollisionShape2D" parent="RedHouse/SceneMapComponent1/SceneMapComponentArea2D" index="0"]
 shape = SubResource("RectangleShape2D_7aome")
@@ -55,7 +55,7 @@ z_index = 1
 script = ExtResource("5_ndlqu")
 custom_name = "Red House Top"
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "1694657188338793658"
+metadata/_component_uid = "4342422410960007101"
 
 [node name="SceneMapComponentMarker2D2" type="Marker2D" parent="RedHouse/SceneMapComponent2"]
 position = Vector2(0, -68)
@@ -84,9 +84,7 @@ shape = SubResource("RectangleShape2D_wi4n8")
 [node name="SceneMapComponent1" parent="BlueHouse" index="2"]
 custom_name = "Blue House"
 type = 1
-metadata/_component_uid = "4768503162981702041"
-metadata/_next_scene_uid = "cwtf45gw77uak"
-metadata/_next_component_uid = "3576154933503844618"
+metadata/_component_uid = "7391331441549907880"
 
 [node name="CollisionShape2D" parent="BlueHouse/SceneMapComponent1/SceneMapComponentArea2D" index="0"]
 shape = SubResource("RectangleShape2D_7aome")

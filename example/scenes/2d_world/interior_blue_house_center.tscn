@@ -52,7 +52,6 @@ custom_name = "Exit"
 type = 0
 side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "3576154933503844618"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent"]
 texture = ExtResource("5_ukkr6")
@@ -80,7 +79,6 @@ rotation = 3.14159
 script = ExtResource("4_leja7")
 custom_name = "Top-Left"
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "8662649520322338645"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent2"]
 texture = ExtResource("5_ukkr6")
@@ -108,7 +106,6 @@ rotation = 3.14159
 script = ExtResource("4_leja7")
 custom_name = "Top-Center"
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "2285863601667698503"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent3"]
 texture = ExtResource("5_ukkr6")
@@ -136,7 +133,6 @@ rotation = 3.14159
 script = ExtResource("4_leja7")
 custom_name = "Top-Right"
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "6867247028008738964"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent4"]
 texture = ExtResource("5_ukkr6")
@@ -165,9 +161,6 @@ script = ExtResource("4_leja7")
 custom_name = "Right"
 type = 1
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "4203757427243112029"
-metadata/_next_scene_uid = "b0yoj2ndui8si"
-metadata/_next_component_uid = "6706214839908931863"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent5"]
 texture = ExtResource("5_ukkr6")
@@ -197,9 +190,6 @@ custom_name = "Left"
 type = 1
 side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "1769562759629651223"
-metadata/_next_scene_uid = "dvx7r1b58ehka"
-metadata/_next_component_uid = "3619161173351847836"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent6"]
 texture = ExtResource("5_ukkr6")

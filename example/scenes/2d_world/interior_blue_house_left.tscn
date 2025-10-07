@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=4 uid="uid://dvx7r1b58ehka"]
+[gd_scene load_steps=11 format=4 uid="uid://dvx7r1b58ehka"]
 
 [ext_resource type="Script" uid="uid://dwu4scnijfokr" path="res://example/scripts/scene_controller_custom_positions.gd" id="1_8qnrc"]
 [ext_resource type="TileSet" uid="uid://cbbme12ie4eex" path="res://example/resources/interior_tileset.tres" id="2_wuyak"]
 [ext_resource type="PackedScene" uid="uid://ogkvmsxudtdj" path="res://example/elements/player.tscn" id="3_petox"]
 [ext_resource type="Script" uid="uid://dnv7lj6i0r7u8" path="res://example/scripts/example_scene_map_component_2d.gd" id="4_mlq7p"]
+[ext_resource type="Script" uid="uid://ra3t033pr4q" path="res://example/scripts/player.gd" id="4_wuyak"]
 [ext_resource type="Texture2D" uid="uid://b04ycscbnnrhd" path="res://example/assets/carpet_blue.png" id="5_1ktcm"]
 [ext_resource type="Script" uid="uid://csoa2vk3e62ao" path="res://addons/scene_map_plugin/components/marker_2d_component.gd" id="6_ygag1"]
 [ext_resource type="Script" uid="uid://dq0hvvxswuvvk" path="res://addons/scene_map_plugin/components/area_2d_component.gd" id="7_lp5hd"]
@@ -37,8 +38,14 @@ position = Vector2(-576, -312)
 tile_map_data = PackedByteArray("AAAIAAkAAQAEAAEAAAAIAAoAAQAEAAIAAAAIAAsAAQAEAAMAAAAJAAkAAQAFAAEAAAAJAAoAAQAFAAIAAAAJAAsAAQAFAAMAAAAKAAkAAQAGAAEAAAAKAAoAAQAGAAIAAAAKAAsAAQAGAAMAAAATAAQAAQAEAAEAAAATAAUAAQAEAAIAAAATAAYAAQAEAAMAAAAUAAQAAQAFAAEAAAAUAAUAAQAFAAIAAAAUAAYAAQAFAAMAAAAVAAQAAQAGAAEAAAAVAAUAAQAGAAIAAAAVAAYAAQAGAAMAAAAEAAQAAQAEAAEAAAAEAAUAAQAEAAIAAAAEAAYAAQAEAAMAAAAFAAQAAQAFAAEAAAAFAAUAAQAFAAIAAAAFAAYAAQAFAAMAAAAGAAQAAQAGAAEAAAAGAAUAAQAGAAIAAAAGAAYAAQAGAAMAAAADAAEAAQAAAAAAAAADAAIAAQAAAAEAAAA=")
 tile_set = ExtResource("2_wuyak")
 
-[node name="Player" parent="." instance=ExtResource("3_petox")]
+[node name="Player" type="CharacterBody2D" parent="." instance=ExtResource("3_petox")]
+y_sort_enabled = true
 position = Vector2(602, 747)
+collision_layer = 16
+collision_mask = 2
+motion_mode = 1
+script = ExtResource("4_wuyak")
+metadata/_custom_type_script = "uid://ra3t033pr4q"
 
 [node name="SceneMapComponent5" type="Node2D" parent="."]
 z_index = -1
@@ -48,7 +55,6 @@ script = ExtResource("4_mlq7p")
 custom_name = "Right"
 type = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "3619161173351847836"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent5"]
 texture = ExtResource("5_1ktcm")
@@ -77,9 +83,6 @@ script = ExtResource("4_mlq7p")
 custom_name = "Top-Left"
 type = 1
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "9157512022628585108"
-metadata/_next_scene_uid = "boo8bhc3f58y2"
-metadata/_next_component_uid = "1729010102247777592"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent2"]
 texture = ExtResource("5_1ktcm")

@@ -57,4 +57,3 @@ static func save() -> void:
 
 	# Returns back to the Scene Map screen
 	EditorInterface.set_main_screen_editor(SM_Constants.PLUGIN_NAME)
-

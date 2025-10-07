@@ -14,9 +14,8 @@ enum Action {
 	UPDATE
 }
 
-## Connects two components depending on their connection type. If the connection goes from left to right,
-## connects the [from_slot] to the [to_slot] or viceversa in case the connection goes from right to left.
-## For double sided connections, it connects both slots in both ways.
+## Searches and connects two components based on their node and port indexes. This method is used by
+## the [SceneMapGraph] to find the [SceneMapSlot] that are part of a connection/disconnection request.
 static func make_connection(from_node, from_port, to_node, to_port, connect : bool, _graph : SceneMapGraph) -> void:
 
 	if not graph:
@@ -45,6 +44,10 @@ static func make_connection(from_node, from_port, to_node, to_port, connect : bo
 	SceneMapIO.save(graph)
 
 
+## Creates, updates or deletes a connection from one [SceneMapSlot] to another, and updates
+## [next_scene_uid] and [next_component_uid] metadata values in their associated [SceneMapComponent].[br]
+## Once the connection is completed, both [SceneMapSlot] will have their [connected_to]
+## and [connected_from] properties updated, pointing to each other.
 static func update_connection(from_slot : SceneMapSlot, to_slot : SceneMapSlot, action : Action ) -> void:
 	
 	# Opens the node's scene

@@ -1,14 +1,31 @@
 @tool
 class_name SceneMapSlot extends Node
+## Representation of a [SceneMapComponent] in the SceneMap plugin.
+##
+## This class represents a [SceneMapComponent] in the SceneMap plugin in the form of a connection slot.
+## It is always attached to a parent [SceneMapNode] which represents the scene in which the component is.[br]
+## Slots can be connected to other slots that are compatible. Connections are always requested by the [SceneMapGraph].
+## 
+## To add or remove a connection use the [update_connection()]. To delete the slot use the [delete()] method.
+## There are other useful methods such as [get_connections()], [has_incoming_connections()] or [has_outgoing_connections()].
+##
+## When a connection is added or removed, the [connection_added] and [connection_removed] signals are triggered.[br]
+##
+## The [connected_from] and [connected_to] properties represent an array of other [SceneMapSlot] to which this one is connected.
+## The terms "from" and "to" mean that the slot represents an entrance or an exit. In the case of double sided connections each slot
+## will appear in both "from" and "to" arrays. In some cases this is also represented by a parameter called [direction] which can be
+## represented as [0] for "from" and [1] for "to".[br]
+##
+## This class is instantiated from the [SlotRegistrator] helper class.[br]
+## In order to make a connection with another node, this class makes use of the [SlotConnector] helper class.
+## To check whether two slots are compatible or not, see the [ConnectionValidator] helper class.
 
 const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
 const SM_SlotConnector := preload("uid://1mcwq8t36pgx")
-const SM_ResourceTools := preload("uid://b71h2bnocse6c")
 const SM_SceneSaver := preload("uid://7svcgc01kw2b")
 
 var slot_id : String
 var index : int
-var specific_index : int
 
 var left : bool
 var right : bool
@@ -21,7 +38,6 @@ var component_name : String
 
 var type : SceneMapComponent2D.Type
 var side : SceneMapComponent2D.Side
-var type_string : String
 
 var connected_to_ids : Array[String]
 var connected_from_ids : Array[String]
@@ -34,11 +50,11 @@ signal connection_removed(connection : SceneMapSlot, direction : int)
 
 
 func _init(_type : SceneMapComponent2D.Type = 0, _side : SceneMapComponent2D.Side = 0,
-		_index : int = 0, _specific_index : int = 0,
-		_left : bool = false, _right : bool = false,
+		_index : int = 0, _left : bool = false, _right : bool = false,
 		_left_icon : String = "", _right_icon : String = "",
 		_scene_uid : String = "", _component_name = "", _component_uid = null, )-> void:
 	
+	# If the component doesn't has an UID creates a new one
 	if _component_uid:
 		component_uid = _component_uid
 	else:
@@ -48,9 +64,9 @@ func _init(_type : SceneMapComponent2D.Type = 0, _side : SceneMapComponent2D.Sid
 	component_name = _component_name
 	slot_id = scene_uid + ":" + component_uid
 
+	type = _type
 	side = _side
 	index = _index
-	specific_index = _specific_index
 	left = _left
 	right = _right
 	left_icon = _left_icon
@@ -59,18 +75,10 @@ func _init(_type : SceneMapComponent2D.Type = 0, _side : SceneMapComponent2D.Sid
 	connected_to = []
 	connected_from = []
 
-	_set_type(_type)
 
-
-func _set_type(_type : SceneMapComponent2D.Type) -> void:
-	type = _type
-	match type:
-		SceneMapComponent2D.Type.ENTRY: type_string = "Entrance"
-		SceneMapComponent2D.Type.EXIT: type_string = "Exit"
-		SceneMapComponent2D.Type.TWO_WAY: type_string = "Two-way"
-		SceneMapComponent2D.Type.FUNNEL: type_string = "Funnel"
-
-
+## Connects this slot to the given [SceneMapSlot]. The [direction] parameter represents that the slot is an entrance or an exit [SceneMapNode]:[br]
+## - [1] means that this slot is an exit and the other slot is an entrance. Hence, the connection goes "to" the other slot.[br]
+## - [0] means that this slot is an entrance and the other slot is an exit. Hence, the connection comes "from" the other slot.
 func add_connection(connection : SceneMapSlot, direction : int) -> void:
 	if direction == 1 and not connected_to.has(connection):
 		connected_to.append(connection)
@@ -82,6 +90,9 @@ func add_connection(connection : SceneMapSlot, direction : int) -> void:
 		connection_added.emit(connection, direction)
 
 
+## Disconnects this slot to the given [SceneMapSlot]. The [direction] parameter represents that the slot is an entrance or an exit [SceneMapNode]:[br]
+## - [1] means that this slot is an exit and the other slot is an entrance. Hence, the connection goes "to" the other slot.[br]
+## - [0] means that this slot is an entrance and the other slot is an exit. Hence, the connection comes "from" the other slot.
 func remove_connection(connection : SceneMapSlot, direction : int) -> void:
 	if direction == 1:
 		connected_to.erase(connection)
@@ -93,18 +104,21 @@ func remove_connection(connection : SceneMapSlot, direction : int) -> void:
 	connection_removed.emit(connection, direction)
 
 
+## Returns [true] if there is any [SceneMapSlot] connected to this one. This represents "from" connections, or direction [0].
 func has_incoming_connections() -> bool:
 	if connected_from == null:
 		return false
 	return connected_from.size() > 0
 
 
+## Returns [true] if this slot is connected to another [SceneMapSlot]. This represents "to" connections, or direction [1].
 func has_outgoing_connections() -> bool:
 	if connected_to == null:
 		return false
 	return connected_to.size() > 0
 
 
+## Returns all the [SceneMapSlot] connected to or from this one in the given [direction].
 func get_connections(direction : int) -> Array[SceneMapSlot]:
 	if direction == 1:
 		return connected_to
@@ -112,6 +126,7 @@ func get_connections(direction : int) -> Array[SceneMapSlot]:
 		return connected_from
 
 
+## Returns all the [SceneMapSlot] connected to and from this one.
 func get_all_connections() -> Array[SceneMapSlot]:
 	var all_connections : Array[SceneMapSlot] = []
 	all_connections.append_array(get_connections(1))
@@ -119,6 +134,8 @@ func get_all_connections() -> Array[SceneMapSlot]:
 	return all_connections
 
 
+## Removes all the connections established with other [SceneMapSlot]. This effectively removes
+## this slot from the [connected_to] and [connected_from] properties in the other slot.
 func remove_all_connections() -> void:
 
 	# Iterates every connected slot and removes the connection
@@ -129,6 +146,10 @@ func remove_all_connections() -> void:
 		await from_slot.update_connection(self, SM_SlotConnector.Action.DISCONNECT)
 
 
+## Deletes this slot, removing all the connections established with other [SceneMapSlot]. This effectively removes
+## this slot from the [connected_to] and [connected_from] properties in the other slot.
+## Deleting a slot will also remove the [component_uid], [next_scene_uid] and [next_component_uid]
+## metadata values from the [SceneMapComponent]
 func delete() -> void:
 	remove_all_connections()
 	var scene_values := SM_SceneSaver.open_scene(scene_uid)
@@ -137,6 +158,13 @@ func delete() -> void:
 	component._remove_next_scene()
 
 
+## Adds or removes a connection with another [SceneMapSlot]. This method uses the
+## [SlotConnector] helper class, which will perform some checks and call this class'
+## [add_connection()] or [remove_connection()] depending on the given [action].[br]
+## Once the connection is completed, both [SceneMapSlot] will have their [connected_to]
+## and [connected_from] properties updated, pointing to each other. The [SceneMapComponent]
+## associated to this slot will also have its [next_scene_uid] and [next_component_uid]
+## metadata values updated.
 func update_connection(to_slot : SceneMapSlot, action : SM_SlotConnector.Action) -> void:
 	await SM_SlotConnector.update_connection(self, to_slot, action)
 
