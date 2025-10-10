@@ -18,6 +18,7 @@ const ARROW_LEFT := ASSETS_PATH + "arrow-left.svg"
 const ARROW_RIGHT := ASSETS_PATH + "arrow-right.svg"
 const ARROW_DOUBLE := ASSETS_PATH + "arrow-double.svg"
 const DISCONNECT_ICON := ASSETS_PATH + "disconnect-icon.svg"
+const SIDES_ICON := ASSETS_PATH + "sides-icon.svg"
 const MARKER_ICON := ASSETS_PATH + "marker-icon.svg"
 
 const VIEWPORT_SIZE := Vector2i(256,256)

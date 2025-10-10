@@ -20,9 +20,12 @@ class_name SceneMapSlot extends Node
 ## In order to make a connection with another node, this class makes use of the [SlotConnector] helper class.
 ## To check whether two slots are compatible or not, see the [ConnectionValidator] helper class.
 
+const SM_Constants := preload("uid://cjynbj0oq1sx1")
 const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
 const SM_SlotConnector := preload("uid://1mcwq8t36pgx")
 const SM_SceneSaver := preload("uid://7svcgc01kw2b")
+
+var graph_node : SceneMapNode
 
 var slot_id : String
 var index : int
@@ -49,7 +52,7 @@ signal connection_added(connection : SceneMapSlot, direction : int)
 signal connection_removed(connection : SceneMapSlot, direction : int)
 
 
-func _init(_type : SceneMapComponent2D.Type = 0, _side : SceneMapComponent2D.Side = 0,
+func _init(_graph_node : SceneMapNode, _type : SceneMapComponent2D.Type = 0, _side : SceneMapComponent2D.Side = 0,
 		_index : int = 0, _left : bool = false, _right : bool = false,
 		_left_icon : String = "", _right_icon : String = "",
 		_scene_uid : String = "", _component_name = "", _component_uid = null, )-> void:
@@ -60,6 +63,7 @@ func _init(_type : SceneMapComponent2D.Type = 0, _side : SceneMapComponent2D.Sid
 	else:
 		component_uid = str(ResourceUID.create_id())
 
+	graph_node = _graph_node
 	scene_uid = _scene_uid
 	component_name = _component_name
 	slot_id = scene_uid + ":" + component_uid
@@ -167,4 +171,54 @@ func delete() -> void:
 ## metadata values updated.
 func update_connection(to_slot : SceneMapSlot, action : SM_SlotConnector.Action) -> void:
 	await SM_SlotConnector.update_connection(self, to_slot, action)
+
+
+func change_sides() -> void:
+
+	var scene_values := SM_SceneSaver.open_scene(scene_uid)
+	var component := SM_ComponentFinder.search_component_by_uid(scene_values["instance"], component_uid)
+
+	if type == SceneMapComponent2D.Type.FUNNEL:
+		if side == SceneMapComponent2D.Side.LEFT:
+			_update_side_info(true, true, 0, 0, SceneMapComponent2D.Side.RIGHT, component)
+		else:
+			_update_side_info(true, true, 1, 1, SceneMapComponent2D.Side.LEFT, component)
+
+	else:
+		if side == SceneMapComponent2D.Side.LEFT:
+			_update_side_info(false, true, 0, 1, SceneMapComponent2D.Side.RIGHT, component)
+		else:
+			_update_side_info(true, false, 0, 1, SceneMapComponent2D.Side.LEFT, component)
+
+	# TODO: hay que a rreglar esto para que realmente borre las conexiones del graph
+	remove_all_connections()
+	
+	var left_icon := load(left_icon)
+	var right_icon := load(right_icon)
+
+	var left_type := 0 if left else -1
+	var right_type := 0 if right else -1
+	var left_color := Color.WHITE if left else Color.TRANSPARENT
+	var right_color := Color.WHITE if right else Color.TRANSPARENT
+
+	graph_node.set_slot(index, true, left_type, left_color, true, right_type, right_color)
+
+	graph_node.set_slot_custom_icon_left(index, left_icon)
+	graph_node.set_slot_custom_icon_right(index, right_icon)
+
+	SceneMapIO.save(graph_node.get_parent())
+	
+	
+
+func _update_side_info(_left : bool, _right : bool, _left_icon_index : int, _right_icon_index : int, _side : SceneMapComponent2D.Side, component : SceneMapComponent2D) -> void:
+			var slot_config : Dictionary = SM_Constants.SLOT_CONFIG[type]
+			left = _left
+			right = _right
+			left_icon = slot_config["icons"][_left_icon_index]
+			right_icon = slot_config["icons"][_right_icon_index]
+			side = _side
+			component.side = side
+
+
+
 

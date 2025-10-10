@@ -1,16 +1,17 @@
 extends Button
 
 const SM_Constants := preload("uid://cjynbj0oq1sx1")
+const SM_SlotControl := preload("uid://bxwe2c1at0aom")
 
-var graph_edit : SceneMapGraph
+var control : SM_SlotControl
 var slot : SceneMapSlot
 var is_connected := false
-var side : int
+var button_side : int
 
-func _init(_graph_edit : SceneMapGraph, _slot : SceneMapSlot, _side : int) -> void:
-	graph_edit = _graph_edit
+func _init(_control : SM_SlotControl, _slot : SceneMapSlot, _button_side : int) -> void:
+	control = _control
 	slot = _slot
-	side = _side
+	button_side = _button_side
 	icon = load(SM_Constants.DISCONNECT_ICON)
 	flat = true
 	disabled = true
@@ -36,16 +37,16 @@ func _on_connection_added(_connection : SceneMapSlot, direction : int) -> void:
 	if slot.type != SceneMapComponent2D.Type.FUNNEL:
 		_enable()
 
-	elif side == 0 and slot.side == SceneMapComponent2D.Side.LEFT and direction == 0:
+	elif button_side == 0 and slot.side == SceneMapComponent2D.Side.LEFT and direction == 0:
 		_enable()
 
-	elif side == 0 and slot.side == SceneMapComponent2D.Side.RIGHT and direction == 1:
+	elif button_side == 0 and slot.side == SceneMapComponent2D.Side.RIGHT and direction == 1:
 		_enable()
 
-	elif side == 1 and slot.side == SceneMapComponent2D.Side.LEFT and direction == 1:
+	elif button_side == 1 and slot.side == SceneMapComponent2D.Side.LEFT and direction == 1:
 		_enable()
 
-	elif side == 1 and slot.side == SceneMapComponent2D.Side.RIGHT and direction == 0:
+	elif button_side == 1 and slot.side == SceneMapComponent2D.Side.RIGHT and direction == 0:
 		_enable()
 
 
@@ -71,8 +72,8 @@ func _has_connections() -> bool:
 
 	match slot.type:
 		SceneMapComponent2D.Type.FUNNEL:
-			return (slot.side == SceneMapComponent2D.Side.LEFT and ((side == 0 and incoming) or (side == 1 and outgoing))) \
-				or (slot.side == SceneMapComponent2D.Side.RIGHT and ((side == 0 and outgoing) or (side == 1 and incoming)))
+			return (slot.side == SceneMapComponent2D.Side.LEFT and ((button_side == 0 and incoming) or (button_side == 1 and outgoing))) \
+				or (slot.side == SceneMapComponent2D.Side.RIGHT and ((button_side == 0 and outgoing) or (button_side == 1 and incoming)))
 		SceneMapComponent2D.Type.TWO_WAY:
 			return incoming or outgoing
 		SceneMapComponent2D.Type.EXIT:
@@ -86,19 +87,19 @@ func _has_connections() -> bool:
 func _get_connections() -> Array[SceneMapSlot]:
 	match slot.type:
 		SceneMapComponent2D.Type.FUNNEL:
-			if side == 0 and slot.side == SceneMapComponent2D.Side.LEFT:
+			if button_side == 0 and slot.side == SceneMapComponent2D.Side.LEFT:
 				return slot.get_connections(0)
-			if side == 0 and slot.side == SceneMapComponent2D.Side.RIGHT:
+			if button_side == 0 and slot.side == SceneMapComponent2D.Side.RIGHT:
 				return slot.get_connections(1)
-			if side == 1 and slot.side == SceneMapComponent2D.Side.LEFT:
+			if button_side == 1 and slot.side == SceneMapComponent2D.Side.LEFT:
 				return slot.get_connections(1)
-			if side == 1 and slot.side == SceneMapComponent2D.Side.RIGHT:
+			if button_side == 1 and slot.side == SceneMapComponent2D.Side.RIGHT:
 				return slot.get_connections(0)
 			else:
 				return []
 
 		SceneMapComponent2D.Type.TWO_WAY:
-			return slot.get_connections(side)
+			return slot.get_connections(button_side)
 		SceneMapComponent2D.Type.EXIT:
 			return slot.get_connections(1)
 		SceneMapComponent2D.Type.ENTRY:
@@ -112,9 +113,9 @@ func _remove_connections() -> void:
 
 	var conn : SceneMapSlot = connections[0]
 
-	if side == 0:
+	if button_side == 0:
 		for connection in connections:
-			graph_edit.disconnection_request.emit(
+			control.graph_edit.disconnection_request.emit(
 				connection.scene_uid,
 				connection.index,
 				slot.scene_uid,
@@ -123,7 +124,7 @@ func _remove_connections() -> void:
 
 	else:
 		for connection in connections:
-			graph_edit.disconnection_request.emit(
+			control.graph_edit.disconnection_request.emit(
 				slot.scene_uid,
 				slot.index,
 				connection.scene_uid,

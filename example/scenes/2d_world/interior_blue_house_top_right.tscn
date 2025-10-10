@@ -49,6 +49,7 @@ custom_name = "Left"
 type = 3
 side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_uid = "5820275138010836501"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent6"]
 texture = ExtResource("5_d0cu5")
@@ -77,6 +78,7 @@ custom_name = "Bottom-Left"
 type = 3
 side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_uid = "7110762780992844379"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent"]
 texture = ExtResource("5_d0cu5")
@@ -102,8 +104,9 @@ z_index = -1
 position = Vector2(983, 610)
 script = ExtResource("4_gm4e1")
 custom_name = "Bottom-Right"
-type = 3
+side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_uid = "3930258146925196656"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent2"]
 texture = ExtResource("5_d0cu5")

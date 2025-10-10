@@ -13,7 +13,7 @@ const SM_Constants := preload("uid://cjynbj0oq1sx1")
 const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
 const SM_ResourceTools := preload("uid://b71h2bnocse6c")
 const SM_SceneSaver := preload("uid://7svcgc01kw2b")
-const SM_DisconnectButton := preload("uid://0s4l0pgfen4i")
+const SM_SlotControl := preload("uid://bxwe2c1at0aom")
 const SM_SlotResource := preload("uid://p2mmnni4huyo")
 
 var graph_node : SceneMapNode
@@ -38,7 +38,7 @@ func register_slots() -> void:
 	var components := SM_ComponentFinder.find_all_components(scene_values.instance)
 
 	# Sets an invisible node, otherwise the rest of nodes won't work properly
-	graph_node.set_slot(0, true, -1, Color.TRANSPARENT, true, 1, Color.TRANSPARENT)
+	graph_node.set_slot(0, true, -1, Color.TRANSPARENT, true, -1, Color.TRANSPARENT)
 
 	# Iterates each component from each type and registers them
 	for key in components.keys():
@@ -118,6 +118,7 @@ func _create_and_attach_slot(data: Dictionary) -> SceneMapSlot:
 
 	# Retrieves the information from the dictionary
 	var slot := SceneMapSlot.new(
+		graph_node,
 		data.type,
 		data.side,
 		data.index,
@@ -131,12 +132,11 @@ func _create_and_attach_slot(data: Dictionary) -> SceneMapSlot:
 	)
 
 	# Creates the buttons and text from the slot
-	generate_slot_controls(data.index, data.component_name, data.type, data.side, slot)
+	var control := SM_SlotControl.new(graph_node, slot)
+	graph_node.add_child(control)
 
 	# Sets the slot index and position in the graph node
 	set_slot(data.index, data.left, data.right, data.left_icon, data.right_icon)
-
-	graph_node.add_child(slot)
 	graph_node.component_slots.append(slot)
 
 	return slot
@@ -188,66 +188,12 @@ func set_slot(index : int, left_side : bool, right_side : bool, left_icon_path :
 	var right_icon : Texture2D = load(right_icon_path)
 
 	var left_type := 0 if left_side else -1
-	var right_type := 0 if right_side else 1
-	var left_color := Color.WHITE if left_side else Color.BLACK
-	var right_color := Color.WHITE if right_side else Color.BLACK
+	var right_type := 0 if right_side else -1
+	var left_color := Color.WHITE if left_side else Color.TRANSPARENT
+	var right_color := Color.WHITE if right_side else Color.TRANSPARENT
 
 	# Adds the slot to the graph node
-	graph_node.set_slot(
-		index,
-		true, left_type, left_color,
-		true, right_type, right_color,
-		left_icon, right_icon
-	)
+	graph_node.set_slot(index, true, left_type, left_color, true, right_type, right_color)
 
-
-## Creates the buttons and text labels for the slot depending on the [SceneMapComponent] type and side.
-func generate_slot_controls(index : int, name : String, type : SceneMapComponent2D.Type, side : SceneMapComponent2D.Side, slot : SceneMapSlot) -> void:
-	var control := _create_control()
-
-	if type == SceneMapComponent2D.Type.FUNNEL:
-		_create_disconnect_button(control, slot, 0)
-		_create_label(control, index, name)
-		_create_disconnect_button(control, slot, 1)
-
-	else:
-		if side == SceneMapComponent2D.Side.LEFT:
-			_create_disconnect_button(control, slot, 0)
-			_create_label(control, index, name)
-			_create_empty_space(control)
-
-		if side == SceneMapComponent2D.Side.RIGHT:
-			_create_empty_space(control)
-			_create_label(control, index, name)
-			_create_disconnect_button(control, slot, 1)
-
-
-func _create_control() -> HBoxContainer:
-	var control := HBoxContainer.new()
-	control.add_theme_constant_override("separation", -5)
-	control.set_anchors_preset(Control.LayoutPreset.PRESET_HCENTER_WIDE)
-	graph_node.add_child(control)
-	return control
-
-
-func _create_disconnect_button(control : HBoxContainer, slot : SceneMapSlot, side : int) -> SM_DisconnectButton:
-	var button := SM_DisconnectButton.new(graph_node.get_parent(), slot, side)
-	control.add_child(button)
-	return button
-
-
-func _create_label(control : HBoxContainer, index, text : String) -> Label:
-	var label = Label.new()
-	label.text = str(index) + ". " + text
-	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	control.add_child(label)
-	return label
-
-
-func _create_empty_space(control) -> Control:
-	var spacer = Control.new()
-	spacer.custom_minimum_size.x = 28
-	control.add_child(spacer)
-	return spacer
+	graph_node.set_slot_custom_icon_left(index, left_icon)
+	graph_node.set_slot_custom_icon_right(index, right_icon)

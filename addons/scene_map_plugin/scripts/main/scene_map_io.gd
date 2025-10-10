@@ -70,13 +70,13 @@ static func load(graph : SceneMapGraph) -> void:
 	for node_resource in graph_resource.nodes:
 
 		# Creates an actual graph node
-		var node = SceneMapNode.new(node_resource.scene_uid, node_resource.scene_name, false)
+		var node = SceneMapNode.new(graph, node_resource.scene_uid, node_resource.scene_name, false)
 		node.position_offset = node_resource.offset
 
 		graph.add_child(node)
 		await node.node_ready
 
-		node.set_slot(0, true, 1, Color.TRANSPARENT, true, 1, Color.TRANSPARENT)
+		node.set_slot(0, true, -1, Color.TRANSPARENT, true, -1, Color.TRANSPARENT)
 		
 		# Iterates each slot in the node
 		for slot_resource in node_resource.component_slots:

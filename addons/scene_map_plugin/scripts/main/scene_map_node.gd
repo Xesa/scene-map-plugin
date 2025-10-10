@@ -14,6 +14,8 @@ const SM_NodePreviewer := preload("uid://brgihuj5exdgu")
 const SM_SlotRegistrator := preload("uid://bj10g5ips4ubj")
 const SM_SceneSaver := preload("uid://7svcgc01kw2b")
 
+var graph_edit : SceneMapGraph
+
 var scene_name : String
 var scene_uid : String
 
@@ -27,7 +29,8 @@ signal node_deleted(node : SceneMapNode)
 signal node_ready()
 
 
-func _init(_scene_uid : String, _scene_name : String,  _set_to_create : bool = true) -> void:
+func _init(_graph_edit : SceneMapGraph, _scene_uid : String, _scene_name : String,  _set_to_create : bool = true) -> void:
+	graph_edit = _graph_edit
 	scene_name = _scene_name
 	scene_uid = _scene_uid
 	title = scene_name
