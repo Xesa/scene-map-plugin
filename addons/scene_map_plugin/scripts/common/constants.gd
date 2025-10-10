@@ -14,12 +14,17 @@ const PANEL_PATH := SCRIPTS_PATH + "gui/dialogs/scene_map_panel.tscn"
 
 const MAP_ICON := ASSETS_PATH + "map-icon.svg"
 const ADD_ICON := ASSETS_PATH + "add-icon.svg"
+const MARKER_ICON := ASSETS_PATH + "marker-icon.svg"
+
 const ARROW_LEFT := ASSETS_PATH + "arrow-left.svg"
 const ARROW_RIGHT := ASSETS_PATH + "arrow-right.svg"
 const ARROW_DOUBLE := ASSETS_PATH + "arrow-double.svg"
+
 const DISCONNECT_ICON := ASSETS_PATH + "disconnect-icon.svg"
 const SIDES_ICON := ASSETS_PATH + "sides-icon.svg"
-const MARKER_ICON := ASSETS_PATH + "marker-icon.svg"
+const TYPE_ICON := ASSETS_PATH + "edit-icon.svg"
+const EDIT_ICON := ASSETS_PATH + "edit-icon.svg"
+
 
 const VIEWPORT_SIZE := Vector2i(256,256)
 

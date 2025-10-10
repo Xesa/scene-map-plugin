@@ -56,21 +56,29 @@ static func update_connection(from_slot : SceneMapSlot, to_slot : SceneMapSlot, 
 	var scene_resource : PackedScene = scene_values["resource"]
 	var scene_instance : Node = scene_values["instance"]
 
+	# Gets the slots info
+	var from_node := from_slot.scene_uid
+	var from_port := from_slot.index
+	var to_node := to_slot.scene_uid
+	var to_port := to_slot.index
+
 	# Gets the component
 	var component := SM_ComponentFinder.search_component_by_uid(scene_instance, from_slot.component_uid)
-	
 
 	# If the component is inside a packed scene, sets the owner's children as editable
 	if component.owner != scene_instance and scene_instance.is_editable_instance(component.owner) == false:
 		scene_instance.set_editable_instance(component.owner, true)
+
 
 	# Updates connection info to the slot
 	if action == Action.CONNECT:
 		component._set_next_scene(to_slot.scene_uid, to_slot.component_uid)
 		await from_slot.add_connection(to_slot, 1)
 		await to_slot.add_connection(from_slot, 0)
+		graph.connect_node(from_node, from_port, to_node, to_port)
 	
 	if action == Action.DISCONNECT:
+		graph.disconnect_node(from_node, from_port, to_node, to_port)
 		await from_slot.remove_connection(to_slot, 1)
 		await to_slot.remove_connection(from_slot, 0)
 		component._remove_next_scene()

@@ -54,8 +54,8 @@ rotation = -1.5708
 script = ExtResource("4_mlq7p")
 custom_name = "Right"
 type = 0
+side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "4949281438705790005"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent5"]
 texture = ExtResource("5_1ktcm")
@@ -84,7 +84,6 @@ script = ExtResource("4_mlq7p")
 custom_name = "Top-Left"
 type = 1
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "652229388085196025"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent2"]
 texture = ExtResource("5_1ktcm")

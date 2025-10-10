@@ -3,6 +3,7 @@ extends HBoxContainer
 const SM_SlotLabel := preload("uid://cpfngl4lqra2j")
 const SM_DisconnectButton := preload("uid://0s4l0pgfen4i")
 const SM_SidesButton := preload("uid://1wnhcluu7sn4")
+const SM_TypeButton := preload("uid://tsvhet57a7bv")
 
 var graph_edit : SceneMapGraph
 var graph_node : SceneMapNode
@@ -14,8 +15,11 @@ var subcontainer : HBoxContainer
 var label : SM_SlotLabel
 var left_disconnect_button : SM_DisconnectButton
 var right_disconnect_button: SM_DisconnectButton
-var edit_button
+var type_button : SM_TypeButton
 var sides_button : SM_SidesButton
+
+var type_menu_open := false
+var edit_menu_open := false
 
 
 func _init(_graph_node : SceneMapNode, _slot : SceneMapSlot) -> void:
@@ -48,8 +52,9 @@ func _ready() -> void:
 
 	# Creates the center buttons
 	sides_button = SM_SidesButton.new(self, slot)
+	type_button = SM_TypeButton.new(self, slot)
 	subcontainer.add_child(sides_button)
-	subcontainer.add_child(SM_SidesButton.new(self, slot))
+	subcontainer.add_child(type_button)
 
 	# Creates disconnect buttons
 	left_disconnect_button = SM_DisconnectButton.new(self, slot, 0)
@@ -66,12 +71,37 @@ func _ready() -> void:
 
 
 func _on_mouse_entered() -> void:
-	label.visible = false
-	subcontainer.visible = true
-	sides_button.disabled = false
+	_toggle_subcontrol_visibility(true)
 
 
 func _on_mouse_exited() -> void:
-	label.visible = true
-	subcontainer.visible = false
-	sides_button.disabled = true
+	if !type_menu_open and !edit_menu_open:
+		_toggle_subcontrol_visibility(false)
+
+
+func _on_type_menu_toggled(toggle : bool = false) -> void:
+	type_menu_open = toggle
+	if !toggle:
+		_toggle_subcontrol_visibility(false)
+
+
+func _on_edit_menu_toggled(toggle : bool = false) -> void:
+	edit_menu_open = toggle
+	if !toggle:
+		_toggle_subcontrol_visibility(false)
+
+
+func _toggle_subcontrol_visibility(toggle : bool) -> void:
+	label.visible = !toggle
+	subcontainer.visible = toggle
+	sides_button.disabled = !toggle
+	type_button.disabled = !toggle
+
+
+func force_drag_release():
+	graph_node.selected = false
+	var ev := InputEventMouseButton.new()
+	ev.button_index = MOUSE_BUTTON_LEFT
+	ev.pressed = false
+	ev.position = get_global_mouse_position()
+	graph_edit.gui_input.emit(ev)

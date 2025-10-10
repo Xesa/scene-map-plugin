@@ -50,6 +50,8 @@ var connected_from : Array[SceneMapSlot]
 
 signal connection_added(connection : SceneMapSlot, direction : int)
 signal connection_removed(connection : SceneMapSlot, direction : int)
+signal side_changed(side : SceneMapComponent2D.Side)
+signal type_changed(type : SceneMapComponent2D.Type)
 
 
 func _init(_graph_node : SceneMapNode, _type : SceneMapComponent2D.Type = 0, _side : SceneMapComponent2D.Side = 0,
@@ -155,7 +157,7 @@ func remove_all_connections() -> void:
 ## Deleting a slot will also remove the [component_uid], [next_scene_uid] and [next_component_uid]
 ## metadata values from the [SceneMapComponent]
 func delete() -> void:
-	remove_all_connections()
+	await remove_all_connections()
 	var scene_values := SM_SceneSaver.open_scene(scene_uid)
 	var component := SM_ComponentFinder.search_component_by_uid(scene_values["instance"], component_uid)
 	component._remove_component_uid()
@@ -180,9 +182,9 @@ func change_sides() -> void:
 
 	if type == SceneMapComponent2D.Type.FUNNEL:
 		if side == SceneMapComponent2D.Side.LEFT:
-			_update_side_info(true, true, 0, 0, SceneMapComponent2D.Side.RIGHT, component)
+			_update_side_info(true, true, 1, 1, SceneMapComponent2D.Side.RIGHT, component)
 		else:
-			_update_side_info(true, true, 1, 1, SceneMapComponent2D.Side.LEFT, component)
+			_update_side_info(true, true, 0, 0, SceneMapComponent2D.Side.LEFT, component)
 
 	else:
 		if side == SceneMapComponent2D.Side.LEFT:
@@ -190,9 +192,61 @@ func change_sides() -> void:
 		else:
 			_update_side_info(true, false, 0, 1, SceneMapComponent2D.Side.LEFT, component)
 
-	# TODO: hay que a rreglar esto para que realmente borre las conexiones del graph
-	remove_all_connections()
+	await remove_all_connections()
+
+	SM_SceneSaver.save()
 	
+	_update_slot_configuration()
+
+	side_changed.emit(side)
+	SceneMapIO.save(graph_node.get_parent())
+
+
+func change_type(new_type : SceneMapComponent2D.Type) -> void:
+
+	if type == new_type:
+		return
+
+	var scene_values := SM_SceneSaver.open_scene(scene_uid)
+	var component := SM_ComponentFinder.search_component_by_uid(scene_values["instance"], component_uid)
+
+	type = new_type
+	component.type = type
+
+	if type == SceneMapComponent2D.Type.FUNNEL:
+		if side == SceneMapComponent2D.Side.LEFT:
+			_update_side_info(true, true, 0, 0, side, component)
+		else:
+			_update_side_info(true, true, 1, 1, side, component)
+
+	else:
+		if side == SceneMapComponent2D.Side.LEFT:
+			_update_side_info(true, false, 0, 1, side, component)
+		else:
+			_update_side_info(false, true, 0, 1, side, component)
+
+	await remove_all_connections()
+
+	SM_SceneSaver.save()
+	
+	_update_slot_configuration()
+
+	type_changed.emit(type)
+	SceneMapIO.save(graph_node.get_parent())
+	
+
+func _update_side_info(_left : bool, _right : bool, _left_icon_index : int, _right_icon_index : int, _side : SceneMapComponent2D.Side, component : SceneMapComponent2D) -> void:
+	var slot_config : Dictionary = SM_Constants.SLOT_CONFIG[type]
+	left = _left
+	right = _right
+	left_icon = slot_config["icons"][_left_icon_index]
+	right_icon = slot_config["icons"][_right_icon_index]
+	side = _side
+	component.side = side
+
+
+func _update_slot_configuration() -> void:
+
 	var left_icon := load(left_icon)
 	var right_icon := load(right_icon)
 
@@ -205,20 +259,3 @@ func change_sides() -> void:
 
 	graph_node.set_slot_custom_icon_left(index, left_icon)
 	graph_node.set_slot_custom_icon_right(index, right_icon)
-
-	SceneMapIO.save(graph_node.get_parent())
-	
-	
-
-func _update_side_info(_left : bool, _right : bool, _left_icon_index : int, _right_icon_index : int, _side : SceneMapComponent2D.Side, component : SceneMapComponent2D) -> void:
-			var slot_config : Dictionary = SM_Constants.SLOT_CONFIG[type]
-			left = _left
-			right = _right
-			left_icon = slot_config["icons"][_left_icon_index]
-			right_icon = slot_config["icons"][_right_icon_index]
-			side = _side
-			component.side = side
-
-
-
-

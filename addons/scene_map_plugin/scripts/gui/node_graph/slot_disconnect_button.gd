@@ -7,6 +7,7 @@ var control : SM_SlotControl
 var slot : SceneMapSlot
 var is_connected := false
 var button_side : int
+var force_disabled := false
 
 func _init(_control : SM_SlotControl, _slot : SceneMapSlot, _button_side : int) -> void:
 	control = _control
@@ -16,12 +17,15 @@ func _init(_control : SM_SlotControl, _slot : SceneMapSlot, _button_side : int) 
 	flat = true
 	disabled = true
 	tooltip_text = "Remove connections"
+	_toggle_visibility()
 
 
 func _ready() -> void:
 	pressed.connect(_on_button_pressed)
 	slot.connection_added.connect(_on_connection_added)
 	slot.connection_removed.connect(_on_connection_removed)
+	slot.side_changed.connect(_toggle_visibility)
+	slot.type_changed.connect(_toggle_visibility)
 
 	if _has_connections():
 		_enable()
@@ -56,8 +60,9 @@ func _on_connection_removed(_connection : SceneMapSlot, _direction : int) -> voi
 
 
 func _enable() -> void:
-	is_connected = true
-	disabled = false
+	if !force_disabled:
+		is_connected = true
+		disabled = false
 
 
 func _disable() -> void:
@@ -107,6 +112,7 @@ func _get_connections() -> Array[SceneMapSlot]:
 		_:
 			return []
 
+
 func _remove_connections() -> void:
 
 	var connections := _get_connections()
@@ -130,3 +136,17 @@ func _remove_connections() -> void:
 				connection.scene_uid,
 				connection.index
 			)
+
+
+func _toggle_visibility(_variant : Variant = null) -> void:
+	if slot.type == SceneMapComponent2D.Type.FUNNEL or \
+		(button_side == 0 and slot.side == SceneMapComponent2D.Side.LEFT) or \
+		(button_side == 1 and slot.side == SceneMapComponent2D.Side.RIGHT):
+		force_disabled = false
+		modulate.a = 1
+
+	else:
+		force_disabled = true
+		disabled = true
+		modulate.a = 0
+

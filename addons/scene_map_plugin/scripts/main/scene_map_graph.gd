@@ -13,12 +13,10 @@ func _ready() -> void:
 	
 
 func _on_connection_request(from_node, from_port, to_node, to_port) -> void:
-	connect_node(from_node, from_port, to_node, to_port)
 	SM_SlotConnector.make_connection(from_node, from_port, to_node, to_port, true, self)
 	
 
 func _on_disconnection_request(from_node, from_port, to_node, to_port) -> void:
-	disconnect_node(from_node, from_port, to_node, to_port)
 	SM_SlotConnector.make_connection(from_node, from_port, to_node, to_port, false, self)
 
 
