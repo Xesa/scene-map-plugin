@@ -48,7 +48,7 @@ static func make_connection(from_node, from_port, to_node, to_port, connect : bo
 ## [next_scene_uid] and [next_component_uid] metadata values in their associated [SceneMapComponent].[br]
 ## Once the connection is completed, both [SceneMapSlot] will have their [connected_to]
 ## and [connected_from] properties updated, pointing to each other.
-static func update_connection(from_slot : SceneMapSlot, to_slot : SceneMapSlot, action : Action ) -> void:
+static func update_connection(from_slot : SceneMapSlot, to_slot : SceneMapSlot, action : Action) -> void:
 	
 	# Opens the node's scene
 	var scene_values := await SM_SceneSaver.open_scene(from_slot.scene_uid)
@@ -61,6 +61,14 @@ static func update_connection(from_slot : SceneMapSlot, to_slot : SceneMapSlot, 
 	var from_port := from_slot.index
 	var to_node := to_slot.scene_uid
 	var to_port := to_slot.index
+
+	var direction := SM_ConnectionValidator.get_connection_direction(from_slot, to_slot)
+
+	if direction == -1:
+		from_node = to_slot.scene_uid
+		from_port = to_slot.index
+		to_node = from_slot.scene_uid
+		to_port = from_slot.index
 
 	# Gets the component
 	var component := SM_ComponentFinder.search_component_by_uid(scene_instance, from_slot.component_uid)

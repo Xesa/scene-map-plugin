@@ -64,8 +64,10 @@ debug_color = Color(0.818575, 0.366237, 0.457979, 0.42)
 position = Vector2(0, 72)
 script = ExtResource("5_ndlqu")
 custom_name = "Red House Bottom"
+type = 3
+side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "2533026089012748741"
+metadata/_component_uid = "6802984744545607535"
 
 [node name="SceneMapComponentMarker2D" parent="RedHouse/SceneMapComponent1" index="0"]
 position = Vector2(0, 36)
@@ -86,10 +88,9 @@ shape = SubResource("RectangleShape2D_7aome")
 z_index = 1
 script = ExtResource("5_ndlqu")
 custom_name = "Red House Top"
-type = 0
-side = 0
+type = 3
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "7273185933813232311"
+metadata/_component_uid = "2687867522766755725"
 
 [node name="SceneMapComponentMarker2D2" type="Marker2D" parent="RedHouse/SceneMapComponent2"]
 position = Vector2(0, -68)
@@ -125,11 +126,9 @@ debug_color = Color(0.818575, 0.366237, 0.457979, 0.42)
 position = Vector2(0, 72)
 script = ExtResource("5_ndlqu")
 custom_name = "Blue House"
-type = 1
+side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "8060749955349255086"
-metadata/_next_scene_uid = "cwtf45gw77uak"
-metadata/_next_component_uid = "53977789704496017"
+metadata/_component_uid = "2936896206946436859"
 
 [node name="SceneMapComponentMarker2D" parent="BlueHouse/SceneMapComponent1" index="0"]
 position = Vector2(0, 36)

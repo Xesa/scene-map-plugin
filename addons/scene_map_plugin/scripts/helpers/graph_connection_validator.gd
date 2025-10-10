@@ -68,3 +68,17 @@ static func get_connection_type(from_slot : SceneMapSlot, to_slot : SceneMapSlot
 			return -1
 
 	return 0
+
+
+static func get_connection_direction(from_slot : SceneMapSlot, to_slot : SceneMapSlot) -> int:
+
+	if from_slot.type == SceneMapComponent2D.Type.FUNNEL:
+		if from_slot.side == SceneMapComponent2D.Side.LEFT:
+			return 1
+		else:
+			return -1
+	
+	elif from_slot.side == SceneMapComponent2D.Side.LEFT:
+		return -1
+	else:
+		return 1

@@ -41,7 +41,7 @@ func _ready() -> void:
 
 	subcontainer = HBoxContainer.new()
 	subcontainer.visible = false
-	subcontainer.add_theme_constant_override("separation", -10)
+	subcontainer.add_theme_constant_override("separation", -5)
 	subcontainer.alignment = HBoxContainer.ALIGNMENT_CENTER
 	subcontainer.size_flags_horizontal = Control.SizeFlags.SIZE_EXPAND_FILL
 	subcontrol.add_child(subcontainer)
