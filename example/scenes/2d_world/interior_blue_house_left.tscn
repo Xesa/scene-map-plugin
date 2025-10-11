@@ -53,8 +53,6 @@ position = Vector2(1115, 350)
 rotation = -1.5708
 script = ExtResource("4_mlq7p")
 custom_name = "Right"
-type = 0
-side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent5"]
@@ -82,7 +80,6 @@ position = Vector2(166, 150)
 rotation = 3.14159
 script = ExtResource("4_mlq7p")
 custom_name = "Top-Left"
-type = 1
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent2"]

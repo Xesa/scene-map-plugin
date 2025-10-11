@@ -91,3 +91,10 @@ func get_component_slot(index : int, side : int) -> SceneMapSlot:
 		if slot.index == index and (slot.side == side or slot.type == SceneMapComponent2D.Type.FUNNEL):
 			return slot
 	return null
+
+
+func get_component_slot_by_uid(component_uid) -> SceneMapSlot:
+	for slot in component_slots:
+		if slot.component_uid == component_uid:
+			return slot
+	return null

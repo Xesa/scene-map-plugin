@@ -29,6 +29,11 @@ script = ExtResource("1_tg1nb")
 default_spawn_node = NodePath("RedHouse/SceneMapComponent1")
 metadata/_custom_type_script = "uid://dwu4scnijfokr"
 
+[node name="ExampleSceneMapComponent2D5" type="Node2D" parent="."]
+script = ExtResource("5_ndlqu")
+metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_uid = "3803403875184253341"
+
 [node name="TileMap" type="Node2D" parent="."]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="TileMap"]
@@ -64,10 +69,8 @@ debug_color = Color(0.818575, 0.366237, 0.457979, 0.42)
 position = Vector2(0, 72)
 script = ExtResource("5_ndlqu")
 custom_name = "Red House Bottom"
-type = 3
-side = 0
+type = 1
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "6802984744545607535"
 
 [node name="SceneMapComponentMarker2D" parent="RedHouse/SceneMapComponent1" index="0"]
 position = Vector2(0, 36)
@@ -88,9 +91,9 @@ shape = SubResource("RectangleShape2D_7aome")
 z_index = 1
 script = ExtResource("5_ndlqu")
 custom_name = "Red House Top"
-type = 3
+type = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "2687867522766755725"
+metadata/_component_uid = "2524884935001971630"
 
 [node name="SceneMapComponentMarker2D2" type="Marker2D" parent="RedHouse/SceneMapComponent2"]
 position = Vector2(0, -68)
@@ -126,9 +129,7 @@ debug_color = Color(0.818575, 0.366237, 0.457979, 0.42)
 position = Vector2(0, 72)
 script = ExtResource("5_ndlqu")
 custom_name = "Blue House"
-side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "2936896206946436859"
 
 [node name="SceneMapComponentMarker2D" parent="BlueHouse/SceneMapComponent1" index="0"]
 position = Vector2(0, 36)
@@ -144,6 +145,20 @@ metadata/_custom_type_script = "uid://dq0hvvxswuvvk"
 
 [node name="CollisionShape2D" parent="BlueHouse/SceneMapComponent1/SceneMapComponentArea2D" index="0"]
 shape = SubResource("RectangleShape2D_7aome")
+
+[node name="ExampleSceneMapComponent2D" type="Node2D" parent="."]
+script = ExtResource("5_ndlqu")
+side = 0
+metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_uid = "4854760448242863048"
+
+[node name="NEWExampleSceneMapComponent2D2" type="Node2D" parent="."]
+script = ExtResource("5_ndlqu")
+metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+
+[node name="ExampleSceneMapComponent2D4" type="Node2D" parent="."]
+script = ExtResource("5_ndlqu")
+metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
 
 [editable path="RedHouse"]
 [editable path="BlueHouse"]

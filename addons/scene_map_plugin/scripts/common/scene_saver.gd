@@ -5,11 +5,30 @@ const SM_ResourceTools := preload("uid://b71h2bnocse6c")
 
 
 static var scenes := {}
+static var scene_tabs : TabBar
+
+
+static func get_scene_tabs() -> void:
+	if scene_tabs == null:
+		var base_control := EditorInterface.get_base_control()
+		var scene_tabs_container := base_control.find_child("*EditorSceneTabs*", true, false)
+		scene_tabs = scene_tabs_container.find_child("*TabBar*", true, false)
 
 
 static func start() -> void:
 	await Engine.get_main_loop().process_frame
-	EditorInterface.save_all_scenes()
+	
+	get_scene_tabs()
+
+	var any_unsaved_scene := false
+	for i in range(0, scene_tabs.tab_count):
+		if scene_tabs.get_tab_title(i).ends_with("(*)"):
+			any_unsaved_scene = true
+			break
+
+	if any_unsaved_scene:
+		EditorInterface.save_all_scenes()
+	
 	scenes = {}
 
 
@@ -45,7 +64,7 @@ static func save() -> void:
 		# Saves the new changes to the scene
 		scene_resource.pack(scene_instance)
 		await ResourceSaver.save(scene_resource, scene_path)
-		await Engine.get_main_loop().process_frame
+		#await Engine.get_main_loop().process_frame
 
 		# Reloads the scene to show the changes in the editor
 		EditorInterface.reload_scene_from_path(scene_path)

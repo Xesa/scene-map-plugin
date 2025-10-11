@@ -41,9 +41,8 @@ func register_slots() -> void:
 	graph_node.set_slot(0, true, -1, Color.TRANSPARENT, true, -1, Color.TRANSPARENT)
 
 	# Iterates each component from each type and registers them
-	for key in components.keys():
-		for component in components[key]:
-			register_new_slot(component)
+	for component in components:
+		register_new_slot(component)
 
 	# Saves the scene
 	await SM_SceneSaver.save()

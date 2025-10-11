@@ -24,8 +24,10 @@ const SM_Constants := preload("uid://cjynbj0oq1sx1")
 const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
 const SM_SlotConnector := preload("uid://1mcwq8t36pgx")
 const SM_SceneSaver := preload("uid://7svcgc01kw2b")
+const SM_SlotControl := preload("uid://bxwe2c1at0aom")
 
 var graph_node : SceneMapNode
+var control : SM_SlotControl
 
 var slot_id : String
 var index : int
@@ -160,8 +162,16 @@ func delete() -> void:
 	await remove_all_connections()
 	var scene_values := SM_SceneSaver.open_scene(scene_uid)
 	var component := SM_ComponentFinder.search_component_by_uid(scene_values["instance"], component_uid)
-	component._remove_component_uid()
-	component._remove_next_scene()
+
+	if component:
+		component._remove_component_uid()
+		component._remove_next_scene()
+
+	if control:
+		control.queue_free()
+
+	if graph_node.component_slots.has(self):
+		graph_node.component_slots.erase(self)
 
 
 ## Adds or removes a connection with another [SceneMapSlot]. This method uses the

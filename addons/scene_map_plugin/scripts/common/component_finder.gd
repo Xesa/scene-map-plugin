@@ -1,25 +1,16 @@
 extends Node
 
 
-static func find_all_components(node: Node) -> Dictionary:
-	var components := {
-		"entrances": [],
-		"exits": [],
-		"two_ways": [],
-		"funnels": []
-	}
+static func find_all_components(node: Node) -> Array:
+	var components := []
 
 	_collect_components(node, components)
 	return components
 
 
-static func _collect_components(node: Node, components: Dictionary) -> void:
+static func _collect_components(node: Node, components: Array) -> void:
 	if node is SceneMapComponent2D:
-		match node.type:
-			SceneMapComponent2D.Type.ENTRY: components.entrances.append(node)
-			SceneMapComponent2D.Type.EXIT: components.exits.append(node)
-			SceneMapComponent2D.Type.TWO_WAY: components.two_ways.append(node)
-			SceneMapComponent2D.Type.FUNNEL: components.funnels.append(node)
+		components.append(node)
 
 	for child in node.get_children():
 		_collect_components(child, components)

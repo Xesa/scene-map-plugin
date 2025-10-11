@@ -23,10 +23,13 @@ var edit_menu_open := false
 
 
 func _init(_graph_node : SceneMapNode, _slot : SceneMapSlot) -> void:
+	name = _slot.component_uid
 	graph_edit = _graph_node.get_parent()
 	graph_node = _graph_node
 	slot = _slot
 	index = slot.index
+
+	slot.control = self
 
 
 func _ready() -> void:

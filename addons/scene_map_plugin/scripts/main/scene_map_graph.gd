@@ -37,3 +37,29 @@ func _on_node_deleted(node : SceneMapNode) -> void:
 	node.queue_free()
 	await Engine.get_main_loop().process_frame
 	SceneMapIO.save(self)
+
+
+func make_connection_by_uid(from_node, from_port, to_node, to_port) -> void:
+	var from_graph_node : SceneMapNode = get_node(NodePath(from_node))
+	var to_graph_node : SceneMapNode = get_node(NodePath(to_node))
+
+	var from_slot := from_graph_node.get_component_slot_by_uid(from_port)
+	var to_slot := to_graph_node.get_component_slot_by_uid(to_port)
+
+	connection_request.emit(from_node, from_slot.index, to_node, to_slot.index)
+
+
+func get_node_connections(graph_node : SceneMapNode) -> Dictionary:
+	var node_connections := {}
+
+	for connection in connections:
+
+		if connection["from_node"] == graph_node.scene_uid:
+			var from_slot := get_slot_info(connection["from_node"], connection["from_port"], 1)
+			node_connections[from_slot.index] = connection
+
+		if connection["to_node"] == graph_node.scene_uid:
+			var to_slot := get_slot_info(connection["to_node"], connection["to_port"], 0)
+			node_connections[to_slot.index] = connection
+
+	return node_connections

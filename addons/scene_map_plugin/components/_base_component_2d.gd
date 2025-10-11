@@ -51,6 +51,21 @@ enum Side {
 	RIGHT,	## The node will appear in the right side. In [code]FUNNEL[/code] mode the left side will be the exit and the right side will be the entrance (right-to-left).
 }
 
+func set_component_type(_type : Type) -> void:
+	type = _type
+
+
+func set_component_side(_side : SceneMapComponent2D.Side) -> void:
+	side = _side
+
+
+func set_custom_name(_custom_name : String) -> void:
+	custom_name = _custom_name
+
+
+func remove_custom_name() -> void:
+	custom_name = ""
+
 
 ## Sets the [component_uid] value in the component's metadata.
 ## [b]This method is reserved for the plugin and shouldn't be called anywhere else.[/b]
@@ -98,6 +113,18 @@ func get_next_scene_uid() -> Variant:
 ## Returns the [next_component_uid] value from this component's metadata. If the value is [null] an error is generated.
 func get_next_component_uid() -> Variant:
 	return get_meta(&"_next_component_uid")
+
+
+func get_component_type() -> Type:
+	return type
+
+
+func get_component_side() -> SceneMapComponent2D.Side:
+	return side
+
+
+func get_custom_name() -> String:
+	return custom_name
 
 
 ## Loads the next scene and sets it to the [next_scene_resource] property.
