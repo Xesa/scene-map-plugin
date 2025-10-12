@@ -1,5 +1,7 @@
 extends Node
 
+const SM_Enums := preload("uid://cukwm8rnmlicq")
+
 static var VERSION : String
 
 const PLUGIN_NAME := "SceneMap"
@@ -31,8 +33,8 @@ const VIEWPORT_SIZE := Vector2i(256,256)
 const GITHUB_LINK := "http://www.google.com/"
 
 const SLOT_CONFIG := {
-		SceneMapComponent2D.Type.ENTRY:	{"label": "Entrance",	"icons": [ARROW_RIGHT, ARROW_LEFT]},
-		SceneMapComponent2D.Type.EXIT:	{"label": "Exit",		"icons": [ARROW_LEFT, ARROW_RIGHT]},
-		SceneMapComponent2D.Type.TWO_WAY:	{"label": "Two-way",	"icons": [ARROW_DOUBLE, ARROW_DOUBLE]},
-		SceneMapComponent2D.Type.FUNNEL:	{"label": "Funnel",		"icons": [ARROW_RIGHT, ARROW_LEFT]},
+		SM_Enums.Type.ENTRY:	{"label": "Entrance",	"icons": [ARROW_RIGHT, ARROW_LEFT]},
+		SM_Enums.Type.EXIT:	{"label": "Exit",		"icons": [ARROW_LEFT, ARROW_RIGHT]},
+		SM_Enums.Type.TWO_WAY:	{"label": "Two-way",	"icons": [ARROW_DOUBLE, ARROW_DOUBLE]},
+		SM_Enums.Type.FUNNEL:	{"label": "Funnel",		"icons": [ARROW_RIGHT, ARROW_LEFT]},
 	}

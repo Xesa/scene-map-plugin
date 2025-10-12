@@ -25,6 +25,7 @@ const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
 const SM_SlotConnector := preload("uid://1mcwq8t36pgx")
 const SM_SceneSaver := preload("uid://7svcgc01kw2b")
 const SM_SlotControl := preload("uid://bxwe2c1at0aom")
+const SM_Enums := preload("uid://cukwm8rnmlicq")
 
 var graph_node : SceneMapNode
 var control : SM_SlotControl
@@ -41,8 +42,8 @@ var scene_uid : String
 var component_uid : String
 var component_name : String
 
-var type : SceneMapComponent2D.Type
-var side : SceneMapComponent2D.Side
+var type : SM_Enums.Type
+var side : SM_Enums.Side
 
 var connected_to_ids : Array[String]
 var connected_from_ids : Array[String]
@@ -52,11 +53,11 @@ var connected_from : Array[SceneMapSlot]
 
 signal connection_added(connection : SceneMapSlot, direction : int)
 signal connection_removed(connection : SceneMapSlot, direction : int)
-signal side_changed(side : SceneMapComponent2D.Side)
-signal type_changed(type : SceneMapComponent2D.Type)
+signal side_changed(side : SM_Enums.Side)
+signal type_changed(type : SM_Enums.Type)
 
 
-func _init(_graph_node : SceneMapNode, _type : SceneMapComponent2D.Type = 0, _side : SceneMapComponent2D.Side = 0,
+func _init(_graph_node : SceneMapNode, _type : SM_Enums.Type = 0, _side : SM_Enums.Side = 0,
 		_index : int = 0, _left : bool = false, _right : bool = false,
 		_left_icon : String = "", _right_icon : String = "",
 		_scene_uid : String = "", _component_name = "", _component_uid = null)-> void:
@@ -185,17 +186,17 @@ func change_sides() -> void:
 	var scene_values := SM_SceneSaver.open_scene(scene_uid)
 	var component := SM_ComponentFinder.search_component_by_uid(scene_values["instance"], component_uid)
 
-	if type == SceneMapComponent2D.Type.FUNNEL:
-		if side == SceneMapComponent2D.Side.LEFT:
-			_update_side_info(true, true, 1, 1, SceneMapComponent2D.Side.RIGHT, component)
+	if type == SM_Enums.Type.FUNNEL:
+		if side == SM_Enums.Side.LEFT:
+			_update_side_info(true, true, 1, 1, SM_Enums.Side.RIGHT, component)
 		else:
-			_update_side_info(true, true, 0, 0, SceneMapComponent2D.Side.LEFT, component)
+			_update_side_info(true, true, 0, 0, SM_Enums.Side.LEFT, component)
 
 	else:
-		if side == SceneMapComponent2D.Side.LEFT:
-			_update_side_info(false, true, 0, 1, SceneMapComponent2D.Side.RIGHT, component)
+		if side == SM_Enums.Side.LEFT:
+			_update_side_info(false, true, 0, 1, SM_Enums.Side.RIGHT, component)
 		else:
-			_update_side_info(true, false, 0, 1, SceneMapComponent2D.Side.LEFT, component)
+			_update_side_info(true, false, 0, 1, SM_Enums.Side.LEFT, component)
 
 	await remove_all_connections()
 
@@ -207,7 +208,7 @@ func change_sides() -> void:
 	SceneMapIO.save(graph_node.get_parent())
 
 
-func change_type(new_type : SceneMapComponent2D.Type) -> void:
+func change_type(new_type : SM_Enums.Type) -> void:
 
 	if type == new_type:
 		return
@@ -216,16 +217,16 @@ func change_type(new_type : SceneMapComponent2D.Type) -> void:
 	var component := SM_ComponentFinder.search_component_by_uid(scene_values["instance"], component_uid)
 
 	type = new_type
-	component.type = type
+	component.set_component_type(type)
 
-	if type == SceneMapComponent2D.Type.FUNNEL:
-		if side == SceneMapComponent2D.Side.LEFT:
+	if type == SM_Enums.Type.FUNNEL:
+		if side == SM_Enums.Side.LEFT:
 			_update_side_info(true, true, 0, 0, side, component)
 		else:
 			_update_side_info(true, true, 1, 1, side, component)
 
 	else:
-		if side == SceneMapComponent2D.Side.LEFT:
+		if side == SM_Enums.Side.LEFT:
 			_update_side_info(true, false, 0, 1, side, component)
 		else:
 			_update_side_info(false, true, 0, 1, side, component)
@@ -240,14 +241,14 @@ func change_type(new_type : SceneMapComponent2D.Type) -> void:
 	SceneMapIO.save(graph_node.get_parent())
 	
 
-func _update_side_info(_left : bool, _right : bool, _left_icon_index : int, _right_icon_index : int, _side : SceneMapComponent2D.Side, component : SceneMapComponent2D) -> void:
+func _update_side_info(_left : bool, _right : bool, _left_icon_index : int, _right_icon_index : int, _side : SM_Enums.Side, component : SceneMapComponent2D) -> void:
 	var slot_config : Dictionary = SM_Constants.SLOT_CONFIG[type]
 	left = _left
 	right = _right
 	left_icon = slot_config["icons"][_left_icon_index]
 	right_icon = slot_config["icons"][_right_icon_index]
 	side = _side
-	component.side = side
+	component.set_component_side(side)
 
 
 func _update_slot_configuration() -> void:

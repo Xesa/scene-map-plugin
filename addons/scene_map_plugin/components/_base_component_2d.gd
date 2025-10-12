@@ -3,8 +3,6 @@ class_name SceneMapComponent2D extends Node2D
 ## Abstract 2D component for being used with the SceneMap plugin.[br]
 ##
 ## This class allows the SceneMap plugin to detect where are the entrances and exits of a scene.
-## Set the [code]type[/code] and [code]side[/code] properties in the inspector and when the scene
-## is added to the SceneMap graph, this will appear as a slot that can connect to other components.[br][br]
 ## In order to use it, the developer must create a class that extends this class and override the
 ## [code]go_to_next_scene()[/code] method (there is a simple example in the method's description).[br][br]
 ## A node that inherits from this class can be populated with different sub-components,
@@ -15,17 +13,7 @@ class_name SceneMapComponent2D extends Node2D
 
 const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
 const SM_ResourceTools := preload("uid://b71h2bnocse6c")
-
-## Defines a custom name for this component in the Scene Map. If this property is left empty the name of the node will appear instead.
-@export var custom_name : String
-
-## Defines which actions will the player be able to perform.
-@export var type := Type.TWO_WAY
-
-## Defines in which side of the Scene Map will this node appear.
-## In the case of choosing the type [code]FUNNEL[/code] the node will appear
-## in both sides but this will define which side is the entrance and which is the exit.
-@export var side := Side.RIGHT
+const SM_Enums := preload("uid://cukwm8rnmlicq")
 
 ## Holds the resource for the next scene. This will normally be loaded when the component is ready
 ## but it can be forced to load again with the [get_next_scene_resource()] method.
@@ -40,38 +28,29 @@ const SM_ResourceTools := preload("uid://b71h2bnocse6c")
 ## - [SceneMapComponentArea2D]: Triggers the [go_to_next_scene()] method when a body enters[br]
 @onready var sub_components : Dictionary = connect_sub_components()
 
-enum Type {
-	ENTRY,		## This node will only work as an entrance. It will allow the player to come to this scene from another one, but it won't be able to go back to the previous scene.
-	EXIT,		## This node will only work as an exit. It will allow the player to go the next scene, but once there, it won't be able to come back to this one.
-	TWO_WAY,	## This node will work both ways. It will allow the player to go back and forth between two scenes.
-	FUNNEL		## This node will accept the entrance of one scene and it will exit to another scene. The player won't be able to go back to the previous scene or get back from the next scene to this one. Ideal for level progressions where the player can only advance but never go back.
-	}
-
-
-enum Side {
-	LEFT,	## The node will appear in the left side. In [code]FUNNEL[/code] mode the left side will be the entrance and the right side will be the exit (left-to-right).
-	RIGHT,	## The node will appear in the right side. In [code]FUNNEL[/code] mode the left side will be the exit and the right side will be the entrance (right-to-left).
-}
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
+		get_component_type()
+		get_component_side()
 		_generate_component_uid.call_deferred()
 
 
-func set_component_type(_type : Type) -> void:
-	type = _type
+func set_component_type(type : SM_Enums.Type) -> void:
+	set_meta(&"_component_type", type)
 
 
-func set_component_side(_side : SceneMapComponent2D.Side) -> void:
-	side = _side
+func set_component_side(side : SM_Enums.Side) -> void:
+	set_meta(&"_component_side", side)
 
 
-func set_custom_name(_custom_name : String) -> void:
-	custom_name = _custom_name
+func set_custom_name(custom_name : String) -> void:
+	set_meta(&"_component_custom_name", custom_name)
 
 
 func remove_custom_name() -> void:
-	custom_name = ""
+	if has_meta(&"_component_custom_name"):
+		remove_meta(&"_component_custom_name")
 
 
 ## Sets the [component_uid] value in the component's metadata.
@@ -123,19 +102,22 @@ func get_next_component_uid() -> Variant:
 	return get_meta(&"_next_component_uid")
 
 
-func get_component_type() -> Type:
-	return type
+func get_component_type() -> SM_Enums.Type:
+	if !has_meta(&"_component_type"):
+		set_component_type(SM_Enums.Type.TWO_WAY)
+	return get_meta(&"_component_type")
 
 
-func get_component_side() -> SceneMapComponent2D.Side:
-	return side
+func get_component_side() -> SM_Enums.Side:
+	if !has_meta(&"_component_side"):
+		set_component_side(SM_Enums.Side.LEFT)
+	return get_meta(&"_component_side")
 
 
 func get_custom_name() -> String:
-	if custom_name != null and custom_name != "":
-		return custom_name
-	else:
+	if !has_meta(&"_component_custom_name"):
 		return SM_ResourceTools.convert_string_to_readable_name(name)
+	return get_meta(&"_component_custom_name")
 
 
 func _generate_component_uid() -> void:
@@ -143,7 +125,7 @@ func _generate_component_uid() -> void:
 		_set_component_uid()
 		EditorInterface.mark_scene_as_unsaved()
 	
-	var components := SM_ComponentFinder.find_all_components(get_root_node())
+	var components := SM_ComponentFinder.find_all_components(SM_ComponentFinder.get_root_node(self))
 
 	for component in components:
 		if component == self or component.get_component_uid_or_null() == null:
@@ -153,13 +135,6 @@ func _generate_component_uid() -> void:
 			_set_component_uid()
 			EditorInterface.mark_scene_as_unsaved()
 			return
-
-
-func get_root_node() -> Node:
-	var node = self
-	while node.owner != null:
-		node = node.owner
-	return node
 
 	
 ## Loads the next scene and sets it to the [next_scene_resource] property.

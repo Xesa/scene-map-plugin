@@ -1,5 +1,7 @@
 extends Resource
 
+const SM_Enums := preload("uid://cukwm8rnmlicq")
+
 @export var slot_id : String
 @export var index : int
 
@@ -12,8 +14,8 @@ extends Resource
 @export var component_uid : String
 @export var component_name : String
 
-@export var type : SceneMapComponent2D.Type
-@export var side : SceneMapComponent2D.Side
+@export var type : SM_Enums.Type
+@export var side : SM_Enums.Side
 
 @export var connected_to_ids : Array[String]
 @export var connected_from_ids : Array[String]

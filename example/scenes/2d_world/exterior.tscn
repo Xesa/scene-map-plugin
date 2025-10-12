@@ -29,26 +29,23 @@ script = ExtResource("1_tg1nb")
 default_spawn_node = NodePath("RedHouse/SceneMapComponent1")
 metadata/_custom_type_script = "uid://dwu4scnijfokr"
 
-[node name="AAAsss" type="Node2D" parent="."]
-script = ExtResource("5_ndlqu")
-type = 1
-metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_duplicate_checked = true
-metadata/_component_uid = "7107853276320928071"
-
 [node name="NEWExampleSceneMapComponent2D3" type="Node2D" parent="."]
 script = ExtResource("5_ndlqu")
-type = 1
-side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
 metadata/_duplicate_checked = true
-metadata/_component_uid = "3467378768386789730"
+metadata/_component_type = 2
+metadata/_component_side = 1
+metadata/_component_uid = "8896762398541558414"
+metadata/_next_scene_uid = "di56ddpupkoyd"
+metadata/_next_component_uid = "6002218151252419323"
 
 [node name="ExampleSceneMapComponent2D5" type="Node2D" parent="."]
 script = ExtResource("5_ndlqu")
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
 metadata/_duplicate_checked = true
 metadata/_component_uid = "3342145522145173345"
+metadata/_component_type = 2
+metadata/_component_side = 1
 
 [node name="TileMap" type="Node2D" parent="."]
 
@@ -84,13 +81,11 @@ debug_color = Color(0.818575, 0.366237, 0.457979, 0.42)
 [node name="SceneMapComponent1" parent="RedHouse" index="2"]
 position = Vector2(0, 72)
 script = ExtResource("5_ndlqu")
-custom_name = "Red House Bottom"
-type = 1
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
 metadata/_duplicate_checked = true
-metadata/_component_uid = "5670763430307389041"
-metadata/_next_scene_uid = "di56ddpupkoyd"
-metadata/_next_component_uid = "7545354993789079235"
+metadata/_component_type = 2
+metadata/_component_side = 1
+metadata/_component_uid = "41649839368939342"
 
 [node name="SceneMapComponentMarker2D" parent="RedHouse/SceneMapComponent1" index="0"]
 position = Vector2(0, 36)
@@ -110,11 +105,11 @@ shape = SubResource("RectangleShape2D_7aome")
 [node name="SceneMapComponent2" type="Node2D" parent="RedHouse"]
 z_index = 1
 script = ExtResource("5_ndlqu")
-custom_name = "Red House Top"
-type = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
 metadata/_duplicate_checked = true
 metadata/_component_uid = "7540881001234267392"
+metadata/_component_type = 2
+metadata/_component_side = 1
 
 [node name="SceneMapComponentMarker2D2" type="Marker2D" parent="RedHouse/SceneMapComponent2"]
 position = Vector2(0, -68)
@@ -149,10 +144,11 @@ debug_color = Color(0.818575, 0.366237, 0.457979, 0.42)
 [node name="SceneMapComponent1" parent="BlueHouse" index="2"]
 position = Vector2(0, 72)
 script = ExtResource("5_ndlqu")
-custom_name = "Blue House"
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
 metadata/_duplicate_checked = true
-metadata/_component_uid = "7972021172809947851"
+metadata/_component_type = 2
+metadata/_component_side = 1
+metadata/_component_uid = "6188189194487020143"
 
 [node name="SceneMapComponentMarker2D" parent="BlueHouse/SceneMapComponent1" index="0"]
 position = Vector2(0, 36)
@@ -171,26 +167,19 @@ shape = SubResource("RectangleShape2D_7aome")
 
 [node name="NEWExampleSceneMapComponent2D2" type="Node2D" parent="."]
 script = ExtResource("5_ndlqu")
-type = 1
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
 metadata/_duplicate_checked = true
 metadata/_component_uid = "5681388411962136958"
-
-[node name="ExampleSceneMapComponent2D" type="Node2D" parent="."]
-script = ExtResource("5_ndlqu")
-metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_duplicate_checked = true
-metadata/_component_uid = "8343862101333619921"
-metadata/_next_scene_uid = "di56ddpupkoyd"
-metadata/_next_component_uid = "6493848640619136176"
+metadata/_component_type = 2
+metadata/_component_side = 1
 
 [node name="ExampleSceneMapComponent2D2" type="Node2D" parent="."]
 script = ExtResource("5_ndlqu")
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
 metadata/_duplicate_checked = true
-metadata/_component_uid = "5532294935720804330"
-metadata/_next_scene_uid = "di56ddpupkoyd"
-metadata/_next_component_uid = "633800964558869676"
+metadata/_component_type = 2
+metadata/_component_side = 1
+metadata/_component_uid = "5239480012811382010"
 
 [editable path="RedHouse"]
 [editable path="BlueHouse"]

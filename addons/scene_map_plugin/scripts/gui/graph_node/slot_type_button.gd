@@ -1,6 +1,7 @@
 extends MenuButton
 
 const SM_Constants := preload("uid://cjynbj0oq1sx1")
+const SM_Enums := preload("uid://cukwm8rnmlicq")
 const SM_SlotControl := preload("uid://bxwe2c1at0aom")
 
 var control : SM_SlotControl
@@ -41,12 +42,12 @@ func _on_popup_hidden() -> void:
 
 
 func _on_item_pressed(id : int) -> void:
-	var type : SceneMapComponent2D.Type
+	var type : SM_Enums.Type
 
 	match id:
-		0: type = SceneMapComponent2D.Type.ENTRY
-		1: type = SceneMapComponent2D.Type.EXIT
-		2: type = SceneMapComponent2D.Type.TWO_WAY
-		3: type = SceneMapComponent2D.Type.FUNNEL
+		0: type = SM_Enums.Type.ENTRY
+		1: type = SM_Enums.Type.EXIT
+		2: type = SM_Enums.Type.TWO_WAY
+		3: type = SM_Enums.Type.FUNNEL
 
 	slot.change_type(type)

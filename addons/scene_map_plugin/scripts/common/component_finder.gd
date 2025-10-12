@@ -26,3 +26,9 @@ static func search_component_by_uid(node: Node, component_uid: String) -> SceneM
 			return found
 
 	return null
+
+
+static func get_root_node(node : Node) -> Node:
+	while node.owner != null:
+		node = node.owner
+	return node

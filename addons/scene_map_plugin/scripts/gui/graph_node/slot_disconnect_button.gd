@@ -1,7 +1,9 @@
 extends Button
 
 const SM_Constants := preload("uid://cjynbj0oq1sx1")
+const SM_Enums := preload("uid://cukwm8rnmlicq")
 const SM_SlotControl := preload("uid://bxwe2c1at0aom")
+
 
 var control : SM_SlotControl
 var slot : SceneMapSlot
@@ -38,19 +40,19 @@ func _on_button_pressed() -> void:
 
 
 func _on_connection_added(_connection : SceneMapSlot, direction : int) -> void:
-	if slot.type != SceneMapComponent2D.Type.FUNNEL:
+	if slot.type != SM_Enums.Type.FUNNEL:
 		_enable()
 
-	elif button_side == 0 and slot.side == SceneMapComponent2D.Side.LEFT and direction == 0:
+	elif button_side == 0 and slot.side == SM_Enums.Side.LEFT and direction == 0:
 		_enable()
 
-	elif button_side == 0 and slot.side == SceneMapComponent2D.Side.RIGHT and direction == 1:
+	elif button_side == 0 and slot.side == SM_Enums.Side.RIGHT and direction == 1:
 		_enable()
 
-	elif button_side == 1 and slot.side == SceneMapComponent2D.Side.LEFT and direction == 1:
+	elif button_side == 1 and slot.side == SM_Enums.Side.LEFT and direction == 1:
 		_enable()
 
-	elif button_side == 1 and slot.side == SceneMapComponent2D.Side.RIGHT and direction == 0:
+	elif button_side == 1 and slot.side == SM_Enums.Side.RIGHT and direction == 0:
 		_enable()
 
 
@@ -76,14 +78,14 @@ func _has_connections() -> bool:
 	var outgoing = slot.has_outgoing_connections()
 
 	match slot.type:
-		SceneMapComponent2D.Type.FUNNEL:
-			return (slot.side == SceneMapComponent2D.Side.LEFT and ((button_side == 0 and incoming) or (button_side == 1 and outgoing))) \
-				or (slot.side == SceneMapComponent2D.Side.RIGHT and ((button_side == 0 and outgoing) or (button_side == 1 and incoming)))
-		SceneMapComponent2D.Type.TWO_WAY:
+		SM_Enums.Type.FUNNEL:
+			return (slot.side == SM_Enums.Side.LEFT and ((button_side == 0 and incoming) or (button_side == 1 and outgoing))) \
+				or (slot.side == SM_Enums.Side.RIGHT and ((button_side == 0 and outgoing) or (button_side == 1 and incoming)))
+		SM_Enums.Type.TWO_WAY:
 			return incoming or outgoing
-		SceneMapComponent2D.Type.EXIT:
+		SM_Enums.Type.EXIT:
 			return outgoing
-		SceneMapComponent2D.Type.ENTRY:
+		SM_Enums.Type.ENTRY:
 			return incoming
 		_:
 			return false
@@ -91,23 +93,23 @@ func _has_connections() -> bool:
 
 func _get_connections() -> Array[SceneMapSlot]:
 	match slot.type:
-		SceneMapComponent2D.Type.FUNNEL:
-			if button_side == 0 and slot.side == SceneMapComponent2D.Side.LEFT:
+		SM_Enums.Type.FUNNEL:
+			if button_side == 0 and slot.side == SM_Enums.Side.LEFT:
 				return slot.get_connections(0)
-			if button_side == 0 and slot.side == SceneMapComponent2D.Side.RIGHT:
+			if button_side == 0 and slot.side == SM_Enums.Side.RIGHT:
 				return slot.get_connections(1)
-			if button_side == 1 and slot.side == SceneMapComponent2D.Side.LEFT:
+			if button_side == 1 and slot.side == SM_Enums.Side.LEFT:
 				return slot.get_connections(1)
-			if button_side == 1 and slot.side == SceneMapComponent2D.Side.RIGHT:
+			if button_side == 1 and slot.side == SM_Enums.Side.RIGHT:
 				return slot.get_connections(0)
 			else:
 				return []
 
-		SceneMapComponent2D.Type.TWO_WAY:
+		SM_Enums.Type.TWO_WAY:
 			return slot.get_connections(button_side)
-		SceneMapComponent2D.Type.EXIT:
+		SM_Enums.Type.EXIT:
 			return slot.get_connections(1)
-		SceneMapComponent2D.Type.ENTRY:
+		SM_Enums.Type.ENTRY:
 			return slot.get_connections(0)
 		_:
 			return []
@@ -139,9 +141,9 @@ func _remove_connections() -> void:
 
 
 func _toggle_visibility(_variant : Variant = null) -> void:
-	if slot.type == SceneMapComponent2D.Type.FUNNEL or \
-		(button_side == 0 and slot.side == SceneMapComponent2D.Side.LEFT) or \
-		(button_side == 1 and slot.side == SceneMapComponent2D.Side.RIGHT):
+	if slot.type == SM_Enums.Type.FUNNEL or \
+		(button_side == 0 and slot.side == SM_Enums.Side.LEFT) or \
+		(button_side == 1 and slot.side == SM_Enums.Side.RIGHT):
 		force_disabled = false
 		modulate.a = 1
 

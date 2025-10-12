@@ -5,6 +5,9 @@ const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
 const SM_SlotRegistrator := preload("uid://bj10g5ips4ubj")
 
 
+## Iterates through all the graph node's in the SceneMap and checks all the [SceneMapComponent] present
+## on their scenes in search for any changes made to the order or names of the components as well as
+## if there are new components or any of them have been removed.
 static func scan_all_scenes(graph : SceneMapGraph) -> void:
 
 	await SM_SceneSaver.start()
@@ -19,6 +22,9 @@ static func scan_all_scenes(graph : SceneMapGraph) -> void:
 	SceneMapIO.save(graph)
 
 
+## Scans one scene in search of any changes and applies those changes to each [SceneMapSlot].
+## If there are new [SceneMapComponent], creates the respective [SceneMapSlot]. If any component
+## has been removed or modified removes or updates the slot.
 static func scan_scene(graph_node : SceneMapNode) -> void:
 
 	# Opens the scene and gets graph edit
@@ -46,7 +52,7 @@ static func scan_scene(graph_node : SceneMapNode) -> void:
 	resize_node.call_deferred(graph_node)
 	
 
-
+## Returns all the components found in the scene and marks them if they are new.
 static func get_components_to_add(graph_node : SceneMapNode, components : Array) -> Array:
 	var component_modifications := []
 	var index := 0
@@ -66,6 +72,7 @@ static func get_components_to_add(graph_node : SceneMapNode, components : Array)
 	return component_modifications
 
 
+## Returns all the slots in the graph node and marks them if their component has been removed from the scene.
 static func get_slots_to_remove(graph_node : SceneMapNode, components : Array) -> Array:
 	var slot_modifications := []
 
@@ -83,6 +90,9 @@ static func get_slots_to_remove(graph_node : SceneMapNode, components : Array) -
 	return slot_modifications
 
 
+## Applies the modifications given by the [modifications] array. Such modifications can be
+## adding, removing or updating [SceneMapSlot] from the given [SceneMapNode].
+## Then, it updates the [updated_connections] array according to the changes made.
 static func apply_modifications(graph_node : SceneMapNode, slot_registrator : SM_SlotRegistrator, modifications : Array,
 							original_connections : Dictionary, updated_connections : Dictionary, add : bool) -> Dictionary:
 
@@ -94,18 +104,21 @@ static func apply_modifications(graph_node : SceneMapNode, slot_registrator : SM
 		var original_index : int = slot.index if slot else -1
 		var updated_index : int = stats["index"]
 
+		# If the component was removed, deletes the slot and increases the index modifier
 		if !add and stats["is_removed"]:
 			slot.delete()
 			updated_connections.erase(original_index)
 			index_modifier += 1
-			updated_index -= index_modifier
 			
+		# If the component was added, adds a new slot
 		elif add and stats["is_new"]:
 			slot_registrator.slot_counter = updated_index - 1
 			var new_slot := slot_registrator.register_new_slot(component)
 			graph_node.move_child(new_slot.control, updated_index)
 			new_slot._update_slot_configuration()
 
+		# If the component already existed it rearranges the index in case any component was added or removed previously
+		# and updates the control's labels to match its new index and name
 		else:
 			slot.index = updated_index
 			slot.component_name = component.get_custom_name()
@@ -117,6 +130,8 @@ static func apply_modifications(graph_node : SceneMapNode, slot_registrator : SM
 	return updated_connections
 
 
+## Updates a connection based on its original index. This method determines the direction of the connection
+## taking in account if the [from_node] or [to_node] properties of the connection point to the graph node's [scene_uid] property.
 static func update_connection(graph_node : SceneMapNode, original_connections : Dictionary, updated_connections : Dictionary,
 							original_index : int, updated_index : int) -> Dictionary:
 	
@@ -132,9 +147,10 @@ static func update_connection(graph_node : SceneMapNode, original_connections : 
 	return updated_connections
 
 
+## Reorders all the graph edit's connections by disconnecting the old connections and adding the updated ones when needed.
 static func reorder_connections(graph_edit : SceneMapGraph, original_connections : Dictionary, updated_connections : Dictionary) -> void:
+	
 	for original_index in original_connections.keys():
-
 		for connection in graph_edit.connections:
 
 			if connection == original_connections[original_index]:
@@ -149,6 +165,7 @@ static func reorder_connections(graph_edit : SceneMapGraph, original_connections
 					graph_edit.disconnect_node(oc["from_node"], oc["from_port"], oc["to_node"], oc["to_port"])
 
 
+## Reorders the [component_slots] array from the [graph_node] according to each slot's [index] property.
 static func reorder_component_slots(graph_node : SceneMapNode) -> void:
 	var component_slots : Array[SceneMapSlot] = []
 	component_slots.resize(graph_node.component_slots.size())
@@ -159,6 +176,8 @@ static func reorder_component_slots(graph_node : SceneMapNode) -> void:
 	graph_node.component_slots = component_slots
 
 
+## Resizes the graph node to fit the new amount of slots.
 static func resize_node(graph_node : SceneMapNode) -> void:
 	await Engine.get_main_loop().process_frame
-	graph_node.size = graph_node.get_combined_minimum_size()
+	#graph_node.size = graph_node.get_combined_minimum_size()
+	#graph_node.queue_redraw()

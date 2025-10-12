@@ -10,6 +10,7 @@ extends Node
 ## This class makes use of the [ComponentFinder] helper class for listing all the [SceneMapComponent] present in the scene.[br]
 
 const SM_Constants := preload("uid://cjynbj0oq1sx1")
+const SM_Enums := preload("uid://cukwm8rnmlicq")
 const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
 const SM_ResourceTools := preload("uid://b71h2bnocse6c")
 const SM_SceneSaver := preload("uid://7svcgc01kw2b")
@@ -62,8 +63,7 @@ func register_new_slot(component: SceneMapComponent2D) -> SceneMapSlot:
 	var left_icon_path = slot_sides[2]
 	var right_icon_path = slot_sides[3]
 
-	# Retrieves the information from the ocmponent
-	var component_name = component.custom_name if component.custom_name else SM_ResourceTools.convert_string_to_readable_name(component.name)
+	# Retrieves the information from the component
 	
 	var data := {
 		"type": component.get_component_type(),
@@ -74,7 +74,7 @@ func register_new_slot(component: SceneMapComponent2D) -> SceneMapSlot:
 		"left_icon": left_icon_path,
 		"right_icon": right_icon_path,
 		"scene_uid": graph_node.scene_uid,
-		"component_name": component_name,
+		"component_name": component.get_custom_name(),
 		"component_uid": component.get_component_uid()
 	}
 
@@ -144,7 +144,7 @@ func _create_and_attach_slot(data: Dictionary) -> SceneMapSlot:
 func _get_slot_sides(component : SceneMapComponent2D) -> Array:
 
 	# Gets the slot configuration for this component type
-	var config = SM_Constants.SLOT_CONFIG[component.type]
+	var config = SM_Constants.SLOT_CONFIG[component.get_component_type()]
 
 	# Sets different variables for the slot configuration
 	var left_side := false
@@ -153,15 +153,15 @@ func _get_slot_sides(component : SceneMapComponent2D) -> Array:
 	var right_icon_path : String
 
 	# Sets the values if the component type is Funnel
-	if component.type == SceneMapComponent2D.Type.FUNNEL:
+	if component.get_component_type() == SM_Enums.Type.FUNNEL:
 		left_side = true
 		right_side = true
 
-		if component.side == SceneMapComponent2D.Side.LEFT:
+		if component.get_component_side() == SM_Enums.Side.LEFT:
 			left_icon_path = config["icons"][0]
 			right_icon_path = config["icons"][0]
 
-		if component.side == SceneMapComponent2D.Side.RIGHT:
+		if component.get_component_side() == SM_Enums.Side.RIGHT:
 			left_icon_path = config["icons"][1]
 			right_icon_path = config["icons"][1]
 
@@ -170,10 +170,10 @@ func _get_slot_sides(component : SceneMapComponent2D) -> Array:
 		left_icon_path = config["icons"][0]
 		right_icon_path = config["icons"][1]
 
-		if component.side == SceneMapComponent2D.Side.LEFT:
+		if component.get_component_side() == SM_Enums.Side.LEFT:
 			left_side = true
 
-		if component.side == SceneMapComponent2D.Side.RIGHT:
+		if component.get_component_side() == SM_Enums.Side.RIGHT:
 			right_side = true
 
 	return [left_side, right_side, left_icon_path, right_icon_path]

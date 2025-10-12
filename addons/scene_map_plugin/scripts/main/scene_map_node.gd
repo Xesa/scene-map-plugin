@@ -10,6 +10,7 @@ class_name SceneMapNode extends GraphNode
 ## This class is instantiated from the [NodeRegistrator] helper class.[br]
 ## In order to register the slots, this class makes use of the [SlotRegistrator] helper class.
 
+const SM_Enums := preload("uid://cukwm8rnmlicq")
 const SM_NodePreviewer := preload("uid://brgihuj5exdgu")
 const SM_SlotRegistrator := preload("uid://bj10g5ips4ubj")
 const SM_SceneSaver := preload("uid://7svcgc01kw2b")
@@ -88,7 +89,7 @@ func _delete() -> void:
 ## it will be returned no matter which value has been passed for the [side] parameter.
 func get_component_slot(index : int, side : int) -> SceneMapSlot:
 	for slot in component_slots:
-		if slot.index == index and (slot.side == side or slot.type == SceneMapComponent2D.Type.FUNNEL):
+		if slot.index == index and (slot.side == side or slot.type == SM_Enums.Type.FUNNEL):
 			return slot
 	return null
 
