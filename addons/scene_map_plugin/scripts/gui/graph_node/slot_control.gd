@@ -4,6 +4,8 @@ const SM_SlotLabel := preload("uid://cpfngl4lqra2j")
 const SM_DisconnectButton := preload("uid://0s4l0pgfen4i")
 const SM_SidesButton := preload("uid://1wnhcluu7sn4")
 const SM_TypeButton := preload("uid://tsvhet57a7bv")
+const SM_NameButton := preload("uid://bswvc0ufqie7a")
+const SM_LabelEdit := preload("uid://b2tk1xc6p0aa0")
 
 var graph_edit : SceneMapGraph
 var graph_node : SceneMapNode
@@ -17,6 +19,8 @@ var left_disconnect_button : SM_DisconnectButton
 var right_disconnect_button: SM_DisconnectButton
 var type_button : SM_TypeButton
 var sides_button : SM_SidesButton
+var name_button : SM_NameButton
+var label_edit : SM_LabelEdit
 
 var type_menu_open := false
 var edit_menu_open := false
@@ -51,13 +55,18 @@ func _ready() -> void:
 
 	# Creates a label
 	label = SM_SlotLabel.new(self, index, slot.component_name)
+	label_edit = SM_LabelEdit.new(self, slot)
 	subcontrol.add_child(label)
+	subcontrol.add_child(label_edit)
 
 	# Creates the center buttons
 	sides_button = SM_SidesButton.new(self, slot)
 	type_button = SM_TypeButton.new(self, slot)
+	name_button = SM_NameButton.new(self)
+
 	subcontainer.add_child(sides_button)
 	subcontainer.add_child(type_button)
+	subcontainer.add_child(name_button)
 
 	# Creates disconnect buttons
 	left_disconnect_button = SM_DisconnectButton.new(self, slot, 0)
@@ -103,6 +112,7 @@ func _toggle_subcontrol_visibility(toggle : bool) -> void:
 	subcontainer.visible = toggle
 	sides_button.disabled = !toggle
 	type_button.disabled = !toggle
+	name_button.disabled = !toggle
 
 
 func force_drag_release():

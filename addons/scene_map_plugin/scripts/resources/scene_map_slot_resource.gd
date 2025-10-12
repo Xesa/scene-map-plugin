@@ -13,6 +13,7 @@ const SM_Enums := preload("uid://cukwm8rnmlicq")
 @export var scene_uid : String
 @export var component_uid : String
 @export var component_name : String
+@export var component_name_is_custom : bool
 
 @export var type : SM_Enums.Type
 @export var side : SM_Enums.Side

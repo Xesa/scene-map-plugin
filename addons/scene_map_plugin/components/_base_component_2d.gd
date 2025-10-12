@@ -115,9 +115,13 @@ func get_component_side() -> SM_Enums.Side:
 
 
 func get_custom_name() -> String:
-	if !has_meta(&"_component_custom_name"):
+	if !has_meta(&"_component_custom_name") or get_meta(&"_component_custom_name") == "":
 		return SM_ResourceTools.convert_string_to_readable_name(name)
 	return get_meta(&"_component_custom_name")
+
+
+func has_custom_name() -> bool:
+	return has_meta(&"_component_custom_name") and get_meta(&"_component_custom_name") != ""
 
 
 func _generate_component_uid() -> void:

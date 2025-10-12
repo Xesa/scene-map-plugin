@@ -41,6 +41,7 @@ var right_icon : String
 var scene_uid : String
 var component_uid : String
 var component_name : String
+var component_name_is_custom := false
 
 var type : SM_Enums.Type
 var side : SM_Enums.Side
@@ -60,12 +61,14 @@ signal type_changed(type : SM_Enums.Type)
 func _init(_graph_node : SceneMapNode, _type : SM_Enums.Type = 0, _side : SM_Enums.Side = 0,
 		_index : int = 0, _left : bool = false, _right : bool = false,
 		_left_icon : String = "", _right_icon : String = "",
-		_scene_uid : String = "", _component_name = "", _component_uid = null)-> void:
+		_scene_uid : String = "", _component_uid = null,
+		_component_name : String = "", _component_name_is_custom : bool = false)-> void:
 
 	graph_node = _graph_node
 	component_uid = _component_uid
 	scene_uid = _scene_uid
 	component_name = _component_name
+	component_name_is_custom = _component_name_is_custom
 	slot_id = scene_uid + ":" + component_uid
 
 	type = _type
@@ -265,3 +268,39 @@ func _update_slot_configuration() -> void:
 
 	graph_node.set_slot_custom_icon_left(index, left_icon)
 	graph_node.set_slot_custom_icon_right(index, right_icon)
+
+
+## Sets the component's name and indicates if it is custom or not.
+func set_component_name(new_name : String) -> void:
+
+	if new_name == component_name:
+		return
+
+	var scene_values := SM_SceneSaver.open_scene(scene_uid)
+	var component := SM_ComponentFinder.search_component_by_uid(scene_values["instance"], component_uid)
+
+	component_name = new_name
+	component_name_is_custom = true
+
+	component.set_custom_name(new_name)
+	control.refresh_label()
+
+	SM_SceneSaver.save()
+	SceneMapIO.save(graph_node.get_parent())
+
+
+func remove_component_name() -> void:
+
+	if !component_name_is_custom:
+		return
+
+	var scene_values := SM_SceneSaver.open_scene(scene_uid)
+	var component := SM_ComponentFinder.search_component_by_uid(scene_values["instance"], component_uid)
+
+	component.remove_custom_name()
+	component_name = component.get_custom_name()
+	component_name_is_custom = false
+	control.refresh_label()
+
+	SM_SceneSaver.save()
+	SceneMapIO.save(graph_node.get_parent())

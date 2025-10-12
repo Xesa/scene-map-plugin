@@ -24,7 +24,7 @@ const ARROW_DOUBLE := ASSETS_PATH + "arrow-double.svg"
 
 const DISCONNECT_ICON := ASSETS_PATH + "disconnect-icon.svg"
 const SIDES_ICON := ASSETS_PATH + "sides-icon.svg"
-const TYPE_ICON := ASSETS_PATH + "edit-icon.svg"
+const TYPE_ICON := ASSETS_PATH + "type-icon.svg"
 const EDIT_ICON := ASSETS_PATH + "edit-icon.svg"
 
 

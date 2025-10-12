@@ -34,6 +34,7 @@ static func save(graph : SceneMapGraph) -> void:
 				slot_res.scene_uid = slot.scene_uid
 				slot_res.component_uid = slot.component_uid
 				slot_res.component_name = slot.component_name
+				slot_res.component_name_is_custom = slot.component_name_is_custom
 
 				slot_res.index = slot.index
 				slot_res.left = slot.left

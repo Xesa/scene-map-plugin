@@ -21,13 +21,6 @@ script = ExtResource("1_1h868")
 default_spawn_node = NodePath("SceneMapComponent1")
 metadata/_custom_type_script = "uid://dwu4scnijfokr"
 
-[node name="ExampleSceneMapComponent2D6" type="Node2D" parent="."]
-script = ExtResource("3_4kahw")
-metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_type = 2
-metadata/_component_side = 0
-metadata/_component_uid = "8611285006004656339"
-
 [node name="TileMap" type="Node2D" parent="."]
 y_sort_enabled = true
 position = Vector2(576, 312)
@@ -91,8 +84,6 @@ metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
 metadata/_component_type = 2
 metadata/_component_side = 0
 metadata/_component_uid = "6002218151252419323"
-metadata/_next_scene_uid = "bhc4y1rku2jb1"
-metadata/_next_component_uid = "8896762398541558414"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent2"]
 texture = ExtResource("4_4kahw")
@@ -112,31 +103,3 @@ metadata/_custom_type_script = "uid://dq0hvvxswuvvk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SceneMapComponent2/SceneMapComponentArea2D"]
 shape = SubResource("RectangleShape2D_abwjd")
-
-[node name="ExampleSceneMapComponent2D2" type="Node2D" parent="."]
-script = ExtResource("3_4kahw")
-metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "633800964558869676"
-metadata/_component_type = 2
-metadata/_component_side = 0
-
-[node name="ExampleSceneMapComponent2D3" type="Node2D" parent="."]
-script = ExtResource("3_4kahw")
-metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_type = 2
-metadata/_component_side = 0
-metadata/_component_uid = "2742584677741391446"
-
-[node name="ExampleSceneMapComponent2D4" type="Node2D" parent="."]
-script = ExtResource("3_4kahw")
-metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "7545354993789079235"
-metadata/_component_type = 2
-metadata/_component_side = 0
-
-[node name="ExampleSceneMapComponent2D5" type="Node2D" parent="."]
-script = ExtResource("3_4kahw")
-metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_type = 2
-metadata/_component_side = 0
-metadata/_component_uid = "7647490552691570942"

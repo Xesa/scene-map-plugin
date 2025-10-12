@@ -74,8 +74,9 @@ func register_new_slot(component: SceneMapComponent2D) -> SceneMapSlot:
 		"left_icon": left_icon_path,
 		"right_icon": right_icon_path,
 		"scene_uid": graph_node.scene_uid,
+		"component_uid": component.get_component_uid(),
 		"component_name": component.get_custom_name(),
-		"component_uid": component.get_component_uid()
+		"component_name_is_custom": component.has_custom_name()
 	}
 
 	# Creates the slot and sets a UID to the component
@@ -96,8 +97,9 @@ func load_existing_slot(resource: SM_SlotResource) -> SceneMapSlot:
 		"left_icon": resource.left_icon,
 		"right_icon": resource.right_icon,
 		"scene_uid": resource.scene_uid,
+		"component_uid": resource.component_uid,
 		"component_name": resource.component_name,
-		"component_uid": resource.component_uid
+		"component_name_is_custom": resource.component_name_is_custom
 	}
 
 	# Creates the slot and populates the connections
@@ -125,8 +127,9 @@ func _create_and_attach_slot(data: Dictionary) -> SceneMapSlot:
 		data.left_icon,
 		data.right_icon,
 		data.scene_uid,
+		data.component_uid,
 		data.component_name,
-		data.component_uid
+		data.component_name_is_custom
 	)
 
 	# Creates the buttons and text from the slot

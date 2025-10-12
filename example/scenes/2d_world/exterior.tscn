@@ -29,24 +29,6 @@ script = ExtResource("1_tg1nb")
 default_spawn_node = NodePath("RedHouse/SceneMapComponent1")
 metadata/_custom_type_script = "uid://dwu4scnijfokr"
 
-[node name="NEWExampleSceneMapComponent2D3" type="Node2D" parent="."]
-script = ExtResource("5_ndlqu")
-metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_duplicate_checked = true
-metadata/_component_type = 2
-metadata/_component_side = 1
-metadata/_component_uid = "8896762398541558414"
-metadata/_next_scene_uid = "di56ddpupkoyd"
-metadata/_next_component_uid = "6002218151252419323"
-
-[node name="ExampleSceneMapComponent2D5" type="Node2D" parent="."]
-script = ExtResource("5_ndlqu")
-metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_duplicate_checked = true
-metadata/_component_uid = "3342145522145173345"
-metadata/_component_type = 2
-metadata/_component_side = 1
-
 [node name="TileMap" type="Node2D" parent="."]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="TileMap"]
@@ -164,22 +146,6 @@ metadata/_custom_type_script = "uid://dq0hvvxswuvvk"
 
 [node name="CollisionShape2D" parent="BlueHouse/SceneMapComponent1/SceneMapComponentArea2D" index="0"]
 shape = SubResource("RectangleShape2D_7aome")
-
-[node name="NEWExampleSceneMapComponent2D2" type="Node2D" parent="."]
-script = ExtResource("5_ndlqu")
-metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_duplicate_checked = true
-metadata/_component_uid = "5681388411962136958"
-metadata/_component_type = 2
-metadata/_component_side = 1
-
-[node name="ExampleSceneMapComponent2D2" type="Node2D" parent="."]
-script = ExtResource("5_ndlqu")
-metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_duplicate_checked = true
-metadata/_component_type = 2
-metadata/_component_side = 1
-metadata/_component_uid = "5239480012811382010"
 
 [editable path="RedHouse"]
 [editable path="BlueHouse"]
