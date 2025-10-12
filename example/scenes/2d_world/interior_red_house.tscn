@@ -25,7 +25,7 @@ metadata/_custom_type_script = "uid://dwu4scnijfokr"
 script = ExtResource("3_4kahw")
 type = 3
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "8482231182229159449"
+metadata/_component_uid = "4642440509713767022"
 
 [node name="TileMap" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -91,7 +91,7 @@ custom_name = "Exit Top"
 type = 1
 side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "4904517937921716993"
+metadata/_component_uid = "988019784514596475"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent2"]
 texture = ExtResource("4_4kahw")
@@ -117,12 +117,16 @@ script = ExtResource("3_4kahw")
 side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
 metadata/_component_uid = "633800964558869676"
+metadata/_next_scene_uid = "bhc4y1rku2jb1"
+metadata/_next_component_uid = "5532294935720804330"
 
 [node name="ExampleSceneMapComponent2D3" type="Node2D" parent="."]
 script = ExtResource("3_4kahw")
 side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "4255700178678216420"
+metadata/_component_uid = "6493848640619136176"
+metadata/_next_scene_uid = "bhc4y1rku2jb1"
+metadata/_next_component_uid = "8343862101333619921"
 
 [node name="ExampleSceneMapComponent2D4" type="Node2D" parent="."]
 script = ExtResource("3_4kahw")
@@ -135,4 +139,4 @@ metadata/_component_uid = "7545354993789079235"
 script = ExtResource("3_4kahw")
 type = 3
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "8001612159236474887"
+metadata/_component_uid = "103076408281536923"

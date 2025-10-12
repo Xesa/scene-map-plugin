@@ -132,7 +132,10 @@ func get_component_side() -> SceneMapComponent2D.Side:
 
 
 func get_custom_name() -> String:
-	return custom_name
+	if custom_name != null and custom_name != "":
+		return custom_name
+	else:
+		return SM_ResourceTools.convert_string_to_readable_name(name)
 
 
 func _generate_component_uid() -> void:

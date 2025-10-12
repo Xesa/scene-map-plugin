@@ -1,5 +1,9 @@
 {
     "files.exclude": {
         "**/*.uid": true
+    },
+    "editor.tokenColorCustomizations": {
+        "comments": "",
+        "textMateRules": []
     }
 }

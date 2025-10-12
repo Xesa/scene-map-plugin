@@ -6,6 +6,7 @@ const SM_SlotRegistrator := preload("uid://bj10g5ips4ubj")
 const SM_GraphResource := preload("uid://c2qiuif0u7poj")
 const SM_NodeResource := preload("uid://cu1fsenurp8wr")
 const SM_SlotResource := preload("uid://p2mmnni4huyo")
+const SM_NodeRefresher := preload("uid://up5v7v7p5u60")
 
 
 static func save(graph : SceneMapGraph) -> void:
@@ -100,4 +101,8 @@ static func load(graph : SceneMapGraph) -> void:
 	# Iterates the connection dictionary and adds them to the graph
 	for conn in graph_resource.connections:
 		graph.connect_node(conn.from_node, conn.from_port, conn.to_node, conn.to_port)
+
+	# Scans all scenes in search of changes
+	await Engine.get_main_loop().process_frame
+	SM_NodeRefresher.scan_all_scenes(graph)
 

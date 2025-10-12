@@ -1,7 +1,7 @@
 @tool
 extends Button
 
-const SM_SceneScanner := preload("uid://c4uyy81d0q134")
+const SM_NodeRefresher := preload("uid://up5v7v7p5u60")
 
 var panel : Control
 var graph : SceneMapGraph
@@ -17,4 +17,4 @@ func _ready() -> void:
 
 
 func _on_button_pressed() -> void:
-	SM_SceneScanner.scan_all_scenes(graph)
+	SM_NodeRefresher.scan_all_scenes(graph)

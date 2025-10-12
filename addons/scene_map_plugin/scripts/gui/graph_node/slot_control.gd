@@ -73,6 +73,10 @@ func _ready() -> void:
 	subcontrol.mouse_exited.connect(_on_mouse_exited)
 
 
+func refresh_label() -> void:
+	label.refresh_text(slot.index, slot.component_name)
+
+
 func _on_mouse_entered() -> void:
 	_toggle_subcontrol_visibility(true)
 
