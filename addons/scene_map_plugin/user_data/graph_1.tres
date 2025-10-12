@@ -1,9 +1,254 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bsiqv8sxvs86p"]
+[gd_resource type="Resource" load_steps=20 format=3 uid="uid://bsiqv8sxvs86p"]
 
 [ext_resource type="Script" uid="uid://cu1fsenurp8wr" path="res://addons/scene_map_plugin/scripts/resources/scene_map_node_resource.gd" id="1_yln3w"]
+[ext_resource type="Script" uid="uid://p2mmnni4huyo" path="res://addons/scene_map_plugin/scripts/resources/scene_map_slot_resource.gd" id="2_yln3w"]
 [ext_resource type="Script" uid="uid://c2qiuif0u7poj" path="res://addons/scene_map_plugin/scripts/resources/scene_map_graph_resource.gd" id="3_1rojr"]
+
+[sub_resource type="Resource" id="Resource_yln3w"]
+script = ExtResource("2_yln3w")
+slot_id = "bhc4y1rku2jb1:7292919236898709754"
+index = 2
+left = false
+right = true
+left_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
+right_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
+scene_uid = "bhc4y1rku2jb1"
+component_uid = "7292919236898709754"
+component_name = "Example Scene Map Component 2d 5"
+type = 2
+side = 1
+connected_to_ids = Array[String]([])
+connected_from_ids = Array[String]([])
+
+[sub_resource type="Resource" id="Resource_8v2go"]
+script = ExtResource("2_yln3w")
+slot_id = "bhc4y1rku2jb1:2389056619518284570"
+index = 3
+left = false
+right = true
+left_icon = "res://addons/scene_map_plugin/assets/arrow-left.svg"
+right_icon = "res://addons/scene_map_plugin/assets/arrow-right.svg"
+scene_uid = "bhc4y1rku2jb1"
+component_uid = "2389056619518284570"
+component_name = "Red House Bottom"
+type = 1
+side = 1
+connected_to_ids = Array[String]([])
+connected_from_ids = Array[String]([])
+
+[sub_resource type="Resource" id="Resource_1rojr"]
+script = ExtResource("2_yln3w")
+slot_id = "bhc4y1rku2jb1:2302996962786563254"
+index = 4
+left = false
+right = true
+left_icon = "res://addons/scene_map_plugin/assets/arrow-right.svg"
+right_icon = "res://addons/scene_map_plugin/assets/arrow-left.svg"
+scene_uid = "bhc4y1rku2jb1"
+component_uid = "2302996962786563254"
+component_name = "Red House Top"
+type = 0
+side = 1
+connected_to_ids = Array[String]([])
+connected_from_ids = Array[String]([])
+
+[sub_resource type="Resource" id="Resource_is818"]
+script = ExtResource("2_yln3w")
+slot_id = "bhc4y1rku2jb1:353675602066336910"
+index = 5
+left = false
+right = true
+left_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
+right_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
+scene_uid = "bhc4y1rku2jb1"
+component_uid = "353675602066336910"
+component_name = "Blue House"
+type = 2
+side = 1
+connected_to_ids = Array[String]([])
+connected_from_ids = Array[String]([])
+
+[sub_resource type="Resource" id="Resource_jn6tc"]
+script = ExtResource("2_yln3w")
+slot_id = "bhc4y1rku2jb1:4333001841033454904"
+index = 6
+left = true
+right = false
+left_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
+right_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
+scene_uid = "bhc4y1rku2jb1"
+component_uid = "4333001841033454904"
+component_name = "Example Scene Map Component 2d"
+type = 2
+side = 0
+connected_to_ids = Array[String]([])
+connected_from_ids = Array[String]([])
+
+[sub_resource type="Resource" id="Resource_plngk"]
+script = ExtResource("2_yln3w")
+slot_id = "bhc4y1rku2jb1:1170816704285856693"
+index = 1
+left = false
+right = true
+left_icon = "res://addons/scene_map_plugin/assets/arrow-left.svg"
+right_icon = "res://addons/scene_map_plugin/assets/arrow-right.svg"
+scene_uid = "bhc4y1rku2jb1"
+component_uid = "1170816704285856693"
+component_name = "New Example Scene Map Component 2d 3"
+type = 1
+side = 1
+connected_to_ids = Array[String](["di56ddpupkoyd:7545354993789079235"])
+connected_from_ids = Array[String]([])
+
+[sub_resource type="Resource" id="Resource_6cui4"]
+script = ExtResource("2_yln3w")
+slot_id = "bhc4y1rku2jb1:2389305754680352450"
+index = 7
+left = false
+right = true
+left_icon = "res://addons/scene_map_plugin/assets/arrow-left.svg"
+right_icon = "res://addons/scene_map_plugin/assets/arrow-right.svg"
+scene_uid = "bhc4y1rku2jb1"
+component_uid = "2389305754680352450"
+component_name = "New Example Scene Map Component 2d 2"
+type = 1
+side = 1
+connected_to_ids = Array[String]([])
+connected_from_ids = Array[String]([])
+
+[sub_resource type="Resource" id="Resource_3amfr"]
+script = ExtResource("1_yln3w")
+offset = Vector2(0, 0)
+scene_name = "Exterior"
+scene_uid = "bhc4y1rku2jb1"
+component_slots = Array[ExtResource("2_yln3w")]([SubResource("Resource_yln3w"), SubResource("Resource_8v2go"), SubResource("Resource_1rojr"), SubResource("Resource_is818"), SubResource("Resource_jn6tc"), SubResource("Resource_plngk"), SubResource("Resource_6cui4")])
+
+[sub_resource type="Resource" id="Resource_uqefw"]
+script = ExtResource("2_yln3w")
+slot_id = "di56ddpupkoyd:8482231182229159449"
+index = 1
+left = true
+right = true
+left_icon = "res://addons/scene_map_plugin/assets/arrow-left.svg"
+right_icon = "res://addons/scene_map_plugin/assets/arrow-left.svg"
+scene_uid = "di56ddpupkoyd"
+component_uid = "8482231182229159449"
+component_name = "Example Scene Map Component 2d 6"
+type = 3
+side = 1
+connected_to_ids = Array[String]([])
+connected_from_ids = Array[String]([])
+
+[sub_resource type="Resource" id="Resource_qkcif"]
+script = ExtResource("2_yln3w")
+slot_id = "di56ddpupkoyd:7543032615064442619"
+index = 2
+left = true
+right = false
+left_icon = "res://addons/scene_map_plugin/assets/arrow-right.svg"
+right_icon = "res://addons/scene_map_plugin/assets/arrow-left.svg"
+scene_uid = "di56ddpupkoyd"
+component_uid = "7543032615064442619"
+component_name = "Exit Bottom"
+type = 0
+side = 0
+connected_to_ids = Array[String]([])
+connected_from_ids = Array[String]([])
+
+[sub_resource type="Resource" id="Resource_imgxc"]
+script = ExtResource("2_yln3w")
+slot_id = "di56ddpupkoyd:4904517937921716993"
+index = 3
+left = true
+right = false
+left_icon = "res://addons/scene_map_plugin/assets/arrow-left.svg"
+right_icon = "res://addons/scene_map_plugin/assets/arrow-right.svg"
+scene_uid = "di56ddpupkoyd"
+component_uid = "4904517937921716993"
+component_name = "Exit Top"
+type = 1
+side = 0
+connected_to_ids = Array[String]([])
+connected_from_ids = Array[String]([])
+
+[sub_resource type="Resource" id="Resource_63p6h"]
+script = ExtResource("2_yln3w")
+slot_id = "di56ddpupkoyd:633800964558869676"
+index = 4
+left = true
+right = false
+left_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
+right_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
+scene_uid = "di56ddpupkoyd"
+component_uid = "633800964558869676"
+component_name = "Example Scene Map Component 2d 2"
+type = 2
+side = 0
+connected_to_ids = Array[String]([])
+connected_from_ids = Array[String]([])
+
+[sub_resource type="Resource" id="Resource_4r4uh"]
+script = ExtResource("2_yln3w")
+slot_id = "di56ddpupkoyd:4255700178678216420"
+index = 5
+left = true
+right = false
+left_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
+right_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
+scene_uid = "di56ddpupkoyd"
+component_uid = "4255700178678216420"
+component_name = "Example Scene Map Component 2d 3"
+type = 2
+side = 0
+connected_to_ids = Array[String]([])
+connected_from_ids = Array[String]([])
+
+[sub_resource type="Resource" id="Resource_qikd0"]
+script = ExtResource("2_yln3w")
+slot_id = "di56ddpupkoyd:7545354993789079235"
+index = 6
+left = true
+right = true
+left_icon = "res://addons/scene_map_plugin/assets/arrow-right.svg"
+right_icon = "res://addons/scene_map_plugin/assets/arrow-right.svg"
+scene_uid = "di56ddpupkoyd"
+component_uid = "7545354993789079235"
+component_name = "Example Scene Map Component 2d 4"
+type = 3
+side = 0
+connected_to_ids = Array[String]([])
+connected_from_ids = Array[String](["bhc4y1rku2jb1:1170816704285856693"])
+
+[sub_resource type="Resource" id="Resource_1kqki"]
+script = ExtResource("2_yln3w")
+slot_id = "di56ddpupkoyd:8001612159236474887"
+index = 7
+left = true
+right = true
+left_icon = "res://addons/scene_map_plugin/assets/arrow-left.svg"
+right_icon = "res://addons/scene_map_plugin/assets/arrow-left.svg"
+scene_uid = "di56ddpupkoyd"
+component_uid = "8001612159236474887"
+component_name = "Example Scene Map Component 2d 5"
+type = 3
+side = 1
+connected_to_ids = Array[String]([])
+connected_from_ids = Array[String]([])
+
+[sub_resource type="Resource" id="Resource_0agvc"]
+script = ExtResource("1_yln3w")
+offset = Vector2(500, -60)
+scene_name = "Interior Red House"
+scene_uid = "di56ddpupkoyd"
+component_slots = Array[ExtResource("2_yln3w")]([SubResource("Resource_uqefw"), SubResource("Resource_qkcif"), SubResource("Resource_imgxc"), SubResource("Resource_63p6h"), SubResource("Resource_4r4uh"), SubResource("Resource_qikd0"), SubResource("Resource_1kqki")])
 
 [resource]
 script = ExtResource("3_1rojr")
-nodes = Array[ExtResource("1_yln3w")]([])
-connections = Array[Dictionary]([])
+nodes = Array[ExtResource("1_yln3w")]([SubResource("Resource_3amfr"), SubResource("Resource_0agvc")])
+connections = Array[Dictionary]([{
+"from_node": &"bhc4y1rku2jb1",
+"from_port": 1,
+"keep_alive": false,
+"to_node": &"di56ddpupkoyd",
+"to_port": 6
+}])

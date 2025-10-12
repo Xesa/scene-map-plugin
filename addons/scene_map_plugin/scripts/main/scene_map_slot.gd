@@ -59,15 +59,10 @@ signal type_changed(type : SceneMapComponent2D.Type)
 func _init(_graph_node : SceneMapNode, _type : SceneMapComponent2D.Type = 0, _side : SceneMapComponent2D.Side = 0,
 		_index : int = 0, _left : bool = false, _right : bool = false,
 		_left_icon : String = "", _right_icon : String = "",
-		_scene_uid : String = "", _component_name = "", _component_uid = null, )-> void:
-	
-	# If the component doesn't has an UID creates a new one
-	if _component_uid:
-		component_uid = _component_uid
-	else:
-		component_uid = str(ResourceUID.create_id())
+		_scene_uid : String = "", _component_name = "", _component_uid = null)-> void:
 
 	graph_node = _graph_node
+	component_uid = _component_uid
 	scene_uid = _scene_uid
 	component_name = _component_name
 	slot_id = scene_uid + ":" + component_uid

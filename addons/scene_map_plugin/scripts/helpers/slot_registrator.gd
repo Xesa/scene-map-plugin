@@ -66,8 +66,8 @@ func register_new_slot(component: SceneMapComponent2D) -> SceneMapSlot:
 	var component_name = component.custom_name if component.custom_name else SM_ResourceTools.convert_string_to_readable_name(component.name)
 	
 	var data := {
-		"type": component.type,
-		"side": component.side,
+		"type": component.get_component_type(),
+		"side": component.get_component_side(),
 		"index": slot_counter,
 		"left": left_side,
 		"right": right_side,
@@ -75,12 +75,11 @@ func register_new_slot(component: SceneMapComponent2D) -> SceneMapSlot:
 		"right_icon": right_icon_path,
 		"scene_uid": graph_node.scene_uid,
 		"component_name": component_name,
-		"component_uid": null
+		"component_uid": component.get_component_uid()
 	}
 
 	# Creates the slot and sets a UID to the component
 	var slot = _create_and_attach_slot(data)
-	component._set_component_uid(slot.component_uid)
 	return slot
 
 

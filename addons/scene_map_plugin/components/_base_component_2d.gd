@@ -9,7 +9,9 @@ class_name SceneMapComponent2D extends Node2D
 ## [code]go_to_next_scene()[/code] method (there is a simple example in the method's description).[br][br]
 ## A node that inherits from this class can be populated with different sub-components,
 ## which will provide the node with new functionalities and properties. See the [code]sub_components[/code]
-## property's description for more information.
+## property's description for more information.[br]
+## If custom logic needs to be added to the [code]_ready()[/code] method, you must call its parent class method
+## by using the [code]super[/code] keyword at the beginning of the method.
 
 const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
 const SM_ResourceTools := preload("uid://b71h2bnocse6c")
@@ -51,6 +53,11 @@ enum Side {
 	RIGHT,	## The node will appear in the right side. In [code]FUNNEL[/code] mode the left side will be the exit and the right side will be the entrance (right-to-left).
 }
 
+func _ready() -> void:
+	if Engine.is_editor_hint():
+		_generate_component_uid.call_deferred()
+
+
 func set_component_type(_type : Type) -> void:
 	type = _type
 
@@ -69,7 +76,8 @@ func remove_custom_name() -> void:
 
 ## Sets the [component_uid] value in the component's metadata.
 ## [b]This method is reserved for the plugin and shouldn't be called anywhere else.[/b]
-func _set_component_uid(component_uid : String) -> void:
+func _set_component_uid() -> void:
+	var component_uid = str(ResourceUID.create_id())
 	set_meta(&"_component_uid", component_uid)
 
 
@@ -127,6 +135,30 @@ func get_custom_name() -> String:
 	return custom_name
 
 
+func _generate_component_uid() -> void:
+	if get_component_uid_or_null() == null:
+		_set_component_uid()
+		EditorInterface.mark_scene_as_unsaved()
+	
+	var components := SM_ComponentFinder.find_all_components(get_root_node())
+
+	for component in components:
+		if component == self or component.get_component_uid_or_null() == null:
+			continue
+		
+		if component.get_component_uid_or_null() == get_component_uid_or_null():
+			_set_component_uid()
+			EditorInterface.mark_scene_as_unsaved()
+			return
+
+
+func get_root_node() -> Node:
+	var node = self
+	while node.owner != null:
+		node = node.owner
+	return node
+
+	
 ## Loads the next scene and sets it to the [next_scene_resource] property.
 ## If the scene is already loaded it will return the [next_scene_resource] property without loading it again.[br]
 ## If [next_scene_uid] is empty or the scene doesn't exist returns [null] and generates an error.[br]

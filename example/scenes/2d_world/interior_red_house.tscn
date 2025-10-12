@@ -21,6 +21,12 @@ script = ExtResource("1_1h868")
 default_spawn_node = NodePath("SceneMapComponent1")
 metadata/_custom_type_script = "uid://dwu4scnijfokr"
 
+[node name="ExampleSceneMapComponent2D6" type="Node2D" parent="."]
+script = ExtResource("3_4kahw")
+type = 3
+metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_uid = "8482231182229159449"
+
 [node name="TileMap" type="Node2D" parent="."]
 y_sort_enabled = true
 position = Vector2(576, 312)
@@ -56,6 +62,7 @@ custom_name = "Exit Bottom"
 type = 0
 side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_uid = "7543032615064442619"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent1"]
 texture = ExtResource("4_4kahw")
@@ -84,7 +91,7 @@ custom_name = "Exit Top"
 type = 1
 side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "6991627296352785263"
+metadata/_component_uid = "4904517937921716993"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent2"]
 texture = ExtResource("4_4kahw")
@@ -105,51 +112,27 @@ metadata/_custom_type_script = "uid://dq0hvvxswuvvk"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SceneMapComponent2/SceneMapComponentArea2D"]
 shape = SubResource("RectangleShape2D_abwjd")
 
-[node name="ExampleSceneMapComponent2D" type="Node2D" parent="."]
+[node name="ExampleSceneMapComponent2D2" type="Node2D" parent="."]
 script = ExtResource("3_4kahw")
 side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_uid = "633800964558869676"
 
-[node name="ExampleSceneMapComponent2D2" type="Node2D" parent="."]
+[node name="ExampleSceneMapComponent2D3" type="Node2D" parent="."]
 script = ExtResource("3_4kahw")
+side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "4583340271954268588"
+metadata/_component_uid = "4255700178678216420"
 
 [node name="ExampleSceneMapComponent2D4" type="Node2D" parent="."]
 script = ExtResource("3_4kahw")
 type = 3
 side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_uid = "7545354993789079235"
 
 [node name="ExampleSceneMapComponent2D5" type="Node2D" parent="."]
 script = ExtResource("3_4kahw")
 type = 3
-side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "551416418311863239"
-
-[node name="ExampleSceneMapComponent2D6" type="Node2D" parent="."]
-script = ExtResource("3_4kahw")
-type = 3
-side = 0
-metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-
-[node name="ExampleSceneMapComponent2D7" type="Node2D" parent="."]
-script = ExtResource("3_4kahw")
-type = 3
-side = 0
-metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "7806035641359344553"
-
-[node name="ExampleSceneMapComponent2D8" type="Node2D" parent="."]
-script = ExtResource("3_4kahw")
-type = 3
-side = 0
-metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-
-[node name="ExampleSceneMapComponent2D9" type="Node2D" parent="."]
-script = ExtResource("3_4kahw")
-type = 3
-side = 0
-metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "5065991996302610522"
+metadata/_component_uid = "8001612159236474887"

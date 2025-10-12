@@ -29,10 +29,20 @@ script = ExtResource("1_tg1nb")
 default_spawn_node = NodePath("RedHouse/SceneMapComponent1")
 metadata/_custom_type_script = "uid://dwu4scnijfokr"
 
+[node name="NEWExampleSceneMapComponent2D3" type="Node2D" parent="."]
+script = ExtResource("5_ndlqu")
+type = 1
+metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_duplicate_checked = true
+metadata/_component_uid = "1170816704285856693"
+metadata/_next_scene_uid = "di56ddpupkoyd"
+metadata/_next_component_uid = "7545354993789079235"
+
 [node name="ExampleSceneMapComponent2D5" type="Node2D" parent="."]
 script = ExtResource("5_ndlqu")
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "3803403875184253341"
+metadata/_duplicate_checked = true
+metadata/_component_uid = "7292919236898709754"
 
 [node name="TileMap" type="Node2D" parent="."]
 
@@ -71,6 +81,8 @@ script = ExtResource("5_ndlqu")
 custom_name = "Red House Bottom"
 type = 1
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_duplicate_checked = true
+metadata/_component_uid = "2389056619518284570"
 
 [node name="SceneMapComponentMarker2D" parent="RedHouse/SceneMapComponent1" index="0"]
 position = Vector2(0, 36)
@@ -93,7 +105,8 @@ script = ExtResource("5_ndlqu")
 custom_name = "Red House Top"
 type = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "2524884935001971630"
+metadata/_duplicate_checked = true
+metadata/_component_uid = "2302996962786563254"
 
 [node name="SceneMapComponentMarker2D2" type="Marker2D" parent="RedHouse/SceneMapComponent2"]
 position = Vector2(0, -68)
@@ -130,6 +143,8 @@ position = Vector2(0, 72)
 script = ExtResource("5_ndlqu")
 custom_name = "Blue House"
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_duplicate_checked = true
+metadata/_component_uid = "353675602066336910"
 
 [node name="SceneMapComponentMarker2D" parent="BlueHouse/SceneMapComponent1" index="0"]
 position = Vector2(0, 36)
@@ -150,15 +165,15 @@ shape = SubResource("RectangleShape2D_7aome")
 script = ExtResource("5_ndlqu")
 side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_component_uid = "4854760448242863048"
+metadata/_duplicate_checked = true
+metadata/_component_uid = "4333001841033454904"
 
 [node name="NEWExampleSceneMapComponent2D2" type="Node2D" parent="."]
 script = ExtResource("5_ndlqu")
+type = 1
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-
-[node name="ExampleSceneMapComponent2D4" type="Node2D" parent="."]
-script = ExtResource("5_ndlqu")
-metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_duplicate_checked = true
+metadata/_component_uid = "2389305754680352450"
 
 [editable path="RedHouse"]
 [editable path="BlueHouse"]
