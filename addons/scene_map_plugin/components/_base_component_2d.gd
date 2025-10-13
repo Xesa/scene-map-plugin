@@ -85,13 +85,6 @@ func get_component_uid() -> Variant:
 	return get_meta(&"_component_uid")
 
 
-## Returns the [component_uid] value from this component's metadata. If the value is [null] no errors will be generated.
-func get_component_uid_or_null() -> Variant:
-	if has_meta(&"_component_uid"):
-		return get_meta(&"_component_uid")
-	return null
-
-
 ## Returns the [next_scene_uid] value from this component's metadata. If the value is [null] an error is generated.
 func get_next_scene_uid() -> Variant:
 	return get_meta(&"_next_scene_uid")
@@ -125,17 +118,17 @@ func has_custom_name() -> bool:
 
 
 func _generate_component_uid() -> void:
-	if get_component_uid_or_null() == null:
+	if get_component_uid() == null:
 		_set_component_uid()
 		EditorInterface.mark_scene_as_unsaved()
 	
 	var components := SM_ComponentFinder.find_all_components(SM_ComponentFinder.get_root_node(self))
 
 	for component in components:
-		if component == self or component.get_component_uid_or_null() == null:
+		if component == self or component.get_component_uid() == null:
 			continue
 		
-		if component.get_component_uid_or_null() == get_component_uid_or_null():
+		if component.get_component_uid() == get_component_uid():
 			_set_component_uid()
 			EditorInterface.mark_scene_as_unsaved()
 			return

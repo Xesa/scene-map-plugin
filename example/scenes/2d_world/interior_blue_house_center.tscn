@@ -48,9 +48,9 @@ metadata/_custom_type_script = "uid://ra3t033pr4q"
 z_index = -1
 position = Vector2(675, 610)
 script = ExtResource("4_leja7")
-custom_name = "Exit"
-side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_type = 2
+metadata/_component_side = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent"]
 texture = ExtResource("5_ukkr6")
@@ -76,9 +76,9 @@ z_index = -1
 position = Vector2(166, 150)
 rotation = 3.14159
 script = ExtResource("4_leja7")
-custom_name = "Top-Left"
-side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_type = 2
+metadata/_component_side = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent2"]
 texture = ExtResource("5_ukkr6")
@@ -104,8 +104,9 @@ z_index = -1
 position = Vector2(405, 150)
 rotation = 3.14159
 script = ExtResource("4_leja7")
-custom_name = "Top-Center"
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_type = 2
+metadata/_component_side = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent3"]
 texture = ExtResource("5_ukkr6")
@@ -131,8 +132,9 @@ z_index = -1
 position = Vector2(1115, 350)
 rotation = -1.5708
 script = ExtResource("4_leja7")
-custom_name = "Right"
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_type = 2
+metadata/_component_side = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent5"]
 texture = ExtResource("5_ukkr6")
@@ -158,9 +160,9 @@ z_index = -1
 position = Vector2(35, 350)
 rotation = 1.57079
 script = ExtResource("4_leja7")
-custom_name = "Left"
-side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_type = 2
+metadata/_component_side = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent6"]
 texture = ExtResource("5_ukkr6")
@@ -186,8 +188,9 @@ z_index = -1
 position = Vector2(983, 150)
 rotation = 3.14159
 script = ExtResource("4_leja7")
-custom_name = "Top-Right"
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_type = 2
+metadata/_component_side = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent4"]
 texture = ExtResource("5_ukkr6")

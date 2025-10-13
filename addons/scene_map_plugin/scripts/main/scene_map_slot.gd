@@ -163,7 +163,6 @@ func delete() -> void:
 	var component := SM_ComponentFinder.search_component_by_uid(scene_values["instance"], component_uid)
 
 	if component:
-		component._remove_component_uid()
 		component._remove_next_scene()
 
 	if control:

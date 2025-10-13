@@ -34,7 +34,6 @@ func activate() -> void:
 	else:
 		text = ""
 
-	print(control.subcontrol.size.y)
 	custom_minimum_size.x = control.subcontrol.size.x
 	custom_minimum_size.y = 5
 	size.y = 1

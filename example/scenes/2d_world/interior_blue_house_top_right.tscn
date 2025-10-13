@@ -52,9 +52,9 @@ z_index = -1
 position = Vector2(35, 350)
 rotation = 1.57079
 script = ExtResource("4_gm4e1")
-custom_name = "Left"
-side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_type = 2
+metadata/_component_side = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent6"]
 texture = ExtResource("5_d0cu5")
@@ -79,9 +79,10 @@ shape = SubResource("RectangleShape2D_ol6pp")
 z_index = -1
 position = Vector2(166, 610)
 script = ExtResource("4_gm4e1")
-custom_name = "Bottom-Left"
-side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_type = 2
+metadata/_component_side = 1
+metadata/_component_uid = "2372834662053852200"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent"]
 texture = ExtResource("5_d0cu5")
@@ -106,8 +107,9 @@ shape = SubResource("RectangleShape2D_vjsnb")
 z_index = -1
 position = Vector2(983, 610)
 script = ExtResource("4_gm4e1")
-custom_name = "Bottom-Right"
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_type = 1
+metadata/_component_side = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent2"]
 texture = ExtResource("5_d0cu5")

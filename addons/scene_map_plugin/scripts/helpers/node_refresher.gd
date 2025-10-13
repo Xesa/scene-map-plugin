@@ -62,7 +62,7 @@ static func get_components_to_add(graph_node : SceneMapNode, components : Array)
 		var component_stats := {"index": index, "component": component, "slot": null, "is_new": true}
 
 		for slot in graph_node.component_slots:
-			if component.get_component_uid_or_null() != null and component.get_component_uid_or_null() == slot.component_uid:
+			if component.get_component_uid() != null and component.get_component_uid() == slot.component_uid:
 				component_stats["slot"] = slot
 				component_stats["is_new"] = false
 				break
@@ -80,7 +80,7 @@ static func get_slots_to_remove(graph_node : SceneMapNode, components : Array) -
 		var slot_stats := {"index": slot.index, "slot": slot, "component": null, "is_removed": true}
 
 		for component in components:
-			if component.get_component_uid_or_null() != null and component.get_component_uid_or_null() == slot.component_uid:
+			if component.get_component_uid() != null and component.get_component_uid() == slot.component_uid:
 				slot_stats["component"] = component
 				slot_stats["is_removed"] = false
 				break

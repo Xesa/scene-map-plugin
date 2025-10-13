@@ -67,7 +67,8 @@ metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
 metadata/_duplicate_checked = true
 metadata/_component_type = 2
 metadata/_component_side = 1
-metadata/_component_uid = "41649839368939342"
+metadata/_component_custom_name = "Casita de la izquierda"
+metadata/_component_uid = "6244761210966650832"
 
 [node name="SceneMapComponentMarker2D" parent="RedHouse/SceneMapComponent1" index="0"]
 position = Vector2(0, 36)
@@ -92,6 +93,7 @@ metadata/_duplicate_checked = true
 metadata/_component_uid = "7540881001234267392"
 metadata/_component_type = 2
 metadata/_component_side = 1
+metadata/_component_custom_name = "Casita de la derecha"
 
 [node name="SceneMapComponentMarker2D2" type="Marker2D" parent="RedHouse/SceneMapComponent2"]
 position = Vector2(0, -68)
@@ -128,9 +130,9 @@ position = Vector2(0, 72)
 script = ExtResource("5_ndlqu")
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
 metadata/_duplicate_checked = true
-metadata/_component_type = 2
-metadata/_component_side = 1
-metadata/_component_uid = "6188189194487020143"
+metadata/_component_type = 0
+metadata/_component_side = 0
+metadata/_component_uid = "5690034455176242348"
 
 [node name="SceneMapComponentMarker2D" parent="BlueHouse/SceneMapComponent1" index="0"]
 position = Vector2(0, 36)

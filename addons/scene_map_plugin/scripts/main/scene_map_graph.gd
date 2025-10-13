@@ -2,6 +2,7 @@
 class_name SceneMapGraph extends GraphEdit
 
 const SM_SlotConnector := preload("uid://1mcwq8t36pgx")
+const SM_NodeRegistrator := preload("uid://h21oshs7hv1o")
 const SM_ConnectionValidator := preload("uid://btnhphtrcwk72")
 
 var plugin : SceneMap
@@ -63,3 +64,17 @@ func get_node_connections(graph_node : SceneMapNode) -> Dictionary:
 			node_connections[to_slot.index] = connection
 
 	return node_connections
+
+
+func _can_drop_data(at_position: Vector2, data: Variant) -> bool:
+	if typeof(data) == TYPE_DICTIONARY and data.has("files"):
+		for f in data["files"]:
+			if f.ends_with(".tscn"):
+				return true
+	return false
+
+
+func _drop_data(at_position: Vector2, data: Variant) -> void:
+	for file_path in data["files"]:
+		if file_path.ends_with(".tscn"):
+			SM_NodeRegistrator.register_scene(self, file_path, "", true, at_position)
