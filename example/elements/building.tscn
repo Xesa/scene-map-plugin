@@ -29,6 +29,9 @@ debug_color = Color(0.818575, 0.366237, 0.457979, 0.42)
 position = Vector2(0, 72)
 script = ExtResource("2_y0by5")
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
+metadata/_component_type = 2
+metadata/_component_side = 0
+metadata/_component_uid = "5309172556840436299"
 
 [node name="SceneMapComponentMarker2D" type="Marker2D" parent="SceneMapComponent1"]
 position = Vector2(0, 36)

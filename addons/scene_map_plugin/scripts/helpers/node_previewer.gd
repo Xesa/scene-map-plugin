@@ -4,11 +4,13 @@ extends Node
 
 const SM_Constants := preload("uid://cjynbj0oq1sx1")
 const SM_SceneSaver := preload("uid://7svcgc01kw2b")
+const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
 
 ## Creates the preview box and calls the [_refresh_preview()] method.
 static func create_preview(graph_node : SceneMapNode) -> void:
 	var preview = TextureRect.new()
 	preview.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
+	preview.custom_minimum_size = SM_Constants.VIEWPORT_SIZE
 
 	graph_node.preview = preview
 	graph_node.add_child(preview)
@@ -26,16 +28,21 @@ static func refresh_preview(graph_node : SceneMapNode) -> void:
 	viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ALWAYS
 	graph_node.add_child(viewport)
 
-	# Gets the total size of the scene
+	# Gets the scene instance
 	var scene_resource : PackedScene = await SM_SceneSaver.open_scene(graph_node.scene_uid)["resource"]
 	var scene_instance : Node = scene_resource.instantiate()
-	var scene_size = get_scene_size(scene_instance)
 	viewport.add_child(scene_instance)
+
+	# Calculates the scene size
+	var scene_rect = get_node_rect(scene_instance, Rect2(Vector2.ONE, Vector2.ONE))
+
+	# Adds markers to the scene
+	scene_instance = put_markers(scene_instance, scene_rect.size)
 
 	# Creates a camera and sets its position and zoom to fit the entire scene into the subviewport
 	var camera := Camera2D.new()
 	camera.enabled = true
-	camera = fit_camera_to_scene(camera, scene_size, SM_Constants.VIEWPORT_SIZE)
+	camera = fit_camera_to_scene(camera, scene_rect, SM_Constants.VIEWPORT_SIZE)
 	viewport.add_child(camera)
 	camera.make_current()
 	
@@ -50,39 +57,69 @@ static func refresh_preview(graph_node : SceneMapNode) -> void:
 	viewport.queue_free()
 
 
-## Returns a [Rect2] with the position and size of all the occupied space in the scene.
-## TODO: need more ways to determine the total size of the scene.
-static func get_scene_size(scene_instance : Node) -> Rect2:
+## Returns a [Rect2] with the position and size of all the occupied space in each child of [node].
+## This function is recursive.
+static func get_node_rect(node : Node, rect : Rect2) -> Rect2:
 
-	var rect := Rect2()
-	var first := true
+	# Gets the used space by a TileMapLayer
+	if node is TileMapLayer:
+		var cell_size : Vector2i = node.tile_set.tile_size
+		var used_rect = node.get_used_rect()
+		var pixel_rect := Rect2(used_rect.position * cell_size, used_rect.size * cell_size)
+		
+		rect = rect.merge(pixel_rect)
 
-	# Iterates every tile layer and sums all their positions and sizes
-	var tile_map : Node2D = scene_instance.get_node("TileMap")
-	for node in tile_map.get_children():
-		if node is TileMapLayer:
+	# Gets the used space by regular Node2Ds
+	elif node.get("size") and node.get("global_position"):
+		var used_rect := Rect2(node.global_position, node.size)
+		rect = rect.merge(used_rect)
 
-			var cell_size : Vector2i = node.tile_set.tile_size
-			var used_rect = node.get_used_rect()
-			var pixel_rect := Rect2(used_rect.position * cell_size, used_rect.size * cell_size)
-
-			if first:
-				rect = pixel_rect
-				first = false
-			else:
-				rect.merge(pixel_rect)
+	# Iterates each child recursively
+	for child in node.get_children():
+		rect = get_node_rect(child, rect)
 
 	return rect
 
 
 ## Sets the camera position and size to fit the entire scene into the preview box.
-static func fit_camera_to_scene(camera : Camera2D, scene_size : Rect2, viewport_size : Vector2) -> Camera2D:
-	var center = scene_size.position + scene_size.size * 0.5
-	var scale_x = viewport_size.x / scene_size.size.x
-	var scale_y = viewport_size.y / scene_size.size.y
+static func fit_camera_to_scene(camera : Camera2D, scene_rect : Rect2, viewport_size : Vector2) -> Camera2D:
+	var center = scene_rect.position + scene_rect.size * 0.5
+	var scale_x = viewport_size.x / scene_rect.size.x
+	var scale_y = viewport_size.y / scene_rect.size.y
 	var zoom_factor = min(scale_x, scale_y)
 
 	camera.position = center
 	camera.zoom = Vector2(zoom_factor, zoom_factor)
 
 	return camera
+
+
+static func put_markers(scene_instance : Node, scene_size : Vector2) -> Node:
+
+	var components := SM_ComponentFinder.find_all_components(scene_instance)
+
+	var index := 0
+	for component in components:
+
+		index += 1
+
+		var font_size := scene_size.x * 0.08
+		var outline_size := scene_size.x * 0.02
+
+		var label := Label.new()
+		label.text = str(index)
+		label.z_index = RenderingServer.CANVAS_ITEM_Z_MAX
+		label.add_theme_font_size_override("font_size", font_size)
+		label.add_theme_color_override("font_color", Color.RED)
+		label.add_theme_color_override("font_outline_color", Color.WHITE)
+		label.add_theme_constant_override("outline_size", outline_size)
+
+
+		var theme_font := label.get_theme_font("font")
+		var label_size := theme_font.get_string_size(label.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size)
+		label.pivot_offset = label_size / 2
+		label.global_position = component.global_position - label.pivot_offset
+
+		scene_instance.add_child(label)
+
+	return scene_instance

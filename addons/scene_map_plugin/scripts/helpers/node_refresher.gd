@@ -3,6 +3,7 @@ extends Node
 const SM_SceneSaver := preload("uid://7svcgc01kw2b")
 const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
 const SM_SlotRegistrator := preload("uid://bj10g5ips4ubj")
+const SM_NodePreviewer := preload("uid://brgihuj5exdgu")
 
 
 ## Iterates through all the graph node's in the SceneMap and checks all the [SceneMapComponent] present
@@ -17,8 +18,10 @@ static func scan_all_scenes(graph : SceneMapGraph) -> void:
 	for child in graph.get_children():
 		if child is SceneMapNode:
 			await scan_scene(child)
+			await SM_NodePreviewer.refresh_preview(child)
 
 	await SM_SceneSaver.save()
+
 	SceneMapIO.save(graph)
 
 

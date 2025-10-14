@@ -51,12 +51,11 @@ metadata/_custom_type_script = "uid://ra3t033pr4q"
 z_index = -1
 position = Vector2(166, 610)
 script = ExtResource("4_p6ded")
-custom_name = "Bottom-Left"
-side = 0
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
 metadata/_component_uid = "7580863644027431064"
-metadata/_next_scene_uid = "dvx7r1b58ehka"
-metadata/_next_component_uid = "1273985077916088544"
+metadata/_component_type = 2
+metadata/_component_side = 0
+metadata/_component_custom_name = "Bottom-left"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent"]
 texture = ExtResource("5_pwo6q")
@@ -81,11 +80,11 @@ shape = SubResource("RectangleShape2D_abwjd")
 z_index = -1
 position = Vector2(983, 610)
 script = ExtResource("4_p6ded")
-custom_name = "Bottom-Right"
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
 metadata/_component_uid = "5397918392920430192"
-metadata/_next_scene_uid = "cwtf45gw77uak"
-metadata/_next_component_uid = "7807856576124868116"
+metadata/_component_type = 2
+metadata/_component_side = 1
+metadata/_component_custom_name = "Bottom-right"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent2"]
 texture = ExtResource("5_pwo6q")
@@ -111,11 +110,11 @@ z_index = -1
 position = Vector2(1115, 350)
 rotation = -1.5708
 script = ExtResource("4_p6ded")
-custom_name = "Right"
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
 metadata/_component_uid = "5744387500603543424"
-metadata/_next_scene_uid = "boo8bhc3f58y2"
-metadata/_next_component_uid = "4296540590887391765"
+metadata/_component_type = 2
+metadata/_component_side = 1
+metadata/_component_custom_name = "Right"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent5"]
 texture = ExtResource("5_pwo6q")

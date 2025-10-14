@@ -36,53 +36,97 @@ func _ready() -> void:
 		_generate_component_uid.call_deferred()
 
 
-func set_component_type(type : SM_Enums.Type) -> void:
+#region SetterMethods
+
+## Generates a unique identifier for this component that will be stored in the [component_uid] metadata value.
+## If this component already has an identifier but it is the same one as any other component in the scene, it will generate a new one.[br]
+## To get this component's UID use the [get_component_uid()] method or [get_component_uid_or_null()] if no errors should be generated.[br]
+## [b]This method is for exclusive use of the SceneMap plugin and shouldn't be used anywhere else.[/b]
+func _generate_component_uid() -> void:
+	if get_component_uid_or_null() == null:
+		_set_component_uid()
+		EditorInterface.mark_scene_as_unsaved()
+	
+	var components := SM_ComponentFinder.find_all_components(SM_ComponentFinder.get_root_node(self))
+
+	for component in components:
+		if component == self or component.get_component_uid_or_null() == null:
+			continue
+		
+		if component.get_component_uid() == get_component_uid():
+			_set_component_uid()
+			EditorInterface.mark_scene_as_unsaved()
+			return
+
+
+## Sets the component's type, which defines what actions can be performed through this component.[br]
+## [b]This method is for exclusive use of the SceneMap plugin and shouldn't be used anywhere else.[/b]
+func _set_component_type(type : SM_Enums.Type) -> void:
 	set_meta(&"_component_type", type)
 
 
-func set_component_side(side : SM_Enums.Side) -> void:
+## Sets the component's side, which defines in which side of the graph node will this component appear.[br]
+## [b]This method is for exclusive use of the SceneMap plugin and shouldn't be used anywhere else.[/b]
+func _set_component_side(side : SM_Enums.Side) -> void:
 	set_meta(&"_component_side", side)
 
 
-func set_custom_name(custom_name : String) -> void:
+## Sets a custom name that will be shown in the scene map instead of the actual name of the component in the scene.[br]
+## [b]This method is for exclusive use of the SceneMap plugin and shouldn't be used anywhere else.[/b]
+func _set_custom_name(custom_name : String) -> void:
 	set_meta(&"_component_custom_name", custom_name)
 
 
-func remove_custom_name() -> void:
-	if has_meta(&"_component_custom_name"):
-		remove_meta(&"_component_custom_name")
-
-
 ## Sets the [component_uid] value in the component's metadata.
-## [b]This method is reserved for the plugin and shouldn't be called anywhere else.[/b]
+## [b]This method is for exclusive use of the SceneMap plugin and shouldn't be used anywhere else.[/b]
 func _set_component_uid() -> void:
 	var component_uid = str(ResourceUID.create_id())
 	set_meta(&"_component_uid", component_uid)
 
 
 ## Sets the [next_scene_uid] and [next_component_uid] references in the component's metadata.[br]
-## [b]This method is reserved for the plugin and shouldn't be called anywhere else.[/b]
+## [b]This method is for exclusive use of the SceneMap plugin and shouldn't be used anywhere else.[/b]
 func _set_next_scene(scene_uid : String, component_uid : String) -> void:
 	set_meta(&"_next_scene_uid", scene_uid)
 	set_meta(&"_next_component_uid", component_uid)
 
+#endregion
+
+#region RemoverMethods
 
 ## Removes the [component_uid] value in the component's metadata.
-## [b]This method is reserved for the plugin and shouldn't be called anywhere else.[/b]
+## [b]This method is for exclusive use of the SceneMap plugin and shouldn't be used anywhere else.[/b]
 func _remove_component_uid() -> void:
 	remove_meta(&"_component_uid")
 
 
 ## Removes the [next_scene_uid] and [next_component_uid] references in the component's metadata.[br]
-## [b]This method is reserved for the plugin and shouldn't be called anywhere else.[/b]
+## [b]This method is for exclusive use of the SceneMap plugin and shouldn't be used anywhere else.[/b]
 func _remove_next_scene() -> void:
 	remove_meta(&"_next_scene_uid")
 	remove_meta(&"_next_component_uid")
 
 
+## Removes the custom name.[br]
+## [b]This method is for exclusive use of the SceneMap plugin and shouldn't be used anywhere else.[/b]
+func _remove_custom_name() -> void:
+	if has_meta(&"_component_custom_name"):
+		remove_meta(&"_component_custom_name")
+
+#endregion
+
+#region GetterMethods
+
 ## Returns the [component_uid] value from this component's metadata. If the value is [null] an error is generated.
 func get_component_uid() -> Variant:
 	return get_meta(&"_component_uid")
+
+
+## Returns the [component_uid] value from this component's metadata. If the value is [null] no errors will be generated.
+func get_component_uid_or_null() -> Variant:
+	if has_meta(&"_component_uid"):
+		return get_meta(&"_component_uid")
+	return null
 
 
 ## Returns the [next_scene_uid] value from this component's metadata. If the value is [null] an error is generated.
@@ -95,45 +139,36 @@ func get_next_component_uid() -> Variant:
 	return get_meta(&"_next_component_uid")
 
 
+## Returns the [component_type] value from this component's metadata. If no value is assigned, it will set the [TWO_WAY] type by default.
 func get_component_type() -> SM_Enums.Type:
 	if !has_meta(&"_component_type"):
-		set_component_type(SM_Enums.Type.TWO_WAY)
+		_set_component_type(SM_Enums.Type.TWO_WAY)
 	return get_meta(&"_component_type")
 
 
+## Returns the [component_side] value from this component's metadata. If no value is assigned, it will set the [LEFT] side by default.
 func get_component_side() -> SM_Enums.Side:
 	if !has_meta(&"_component_side"):
-		set_component_side(SM_Enums.Side.LEFT)
+		_set_component_side(SM_Enums.Side.LEFT)
 	return get_meta(&"_component_side")
 
 
+## Returns the [component_custom_name] value from this component's metadata. If no value is assigned, it will return the component's
+## actual name in the scene, converted into a readable string.
 func get_custom_name() -> String:
 	if !has_meta(&"_component_custom_name") or get_meta(&"_component_custom_name") == "":
 		return SM_ResourceTools.convert_string_to_readable_name(name)
 	return get_meta(&"_component_custom_name")
 
 
+## Returns [true] if there is a [component_custom_name] value assigned in this component's metadata.
 func has_custom_name() -> bool:
 	return has_meta(&"_component_custom_name") and get_meta(&"_component_custom_name") != ""
 
+#endregion
 
-func _generate_component_uid() -> void:
-	if get_component_uid() == null:
-		_set_component_uid()
-		EditorInterface.mark_scene_as_unsaved()
-	
-	var components := SM_ComponentFinder.find_all_components(SM_ComponentFinder.get_root_node(self))
+#region EndUserMethods
 
-	for component in components:
-		if component == self or component.get_component_uid() == null:
-			continue
-		
-		if component.get_component_uid() == get_component_uid():
-			_set_component_uid()
-			EditorInterface.mark_scene_as_unsaved()
-			return
-
-	
 ## Loads the next scene and sets it to the [next_scene_resource] property.
 ## If the scene is already loaded it will return the [next_scene_resource] property without loading it again.[br]
 ## If [next_scene_uid] is empty or the scene doesn't exist returns [null] and generates an error.[br]
@@ -219,4 +254,5 @@ func get_component_position() -> Vector2:
 func go_to_next_scene() -> void:
 	pass
 
+#endregion
 

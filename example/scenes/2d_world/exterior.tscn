@@ -64,11 +64,11 @@ debug_color = Color(0.818575, 0.366237, 0.457979, 0.42)
 position = Vector2(0, 72)
 script = ExtResource("5_ndlqu")
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_duplicate_checked = true
 metadata/_component_type = 2
 metadata/_component_side = 1
-metadata/_component_custom_name = "Casita de la izquierda"
 metadata/_component_uid = "6244761210966650832"
+metadata/_duplicate_checked = true
+metadata/_component_custom_name = "Red House - Bottom Door"
 
 [node name="SceneMapComponentMarker2D" parent="RedHouse/SceneMapComponent1" index="0"]
 position = Vector2(0, 36)
@@ -93,7 +93,9 @@ metadata/_duplicate_checked = true
 metadata/_component_uid = "7540881001234267392"
 metadata/_component_type = 2
 metadata/_component_side = 1
-metadata/_component_custom_name = "Casita de la derecha"
+metadata/_component_custom_name = "Red House - Top Door"
+metadata/_next_scene_uid = "di56ddpupkoyd"
+metadata/_next_component_uid = "2697989057222745235"
 
 [node name="SceneMapComponentMarker2D2" type="Marker2D" parent="RedHouse/SceneMapComponent2"]
 position = Vector2(0, -68)
@@ -129,10 +131,11 @@ debug_color = Color(0.818575, 0.366237, 0.457979, 0.42)
 position = Vector2(0, 72)
 script = ExtResource("5_ndlqu")
 metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
-metadata/_duplicate_checked = true
-metadata/_component_type = 0
-metadata/_component_side = 0
+metadata/_component_type = 2
+metadata/_component_side = 1
 metadata/_component_uid = "5690034455176242348"
+metadata/_duplicate_checked = true
+metadata/_component_custom_name = "Blue House"
 
 [node name="SceneMapComponentMarker2D" parent="BlueHouse/SceneMapComponent1" index="0"]
 position = Vector2(0, 36)

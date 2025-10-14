@@ -56,6 +56,7 @@ metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
 metadata/_component_type = 2
 metadata/_component_side = 0
 metadata/_component_uid = "4172430071631244931"
+metadata/_component_custom_name = "Bottom door"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent1"]
 texture = ExtResource("4_4kahw")
@@ -84,6 +85,7 @@ metadata/_custom_type_script = "uid://dnv7lj6i0r7u8"
 metadata/_component_type = 2
 metadata/_component_side = 0
 metadata/_component_uid = "2697989057222745235"
+metadata/_component_custom_name = "Top door"
 metadata/_next_scene_uid = "bhc4y1rku2jb1"
 metadata/_next_component_uid = "7540881001234267392"
 

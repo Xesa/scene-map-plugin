@@ -219,7 +219,7 @@ func change_type(new_type : SM_Enums.Type) -> void:
 	var component := SM_ComponentFinder.search_component_by_uid(scene_values["instance"], component_uid)
 
 	type = new_type
-	component.set_component_type(type)
+	component._set_component_type(type)
 
 	if type == SM_Enums.Type.FUNNEL:
 		if side == SM_Enums.Side.LEFT:
@@ -250,7 +250,7 @@ func _update_side_info(_left : bool, _right : bool, _left_icon_index : int, _rig
 	left_icon = slot_config["icons"][_left_icon_index]
 	right_icon = slot_config["icons"][_right_icon_index]
 	side = _side
-	component.set_component_side(side)
+	component._set_component_side(side)
 
 
 func _update_slot_configuration() -> void:
@@ -281,7 +281,7 @@ func set_component_name(new_name : String) -> void:
 	component_name = new_name
 	component_name_is_custom = true
 
-	component.set_custom_name(new_name)
+	component._set_custom_name(new_name)
 	control.refresh_label()
 
 	SM_SceneSaver.save()
@@ -296,7 +296,7 @@ func remove_component_name() -> void:
 	var scene_values := SM_SceneSaver.open_scene(scene_uid)
 	var component := SM_ComponentFinder.search_component_by_uid(scene_values["instance"], component_uid)
 
-	component.remove_custom_name()
+	component._remove_custom_name()
 	component_name = component.get_custom_name()
 	component_name_is_custom = false
 	control.refresh_label()

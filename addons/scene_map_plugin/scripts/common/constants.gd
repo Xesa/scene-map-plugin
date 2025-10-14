@@ -28,7 +28,7 @@ const TYPE_ICON := ASSETS_PATH + "type-icon.svg"
 const EDIT_ICON := ASSETS_PATH + "edit-icon.svg"
 
 
-const VIEWPORT_SIZE := Vector2i(256,256)
+const VIEWPORT_SIZE := Vector2i(320,260)
 
 const GITHUB_LINK := "http://www.google.com/"
 
