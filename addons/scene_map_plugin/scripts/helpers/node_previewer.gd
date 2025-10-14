@@ -58,7 +58,7 @@ static func refresh_preview(graph_node : SceneMapNode) -> void:
 
 
 ## Returns a [Rect2] with the position and size of all the occupied space in each child of [node].
-## This function is recursive.
+## This function is recursive so it will scan every node inside the [node] parameter's tree.
 static func get_node_rect(node : Node, rect : Rect2) -> Rect2:
 
 	# Gets the used space by a TileMapLayer
@@ -94,6 +94,7 @@ static func fit_camera_to_scene(camera : Camera2D, scene_rect : Rect2, viewport_
 	return camera
 
 
+## Places numbered markers in the position of each component that will be shown in the node's preview.
 static func put_markers(scene_instance : Node, scene_size : Vector2) -> Node:
 
 	var components := SM_ComponentFinder.find_all_components(scene_instance)

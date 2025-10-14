@@ -35,6 +35,9 @@ func _init(_graph_node : SceneMapNode, _slot : SceneMapSlot) -> void:
 
 	slot.control = self
 
+	theme = Theme.new()
+	theme.set_font_size("font_size", "Label", 12)
+
 
 func _ready() -> void:
 
@@ -116,9 +119,4 @@ func _toggle_subcontrol_visibility(toggle : bool) -> void:
 
 
 func force_drag_release():
-	graph_node.selected = false
-	var ev := InputEventMouseButton.new()
-	ev.button_index = MOUSE_BUTTON_LEFT
-	ev.pressed = false
-	ev.position = get_global_mouse_position()
-	graph_edit.gui_input.emit(ev)
+	graph_edit.force_drag_release(graph_node)

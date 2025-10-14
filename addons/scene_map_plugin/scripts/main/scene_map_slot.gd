@@ -82,6 +82,9 @@ func _init(_graph_node : SceneMapNode, _type : SM_Enums.Type = 0, _side : SM_Enu
 	connected_to = []
 	connected_from = []
 
+	connection_added.connect(graph_node._on_connection_added_or_removed)
+	connection_removed.connect(graph_node._on_connection_added_or_removed)
+
 
 ## Connects this slot to the given [SceneMapSlot]. The [direction] parameter represents that the slot is an entrance or an exit [SceneMapNode]:[br]
 ## - [1] means that this slot is an exit and the other slot is an entrance. Hence, the connection goes "to" the other slot.[br]
@@ -91,6 +94,7 @@ func add_connection(connection : SceneMapSlot, direction : int) -> void:
 		connected_to.append(connection)
 		connected_to_ids.append(connection.slot_id)
 		connection_added.emit(connection, direction)
+		
 	elif direction == 0 and not connected_from.has(connection): 
 		connected_from.append(connection)
 		connected_from_ids.append(connection.slot_id)
@@ -108,6 +112,7 @@ func remove_connection(connection : SceneMapSlot, direction : int) -> void:
 		connected_from.erase(connection)
 		connected_from_ids.erase(connection.slot_id)
 
+	#graph_node.check_connections()
 	connection_removed.emit(connection, direction)
 
 

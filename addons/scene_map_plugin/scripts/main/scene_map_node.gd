@@ -14,6 +14,8 @@ const SM_Enums := preload("uid://cukwm8rnmlicq")
 const SM_NodePreviewer := preload("uid://brgihuj5exdgu")
 const SM_SlotRegistrator := preload("uid://bj10g5ips4ubj")
 const SM_SceneSaver := preload("uid://7svcgc01kw2b")
+const SM_ResourceTools := preload("uid://b71h2bnocse6c")
+const SM_NodeMenu := preload("uid://da7o0elmv4fqo")
 
 var graph_edit : SceneMapGraph
 
@@ -24,6 +26,7 @@ var set_to_create : bool
 var set_to_delete := false
 
 var preview : TextureRect
+var menu : SM_NodeMenu
 var component_slots : Array[SceneMapSlot]
 
 signal node_deleted(node : SceneMapNode)
@@ -37,6 +40,9 @@ func _init(_graph_edit : SceneMapGraph, _scene_uid : String, _scene_name : Strin
 	title = scene_name
 	name = scene_uid
 	set_to_create = _set_to_create
+
+	theme = Theme.new()
+	theme.set_font_size("font_size", "Label", 18)
 
 
 func _ready() -> void:
@@ -54,14 +60,33 @@ func _ready() -> void:
 		await SM_SceneSaver.save()
 		SceneMapIO.save(get_parent())
 
+	# Creates the node's menu
+	menu = SM_NodeMenu.new(self)
+
+	# Checks how many connections there are
+	check_connections()
+
 	# Connects the node_deleted signal to the graph node
 	node_deleted.connect(get_parent()._on_node_deleted)
+	gui_input.connect(_on_gui_input)
 	node_ready.emit()
 
 
 func _process(delta : float) -> void:
 	if Input.is_key_pressed(KEY_DELETE) and selected and not set_to_delete:
 		_delete()
+
+
+func _on_gui_input(event : InputEvent) -> void:
+
+	if event is InputEventMouseButton:
+		
+		if event.button_index == MOUSE_BUTTON_LEFT and event.double_click and event.is_pressed():
+			open_scene_in_editor()
+
+		if event.button_index == MOUSE_BUTTON_RIGHT and event.is_pressed():
+			menu.make_visible(event.global_position)
+			graph_edit.add_child(menu)
 
 
 ## Deletes this node and all its connections. This will also clear the [component_uid] values
@@ -99,3 +124,24 @@ func get_component_slot_by_uid(component_uid) -> SceneMapSlot:
 		if slot.component_uid == component_uid:
 			return slot
 	return null
+
+
+func open_scene_in_editor() -> void:
+	EditorInterface.open_scene_from_path("uid://"+scene_uid)
+	await Engine.get_main_loop().process_frame
+	EditorInterface.set_main_screen_editor("2D")
+	graph_edit.force_drag_release(self)
+
+
+func _on_connection_added_or_removed(connection : SceneMapSlot, direction : int) -> void:
+	check_connections()
+
+
+func check_connections() -> void:
+	for slot in component_slots:
+		if slot.connected_from.size() == 0 and slot.connected_to.size() == 0:
+			title = "⚠️" + scene_name
+			return
+	
+	title = scene_name
+	

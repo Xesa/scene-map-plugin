@@ -105,5 +105,10 @@ static func load(graph : SceneMapGraph) -> void:
 
 	# Scans all scenes in search of changes
 	await Engine.get_main_loop().process_frame
-	SM_NodeRefresher.scan_all_scenes(graph)
+	await SM_NodeRefresher.scan_all_scenes(graph)
+
+	# Checks all the connections for each node
+	for node in graph.get_children():
+		if node is SceneMapNode:
+			node.check_connections()
 

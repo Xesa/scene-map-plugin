@@ -78,3 +78,14 @@ func _drop_data(at_position: Vector2, data: Variant) -> void:
 	for file_path in data["files"]:
 		if file_path.ends_with(".tscn"):
 			SM_NodeRegistrator.register_scene(self, file_path, "", true, at_position)
+
+
+func force_drag_release(graph_node : SceneMapNode = null):
+	if graph_node:
+		graph_node.selected = false
+		
+	var ev := InputEventMouseButton.new()
+	ev.button_index = MOUSE_BUTTON_LEFT
+	ev.pressed = false
+	ev.position = get_global_mouse_position()
+	gui_input.emit(ev)
