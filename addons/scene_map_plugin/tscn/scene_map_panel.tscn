@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://booyw8vscyshu"]
+[gd_scene load_steps=11 format=3 uid="uid://booyw8vscyshu"]
 
 [ext_resource type="Script" uid="uid://oiktsvd4pdkl" path="res://addons/scene_map_plugin/scripts/main/scene_map_graph.gd" id="1_gt7hy"]
 [ext_resource type="Texture2D" uid="uid://cm23pxr7faqc4" path="res://addons/scene_map_plugin/assets/about-icon.svg" id="2_38w3s"]
@@ -9,8 +9,10 @@
 [ext_resource type="Script" uid="uid://bttiennyu3gud" path="res://addons/scene_map_plugin/scripts/gui/graph/graph_add_button.gd" id="7_jmxlb"]
 [ext_resource type="Texture2D" uid="uid://lyk158lmo6ff" path="res://addons/scene_map_plugin/assets/refresh-icon.svg" id="8_ac1rd"]
 [ext_resource type="Script" uid="uid://b2s440prenmwf" path="res://addons/scene_map_plugin/scripts/gui/graph/graph_refresh_button.gd" id="9_ofa4h"]
+[ext_resource type="PackedScene" uid="uid://cirq1cv70x3h" path="res://addons/scene_map_plugin/tscn/scene_map_about_dialog.tscn" id="10_e76fw"]
 
 [node name="SceneMapPanel" type="Control"]
+texture_filter = 6
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,6 +20,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
+mouse_filter = 1
 
 [node name="SceneMapGraph" type="GraphEdit" parent="."]
 layout_mode = 1
@@ -44,6 +47,7 @@ offset_right = 60.0
 offset_bottom = 82.0
 grow_horizontal = 0
 scale = Vector2(0.5, 0.5)
+alignment = 2
 
 [node name="AboutButton" type="Button" parent="TopContainer"]
 z_index = 1
@@ -53,6 +57,7 @@ icon = ExtResource("2_38w3s")
 script = ExtResource("3_wb71h")
 
 [node name="ConfigButton" type="Button" parent="TopContainer"]
+visible = false
 z_index = 1
 layout_mode = 2
 tooltip_text = "Configuration"
@@ -84,3 +89,5 @@ layout_mode = 2
 tooltip_text = "Refresh all nodes"
 icon = ExtResource("8_ac1rd")
 script = ExtResource("9_ofa4h")
+
+[node name="SceneMapAboutDialog" parent="." instance=ExtResource("10_e76fw")]

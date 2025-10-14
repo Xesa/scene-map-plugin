@@ -10,9 +10,10 @@ const PLUGIN_PATH := "res://addons/scene_map_plugin/"
 const CONFIG_PATH := PLUGIN_PATH + "plugin.cfg"
 const SCRIPTS_PATH := PLUGIN_PATH + "scripts/"
 const ASSETS_PATH := PLUGIN_PATH + "assets/"
+const TSCN_PATH := PLUGIN_PATH + "tscn/"
 const USER_DATA_PATH := PLUGIN_PATH + "user_data/"
 
-const PANEL_PATH := SCRIPTS_PATH + "gui/dialogs/scene_map_panel.tscn"
+const PANEL_PATH := TSCN_PATH + "scene_map_panel.tscn"
 
 const MAP_ICON := ASSETS_PATH + "map-icon.svg"
 const ADD_ICON := ASSETS_PATH + "add-icon.svg"
