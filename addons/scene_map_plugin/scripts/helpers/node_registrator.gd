@@ -1,6 +1,8 @@
 extends Node
 
-const SM_ResourceTools := preload("uid://b71h2bnocse6c")
+const SM_ResourceTools := preload(SceneMapConstants.RESOURCE_TOOLS)
+const SceneMapGraph := preload(SceneMapConstants.SCENE_MAP_GRAPH)
+const SceneMapNode := preload(SceneMapConstants.SCENE_MAP_NODE)
 
 
 ## Registers a new scene to the SceneMap in the form of a [SceneMapNode].

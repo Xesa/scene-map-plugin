@@ -1,6 +1,6 @@
 extends Resource
 
-const SM_Enums := preload("uid://cukwm8rnmlicq")
+const SM_Enums := preload(SceneMapConstants.ENUMS)
 
 @export var slot_id : String
 @export var index : int

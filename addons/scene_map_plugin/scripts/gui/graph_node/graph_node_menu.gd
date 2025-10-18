@@ -1,5 +1,8 @@
 extends PopupMenu
 
+const SceneMapGraph := preload(SceneMapConstants.SCENE_MAP_GRAPH)
+const SceneMapNode := preload(SceneMapConstants.SCENE_MAP_NODE)
+
 var graph_edit : SceneMapGraph
 var graph_node : SceneMapNode
 

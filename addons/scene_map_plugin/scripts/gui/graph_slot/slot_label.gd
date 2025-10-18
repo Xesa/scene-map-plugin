@@ -1,6 +1,6 @@
 extends Label
 
-const SM_SlotControl := preload("uid://bxwe2c1at0aom")
+const SM_SlotControl := preload(SceneMapConstants.SLOT_CONTROL)
 
 var control : SM_SlotControl
 

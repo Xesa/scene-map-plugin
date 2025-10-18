@@ -1,16 +1,14 @@
 @tool
 extends PopupPanel
 
-const SM_Constants := preload("uid://cjynbj0oq1sx1")
-
 @onready var main_text : RichTextLabel = $'VBoxContainer/MainText'
 @onready var bottom_text : RichTextLabel = $'VBoxContainer/BottomText'
 
 
 func _ready() -> void:
 	toggle_visiblity(false)
-	var version = SM_Constants.VERSION
-	var github = SM_Constants.GITHUB_LINK
+	var version = SceneMapConstants.VERSION
+	var github = SceneMapConstants.GITHUB_LINK
 	bottom_text.text = "Version " + version + " | Developed by Guillem Chesa | [url=" + github + "]GitHub[/url]"
 
 	close_requested.connect(_on_close_request)

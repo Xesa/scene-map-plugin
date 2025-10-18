@@ -1,5 +1,5 @@
 @tool
-class_name SceneMapSlot extends Node
+extends Node
 ## Representation of a [SceneMapComponent] in the SceneMap plugin.
 ##
 ## This class represents a [SceneMapComponent] in the SceneMap plugin in the form of a connection slot.
@@ -20,12 +20,16 @@ class_name SceneMapSlot extends Node
 ## In order to make a connection with another node, this class makes use of the [SlotConnector] helper class.
 ## To check whether two slots are compatible or not, see the [ConnectionValidator] helper class.
 
-const SM_Constants := preload("uid://cjynbj0oq1sx1")
-const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
-const SM_SlotConnector := preload("uid://1mcwq8t36pgx")
-const SM_SceneSaver := preload("uid://7svcgc01kw2b")
-const SM_SlotControl := preload("uid://bxwe2c1at0aom")
-const SM_Enums := preload("uid://cukwm8rnmlicq")
+const SM_Constants := preload(SceneMapConstants.CONSTANTS)
+const SM_ComponentFinder := preload(SceneMapConstants.COMPONENT_FINDER)
+const SM_SlotConnector := preload(SceneMapConstants.SLOT_CONNECTOR)
+const SM_SceneSaver := preload(SceneMapConstants.SCENE_SAVER)
+const SM_SlotControl := preload(SceneMapConstants.SLOT_CONTROL)
+const SM_Enums := preload(SceneMapConstants.ENUMS)
+const SceneMapNode := preload(SceneMapConstants.SCENE_MAP_NODE)
+const SceneMapSlot := preload(SceneMapConstants.SCENE_MAP_SLOT)
+const SceneMapIO := preload(SceneMapConstants.SCENE_MAP_IO)
+
 
 var graph_node : SceneMapNode
 var control : SM_SlotControl

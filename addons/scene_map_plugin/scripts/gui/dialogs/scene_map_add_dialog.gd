@@ -1,4 +1,4 @@
-class_name SceneMapAddDialog extends FileDialog
+extends FileDialog
 
 signal scene_selected(scene : Resource)
 

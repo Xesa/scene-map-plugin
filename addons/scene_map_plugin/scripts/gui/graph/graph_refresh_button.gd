@@ -1,12 +1,15 @@
 @tool
 extends Button
 
-const SM_NodeRefresher := preload("uid://up5v7v7p5u60")
+const SM_NodeRefresher := preload(SceneMapConstants.NODE_REFRESHER)
+const SM_AddDialog := preload(SceneMapConstants.ADD_DIALOG)
+const SceneMapGraph := preload(SceneMapConstants.SCENE_MAP_GRAPH)
+const SceneMapNode := preload(SceneMapConstants.SCENE_MAP_NODE)
 
 var panel : Control
 var graph : SceneMapGraph
 
-signal dialog_created(dialog : SceneMapAddDialog)
+signal dialog_created(dialog : SM_AddDialog)
 signal node_created(node : SceneMapNode)
 
 

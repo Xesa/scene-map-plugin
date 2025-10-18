@@ -1,10 +1,14 @@
 extends Node
 
-const SM_SceneSaver := preload("uid://7svcgc01kw2b")
-const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
-const SM_SlotRegistrator := preload("uid://bj10g5ips4ubj")
-const SM_NodePreviewer := preload("uid://brgihuj5exdgu")
-const SM_EventBus := preload("uid://xyfuxcmkl0hb")
+const SM_SceneSaver := preload(SceneMapConstants.SCENE_SAVER)
+const SM_ComponentFinder := preload(SceneMapConstants.COMPONENT_FINDER)
+const SM_SlotRegistrator := preload(SceneMapConstants.SLOT_REGISTRATOR)
+const SM_NodePreviewer := preload(SceneMapConstants.NODE_PREVIEWER)
+const SM_EventBus := preload(SceneMapConstants.EVENT_BUS)
+const SceneMapGraph := preload(SceneMapConstants.SCENE_MAP_GRAPH)
+const SceneMapNode := preload(SceneMapConstants.SCENE_MAP_NODE)
+const SceneMapSlot := preload(SceneMapConstants.SCENE_MAP_SLOT)
+const SceneMapIO := preload(SceneMapConstants.SCENE_MAP_IO)
 
 
 ## Iterates through all the graph node's in the SceneMap and checks all the [SceneMapComponent] present

@@ -1,17 +1,19 @@
 @tool
-class_name SceneMapIO extends Node
+extends Node
 
-const SM_Constants := preload("uid://cjynbj0oq1sx1")
-const SM_SlotRegistrator := preload("uid://bj10g5ips4ubj")
-const SM_GraphResource := preload("uid://c2qiuif0u7poj")
-const SM_NodeResource := preload("uid://cu1fsenurp8wr")
-const SM_SlotResource := preload("uid://p2mmnni4huyo")
-const SM_NodeRefresher := preload("uid://up5v7v7p5u60")
+const SM_SlotRegistrator := preload(SceneMapConstants.SLOT_REGISTRATOR)
+const SM_GraphResource := preload(SceneMapConstants.GRAPH_RESOURCE)
+const SM_NodeResource := preload(SceneMapConstants.NODE_RESOURCE)
+const SM_SlotResource := preload(SceneMapConstants.SLOT_RESOURCE)
+const SM_NodeRefresher := preload(SceneMapConstants.NODE_REFRESHER)
+const SceneMapGraph := preload(SceneMapConstants.SCENE_MAP_GRAPH)
+const SceneMapNode := preload(SceneMapConstants.SCENE_MAP_NODE)
+const SceneMapSlot := preload(SceneMapConstants.SCENE_MAP_SLOT)
 
 
 static func save(graph : SceneMapGraph) -> void:
 
-	var path = SM_Constants.USER_DATA_PATH + "graph_1.tres"
+	var path = SceneMapConstants.USER_DATA_PATH + "graph_1.tres"
 
 	# Creates a new resource
 	var resource := SM_GraphResource.new()
@@ -58,7 +60,7 @@ static func save(graph : SceneMapGraph) -> void:
 
 static func load(graph : SceneMapGraph) -> void:
 
-	var path = SM_Constants.USER_DATA_PATH + "graph_1.tres"
+	var path = SceneMapConstants.USER_DATA_PATH + "graph_1.tres"
 
 	# Loads the resource
 	var graph_resource : SM_GraphResource

@@ -1,8 +1,9 @@
 extends Button
 
-const SM_Constants := preload("uid://cjynbj0oq1sx1")
-const SM_Enums := preload("uid://cukwm8rnmlicq")
-const SM_SlotControl := preload("uid://bxwe2c1at0aom")
+const SM_Enums := preload(SceneMapConstants.ENUMS)
+const SM_SlotControl := preload(SceneMapConstants.SLOT_CONTROL)
+const SceneMapSlot := preload(SceneMapConstants.SCENE_MAP_SLOT)
+
 
 
 var control : SM_SlotControl
@@ -15,7 +16,7 @@ func _init(_control : SM_SlotControl, _slot : SceneMapSlot, _button_side : int) 
 	control = _control
 	slot = _slot
 	button_side = _button_side
-	icon = load(SM_Constants.DISCONNECT_ICON)
+	icon = load(SceneMapConstants.DISCONNECT_ICON)
 	flat = true
 	disabled = true
 	tooltip_text = "Remove connections"

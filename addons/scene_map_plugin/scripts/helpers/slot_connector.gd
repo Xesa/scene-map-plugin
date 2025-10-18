@@ -1,10 +1,12 @@
 extends Node
 
-const SM_Constants := preload("uid://cjynbj0oq1sx1")
-const SM_ResourceTools := preload("uid://b71h2bnocse6c")
-const SM_ConnectionValidator := preload("uid://btnhphtrcwk72")
-const SM_SceneSaver := preload("uid://7svcgc01kw2b")
-const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
+const SM_ResourceTools := preload(SceneMapConstants.RESOURCE_TOOLS)
+const SM_ConnectionValidator := preload(SceneMapConstants.GRAPH_CONNECTION_VALIDATOR)
+const SM_SceneSaver := preload(SceneMapConstants.SCENE_SAVER)
+const SM_ComponentFinder := preload(SceneMapConstants.COMPONENT_FINDER)
+const SceneMapGraph := preload(SceneMapConstants.SCENE_MAP_GRAPH)
+const SceneMapSlot := preload(SceneMapConstants.SCENE_MAP_SLOT)
+const SceneMapIO := preload(SceneMapConstants.SCENE_MAP_IO)
 
 static var graph : SceneMapGraph
 

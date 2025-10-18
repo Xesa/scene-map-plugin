@@ -1,7 +1,7 @@
 extends Button
 
-const SM_Constants := preload("uid://cjynbj0oq1sx1")
-const SM_SlotControl := preload("uid://bxwe2c1at0aom")
+const SM_SlotControl := preload(SceneMapConstants.SLOT_CONTROL)
+const SceneMapSlot := preload(SceneMapConstants.SCENE_MAP_SLOT)
 
 var control : SM_SlotControl
 var slot : SceneMapSlot
@@ -12,7 +12,7 @@ func _init(_control : SM_SlotControl, _slot : SceneMapSlot) -> void:
 	slot = _slot
 
 	mouse_filter = HBoxContainer.MouseFilter.MOUSE_FILTER_PASS
-	icon = load(SM_Constants.SIDES_ICON)
+	icon = load(SceneMapConstants.SIDES_ICON)
 	flat = true
 	disabled = true
 	tooltip_text = "Change slot's side"

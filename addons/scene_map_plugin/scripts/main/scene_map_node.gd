@@ -1,5 +1,5 @@
 @tool
-class_name SceneMapNode extends GraphNode
+extends GraphNode
 ## Representation of a scene in the SceneMap plugin.
 ##
 ## This class represents a scene in the SceneMap plugin in the form of a node.
@@ -10,12 +10,16 @@ class_name SceneMapNode extends GraphNode
 ## This class is instantiated from the [NodeRegistrator] helper class.[br]
 ## In order to register the slots, this class makes use of the [SlotRegistrator] helper class.
 
-const SM_Enums := preload("uid://cukwm8rnmlicq")
-const SM_NodePreviewer := preload("uid://brgihuj5exdgu")
-const SM_SlotRegistrator := preload("uid://bj10g5ips4ubj")
-const SM_SceneSaver := preload("uid://7svcgc01kw2b")
-const SM_ResourceTools := preload("uid://b71h2bnocse6c")
-const SM_NodeMenu := preload("uid://da7o0elmv4fqo")
+const SM_Enums := preload(SceneMapConstants.ENUMS)
+const SM_NodePreviewer := preload(SceneMapConstants.NODE_PREVIEWER)
+const SM_SlotRegistrator := preload(SceneMapConstants.SLOT_REGISTRATOR)
+const SM_SceneSaver := preload(SceneMapConstants.SCENE_SAVER)
+const SM_ResourceTools := preload(SceneMapConstants.RESOURCE_TOOLS)
+const SM_NodeMenu := preload(SceneMapConstants.GRAPH_NODE_MENU)
+const SceneMapGraph := preload(SceneMapConstants.SCENE_MAP_GRAPH)
+const SceneMapNode := preload(SceneMapConstants.SCENE_MAP_NODE)
+const SceneMapSlot := preload(SceneMapConstants.SCENE_MAP_SLOT)
+const SceneMapIO := preload(SceneMapConstants.SCENE_MAP_IO)
 
 var graph_edit : SceneMapGraph
 

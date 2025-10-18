@@ -1,14 +1,16 @@
 @tool
 extends Button
 
-const SM_NodeRegistrator := preload("uid://h21oshs7hv1o")
-const SM_Graph := preload("uid://oiktsvd4pdkl")
+const SM_NodeRegistrator := preload(SceneMapConstants.NODE_REGISTRATOR)
+const SM_AddDialog := preload(SceneMapConstants.ADD_DIALOG)
+const SceneMapGraph := preload(SceneMapConstants.SCENE_MAP_GRAPH)
+const SceneMapNode := preload(SceneMapConstants.SCENE_MAP_NODE)
 
 var panel : Control
 var graph : SceneMapGraph
-var dialog : SceneMapAddDialog
+var dialog : SM_AddDialog
 
-signal dialog_created(dialog : SceneMapAddDialog)
+signal dialog_created(dialog : SM_AddDialog)
 signal node_created(node : SceneMapNode)
 
 
@@ -19,7 +21,7 @@ func _ready() -> void:
 
 
 func _on_button_pressed() -> void:
-	dialog = SceneMapAddDialog.new()
+	dialog = SM_AddDialog.new()
 	dialog.scene_selected.connect(_on_scene_selected)
 	dialog.canceled.connect(_on_dialog_closed)
 	panel.add_child(dialog)

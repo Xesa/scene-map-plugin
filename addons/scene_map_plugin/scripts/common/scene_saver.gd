@@ -1,9 +1,8 @@
 extends Node
 
-const SM_Constants := preload("uid://cjynbj0oq1sx1")
-const SM_ResourceTools := preload("uid://b71h2bnocse6c")
-const SM_NodeRefresher := preload("uid://up5v7v7p5u60")
-const SM_EventBus := preload("uid://xyfuxcmkl0hb")
+const SM_ResourceTools := preload(SceneMapConstants.RESOURCE_TOOLS)
+const SM_NodeRefresher := preload(SceneMapConstants.NODE_REFRESHER)
+const SM_EventBus := preload(SceneMapConstants.EVENT_BUS)
 
 
 static var scenes := {}
@@ -78,4 +77,4 @@ static func save() -> void:
 	scenes = {}
 
 	# Returns back to the Scene Map screen
-	EditorInterface.set_main_screen_editor(SM_Constants.PLUGIN_NAME)
+	EditorInterface.set_main_screen_editor(SceneMapConstants.PLUGIN_NAME)

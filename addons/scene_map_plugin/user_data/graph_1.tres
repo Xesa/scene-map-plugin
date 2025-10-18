@@ -18,8 +18,8 @@ component_name = "Bottom door"
 component_name_is_custom = true
 type = 2
 side = 0
-connected_to_ids = Array[String]([])
-connected_from_ids = Array[String]([])
+connected_to_ids = Array[String](["di56ddpupkoyd:4172430071631244931", "bhc4y1rku2jb1:6244761210966650832", "di56ddpupkoyd:2697989057222745235", "bhc4y1rku2jb1:7540881001234267392"])
+connected_from_ids = Array[String](["bhc4y1rku2jb1:6244761210966650832", "di56ddpupkoyd:4172430071631244931", "bhc4y1rku2jb1:7540881001234267392", "di56ddpupkoyd:2697989057222745235"])
 
 [sub_resource type="Resource" id="Resource_8v2go"]
 script = ExtResource("2_yln3w")
@@ -35,8 +35,8 @@ component_name = "Top door"
 component_name_is_custom = true
 type = 2
 side = 0
-connected_to_ids = Array[String]([])
-connected_from_ids = Array[String]([])
+connected_to_ids = Array[String](["di56ddpupkoyd:4172430071631244931", "bhc4y1rku2jb1:6244761210966650832", "di56ddpupkoyd:2697989057222745235", "bhc4y1rku2jb1:7540881001234267392"])
+connected_from_ids = Array[String](["bhc4y1rku2jb1:6244761210966650832", "di56ddpupkoyd:4172430071631244931", "bhc4y1rku2jb1:7540881001234267392", "di56ddpupkoyd:2697989057222745235"])
 
 [sub_resource type="Resource" id="Resource_1rojr"]
 script = ExtResource("1_yln3w")
@@ -59,8 +59,8 @@ component_name = "Red House - Bottom Door"
 component_name_is_custom = true
 type = 2
 side = 1
-connected_to_ids = Array[String]([])
-connected_from_ids = Array[String]([])
+connected_to_ids = Array[String](["di56ddpupkoyd:4172430071631244931", "bhc4y1rku2jb1:6244761210966650832", "di56ddpupkoyd:2697989057222745235", "bhc4y1rku2jb1:7540881001234267392"])
+connected_from_ids = Array[String](["bhc4y1rku2jb1:6244761210966650832", "di56ddpupkoyd:4172430071631244931", "bhc4y1rku2jb1:7540881001234267392", "di56ddpupkoyd:2697989057222745235"])
 
 [sub_resource type="Resource" id="Resource_jn6tc"]
 script = ExtResource("2_yln3w")
@@ -76,8 +76,8 @@ component_name = "Red House - Top Door"
 component_name_is_custom = true
 type = 2
 side = 1
-connected_to_ids = Array[String]([])
-connected_from_ids = Array[String]([])
+connected_to_ids = Array[String](["di56ddpupkoyd:4172430071631244931", "bhc4y1rku2jb1:6244761210966650832", "di56ddpupkoyd:2697989057222745235", "bhc4y1rku2jb1:7540881001234267392"])
+connected_from_ids = Array[String](["bhc4y1rku2jb1:6244761210966650832", "di56ddpupkoyd:4172430071631244931", "bhc4y1rku2jb1:7540881001234267392", "di56ddpupkoyd:2697989057222745235"])
 
 [sub_resource type="Resource" id="Resource_plngk"]
 script = ExtResource("2_yln3w")
@@ -93,8 +93,8 @@ component_name = "Blue House"
 component_name_is_custom = true
 type = 2
 side = 1
-connected_to_ids = Array[String]([])
-connected_from_ids = Array[String]([])
+connected_to_ids = Array[String](["di56ddpupkoyd:4172430071631244931", "bhc4y1rku2jb1:6244761210966650832", "di56ddpupkoyd:2697989057222745235", "bhc4y1rku2jb1:7540881001234267392"])
+connected_from_ids = Array[String](["bhc4y1rku2jb1:6244761210966650832", "di56ddpupkoyd:4172430071631244931", "bhc4y1rku2jb1:7540881001234267392", "di56ddpupkoyd:2697989057222745235"])
 
 [sub_resource type="Resource" id="Resource_6cui4"]
 script = ExtResource("1_yln3w")
@@ -106,4 +106,16 @@ component_slots = Array[ExtResource("2_yln3w")]([SubResource("Resource_is818"), 
 [resource]
 script = ExtResource("3_1rojr")
 nodes = Array[ExtResource("1_yln3w")]([SubResource("Resource_1rojr"), SubResource("Resource_6cui4")])
-connections = Array[Dictionary]([])
+connections = Array[Dictionary]([{
+"from_node": &"bhc4y1rku2jb1",
+"from_port": 1,
+"keep_alive": false,
+"to_node": &"di56ddpupkoyd",
+"to_port": 1
+}, {
+"from_node": &"bhc4y1rku2jb1",
+"from_port": 2,
+"keep_alive": false,
+"to_node": &"di56ddpupkoyd",
+"to_port": 2
+}])

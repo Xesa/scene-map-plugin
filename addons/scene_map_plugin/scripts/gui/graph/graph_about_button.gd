@@ -1,7 +1,7 @@
 @tool
 extends Button
 
-const SM_AboutDialog := preload("uid://dk3jlts3isimm")
+const SM_AboutDialog := preload(SceneMapConstants.ABOUT_DIALOG)
 
 var panel : Control
 var about_dialog : SM_AboutDialog

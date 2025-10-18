@@ -9,13 +9,14 @@ extends Node
 ##
 ## This class makes use of the [ComponentFinder] helper class for listing all the [SceneMapComponent] present in the scene.[br]
 
-const SM_Constants := preload("uid://cjynbj0oq1sx1")
-const SM_Enums := preload("uid://cukwm8rnmlicq")
-const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
-const SM_ResourceTools := preload("uid://b71h2bnocse6c")
-const SM_SceneSaver := preload("uid://7svcgc01kw2b")
-const SM_SlotControl := preload("uid://bxwe2c1at0aom")
-const SM_SlotResource := preload("uid://p2mmnni4huyo")
+const SM_Enums := preload(SceneMapConstants.ENUMS)
+const SM_ComponentFinder := preload(SceneMapConstants.COMPONENT_FINDER)
+const SM_ResourceTools := preload(SceneMapConstants.RESOURCE_TOOLS)
+const SM_SceneSaver := preload(SceneMapConstants.SCENE_SAVER)
+const SM_SlotControl := preload(SceneMapConstants.SLOT_CONTROL)
+const SM_SlotResource := preload(SceneMapConstants.SLOT_RESOURCE)
+const SceneMapNode := preload(SceneMapConstants.SCENE_MAP_NODE)
+const SceneMapSlot := preload(SceneMapConstants.SCENE_MAP_SLOT)
 
 var graph_node : SceneMapNode
 var slot_counter : int
@@ -147,7 +148,7 @@ func _create_and_attach_slot(data: Dictionary) -> SceneMapSlot:
 func _get_slot_sides(component : SceneMapComponent2D) -> Array:
 
 	# Gets the slot configuration for this component type
-	var config = SM_Constants.SLOT_CONFIG[component.get_component_type()]
+	var config = SceneMapConstants.SLOT_CONFIG[component.get_component_type()]
 
 	# Sets different variables for the slot configuration
 	var left_side := false

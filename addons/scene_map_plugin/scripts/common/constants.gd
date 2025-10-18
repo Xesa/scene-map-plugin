@@ -1,6 +1,6 @@
-extends Node
+class_name SceneMapConstants extends Object
 
-const SM_Enums := preload("uid://cukwm8rnmlicq")
+const SM_Enums := preload(ENUMS)
 
 # General
 static var VERSION : String

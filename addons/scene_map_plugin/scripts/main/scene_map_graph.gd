@@ -1,11 +1,15 @@
 @tool
-class_name SceneMapGraph extends GraphEdit
+extends GraphEdit
 
-const SM_SlotConnector := preload("uid://1mcwq8t36pgx")
-const SM_NodeRegistrator := preload("uid://h21oshs7hv1o")
-const SM_ConnectionValidator := preload("uid://btnhphtrcwk72")
-const SM_EventBus := preload("uid://xyfuxcmkl0hb")
-const SM_NodeRefresher := preload("uid://up5v7v7p5u60")
+const SM_SlotConnector := preload(SceneMapConstants.SLOT_CONNECTOR)
+const SM_NodeRegistrator := preload(SceneMapConstants.NODE_REGISTRATOR)
+const SM_ConnectionValidator := preload(SceneMapConstants.GRAPH_CONNECTION_VALIDATOR)
+const SM_EventBus := preload(SceneMapConstants.EVENT_BUS)
+const SM_NodeRefresher := preload(SceneMapConstants.NODE_REFRESHER)
+const SceneMap := preload(SceneMapConstants.SCENE_MAP)
+const SceneMapNode := preload(SceneMapConstants.SCENE_MAP_NODE)
+const SceneMapSlot := preload(SceneMapConstants.SCENE_MAP_SLOT)
+const SceneMapIO := preload(SceneMapConstants.SCENE_MAP_IO)
 
 var plugin : SceneMap
 
@@ -95,7 +99,6 @@ func force_drag_release(graph_node : SceneMapNode = null):
 
 
 func auto_refresh() -> void:
-	print(SM_EventBus.has_changes())
 	if SM_EventBus.has_changes():
 		await SM_NodeRefresher.scan_all_scenes(self)
 		SM_EventBus.clear_changes()

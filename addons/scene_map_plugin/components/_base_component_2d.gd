@@ -11,10 +11,10 @@ class_name SceneMapComponent2D extends Node2D
 ## If custom logic needs to be added to the [code]_ready()[/code] method, you must call its parent class method
 ## by using the [code]super[/code] keyword at the beginning of the method.
 
-const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
-const SM_ResourceTools := preload("uid://b71h2bnocse6c")
-const SM_Enums := preload("uid://cukwm8rnmlicq")
-const SM_EventBus := preload("uid://xyfuxcmkl0hb")
+const SM_ComponentFinder := preload(SceneMapConstants.COMPONENT_FINDER)
+const SM_ResourceTools := preload(SceneMapConstants.RESOURCE_TOOLS)
+const SM_Enums := preload(SceneMapConstants.ENUMS)
+const SM_EventBus := preload(SceneMapConstants.EVENT_BUS)
 
 ## Holds the resource for the next scene. This will normally be loaded when the component is ready
 ## but it can be forced to load again with the [get_next_scene_resource()] method.

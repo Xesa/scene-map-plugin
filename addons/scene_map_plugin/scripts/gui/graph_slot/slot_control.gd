@@ -1,11 +1,14 @@
 extends HBoxContainer
 
-const SM_SlotLabel := preload("uid://cpfngl4lqra2j")
-const SM_DisconnectButton := preload("uid://0s4l0pgfen4i")
-const SM_SidesButton := preload("uid://1wnhcluu7sn4")
-const SM_TypeButton := preload("uid://tsvhet57a7bv")
-const SM_NameButton := preload("uid://bswvc0ufqie7a")
-const SM_LabelEdit := preload("uid://b2tk1xc6p0aa0")
+const SM_SlotLabel := preload(SceneMapConstants.SLOT_LABEL)
+const SM_DisconnectButton := preload(SceneMapConstants.SLOT_DISCONNECT_BUTTON)
+const SM_SidesButton := preload(SceneMapConstants.SLOT_SIDE_BUTTON)
+const SM_TypeButton := preload(SceneMapConstants.SLOT_TYPE_BUTTON)
+const SM_NameButton := preload(SceneMapConstants.SLOT_NAME_BUTTON)
+const SM_LabelEdit := preload(SceneMapConstants.SLOT_LABEL_EDIT)
+const SceneMapGraph := preload(SceneMapConstants.SCENE_MAP_GRAPH)
+const SceneMapNode := preload(SceneMapConstants.SCENE_MAP_NODE)
+const SceneMapSlot := preload(SceneMapConstants.SCENE_MAP_SLOT)
 
 var graph_edit : SceneMapGraph
 var graph_node : SceneMapNode

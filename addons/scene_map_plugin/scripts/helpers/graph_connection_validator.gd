@@ -1,6 +1,7 @@
 extends Node
 
-const SM_Enums := preload("uid://cukwm8rnmlicq")
+const SM_Enums := preload(SceneMapConstants.ENUMS)
+const SceneMapSlot := preload(SceneMapConstants.SCENE_MAP_SLOT)
 
 ## Returns the connection type depending on the [type] and [side] properties from each component.
 ## [br] [1] means the connection goes from left to right.

@@ -1,6 +1,6 @@
 extends Node
 
-const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
+const SM_ComponentFinder := preload(SceneMapConstants.COMPONENT_FINDER)
 
 static var pending_changes := false
 

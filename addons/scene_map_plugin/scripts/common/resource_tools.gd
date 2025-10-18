@@ -1,6 +1,5 @@
 extends Node
 
-const SM_Constants := preload("uid://cjynbj0oq1sx1")
 
 static func get_uid_from_tscn(scene_path : String) -> String:
 
