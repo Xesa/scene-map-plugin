@@ -12,7 +12,6 @@ subpixel_positioning = 0
 [node name="SceneMapAboutDialog" type="PopupPanel"]
 initial_position = 4
 size = Vector2i(650, 350)
-visible = true
 script = ExtResource("1_2ub4m")
 
 [node name="TextureRect" type="ColorRect" parent="."]
@@ -22,8 +21,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 646.0
-offset_bottom = 346.0
+offset_right = -4.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.13, 0.13, 0.13, 1)
@@ -36,10 +35,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 646.0
-offset_bottom = 346.0
+offset_left = -321.0
+offset_top = -171.0
+offset_right = 321.0
+offset_bottom = 171.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
@@ -58,7 +57,7 @@ bbcode_enabled = true
 text = "[b][font_size=21]How to use the SceneMap Plugin[/font_size][/b]
 [b]Adding components to a scene[/b]
 [ol]
- Create a new script that inherits from the  [bgcolor=#1a1a1a][code]SceneMapComponent2D[/code][/bgcolor]  class.
+ Create a new script that inherits from the  [bgcolor=#1a1a1a][code]SceneMapComponent2D[/code][/bgcolor]  class. For more information check the class documentation or the GitHub page.
  Add a node in the scene and attach that script to it.
 [/ol]
 
@@ -96,7 +95,7 @@ mouse_filter = 1
 theme_override_font_sizes/normal_font_size = 11
 theme_override_styles/normal = SubResource("StyleBoxEmpty_bg4o8")
 bbcode_enabled = true
-text = "Version 0.1.0 | Developed by Guillem Chesa | [url=http://www.google.com/]GitHub[/url]"
+text = "Version  | Developed by Guillem Chesa | [url=http://www.google.com/]GitHub[/url]"
 scroll_active = false
 shortcut_keys_enabled = false
 horizontal_alignment = 1

@@ -1,6 +1,13 @@
+# Ignore everything
 *
-*.uid
+
+# Disable ignores
 !.gitignore
+!readme.md
+!LICENSE
 !/addons/
 !/addons/**
+
+# Ignore again
 /addons/scene_map_plugin/user_data/*
+*.uid
