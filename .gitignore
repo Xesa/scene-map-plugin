@@ -1,6 +1,6 @@
 /*
 *.uid
-/addons/user_data
+/addons/scene_map_plugin/user_data
 !.gitignore
 !/addons/
 !/addons/**
