@@ -69,8 +69,6 @@ metadata/_component_side = 1
 metadata/_component_uid = "6244761210966650832"
 metadata/_duplicate_checked = true
 metadata/_component_custom_name = "Red House - Bottom Door"
-metadata/_next_scene_uid = "di56ddpupkoyd"
-metadata/_next_component_uid = "4172430071631244931"
 
 [node name="SceneMapComponentMarker2D" parent="RedHouse/SceneMapComponent1" index="0"]
 position = Vector2(0, 36)
@@ -96,8 +94,6 @@ metadata/_component_uid = "7540881001234267392"
 metadata/_component_type = 2
 metadata/_component_side = 1
 metadata/_component_custom_name = "Red House - Top Door"
-metadata/_next_scene_uid = "di56ddpupkoyd"
-metadata/_next_component_uid = "2697989057222745235"
 
 [node name="SceneMapComponentMarker2D2" type="Marker2D" parent="RedHouse/SceneMapComponent2"]
 position = Vector2(0, -68)

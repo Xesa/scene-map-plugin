@@ -1,6 +1,6 @@
 {
     "files.exclude": {
-        "**/*.uid": true
+        "**/*.uid": false
     },
     "editor.tokenColorCustomizations": {
         "comments": "",
