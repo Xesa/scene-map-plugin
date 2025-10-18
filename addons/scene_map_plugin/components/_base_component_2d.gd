@@ -14,6 +14,7 @@ class_name SceneMapComponent2D extends Node2D
 const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
 const SM_ResourceTools := preload("uid://b71h2bnocse6c")
 const SM_Enums := preload("uid://cukwm8rnmlicq")
+const SM_EventBus := preload("uid://xyfuxcmkl0hb")
 
 ## Holds the resource for the next scene. This will normally be loaded when the component is ready
 ## but it can be forced to load again with the [get_next_scene_resource()] method.
@@ -34,6 +35,15 @@ func _ready() -> void:
 		get_component_type()
 		get_component_side()
 		_generate_component_uid.call_deferred()
+
+
+## Triggers when the component is removed from the scene and adds a pending change to the EventBus.
+func _notification(what: int) -> void:
+	if !Engine.is_editor_hint():
+		return
+
+	if what == NOTIFICATION_UNPARENTED:
+		SM_EventBus.notify_changes(self)
 
 
 #region SetterMethods
@@ -255,4 +265,3 @@ func go_to_next_scene() -> void:
 	pass
 
 #endregion
-

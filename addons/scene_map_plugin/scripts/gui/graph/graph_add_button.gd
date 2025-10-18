@@ -2,6 +2,7 @@
 extends Button
 
 const SM_NodeRegistrator := preload("uid://h21oshs7hv1o")
+const SM_Graph := preload("uid://oiktsvd4pdkl")
 
 var panel : Control
 var graph : SceneMapGraph

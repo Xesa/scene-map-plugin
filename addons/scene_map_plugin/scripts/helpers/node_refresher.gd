@@ -4,6 +4,7 @@ const SM_SceneSaver := preload("uid://7svcgc01kw2b")
 const SM_ComponentFinder := preload("uid://bm5cgkk8r2tb5")
 const SM_SlotRegistrator := preload("uid://bj10g5ips4ubj")
 const SM_NodePreviewer := preload("uid://brgihuj5exdgu")
+const SM_EventBus := preload("uid://xyfuxcmkl0hb")
 
 
 ## Iterates through all the graph node's in the SceneMap and checks all the [SceneMapComponent] present
@@ -11,6 +12,7 @@ const SM_NodePreviewer := preload("uid://brgihuj5exdgu")
 ## if there are new components or any of them have been removed.
 static func scan_all_scenes(graph : SceneMapGraph) -> void:
 
+	SM_EventBus.clear_changes()
 	await SM_SceneSaver.start()
 
 	var node_connections := {}
@@ -22,7 +24,9 @@ static func scan_all_scenes(graph : SceneMapGraph) -> void:
 
 	await SM_SceneSaver.save()
 
-	SceneMapIO.save(graph)
+	await SceneMapIO.save(graph)
+	SM_EventBus.clear_changes()
+	
 
 
 ## Scans one scene in search of any changes and applies those changes to each [SceneMapSlot].
@@ -182,5 +186,4 @@ static func reorder_component_slots(graph_node : SceneMapNode) -> void:
 ## Resizes the graph node to fit the new amount of slots.
 static func resize_node(graph_node : SceneMapNode) -> void:
 	await Engine.get_main_loop().process_frame
-	#graph_node.size = graph_node.get_combined_minimum_size()
-	#graph_node.queue_redraw()
+	graph_node.size = graph_node.get_combined_minimum_size()

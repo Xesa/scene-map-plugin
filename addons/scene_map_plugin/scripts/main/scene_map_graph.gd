@@ -4,6 +4,8 @@ class_name SceneMapGraph extends GraphEdit
 const SM_SlotConnector := preload("uid://1mcwq8t36pgx")
 const SM_NodeRegistrator := preload("uid://h21oshs7hv1o")
 const SM_ConnectionValidator := preload("uid://btnhphtrcwk72")
+const SM_EventBus := preload("uid://xyfuxcmkl0hb")
+const SM_NodeRefresher := preload("uid://up5v7v7p5u60")
 
 var plugin : SceneMap
 
@@ -11,6 +13,7 @@ var plugin : SceneMap
 func _ready() -> void:
 	connection_request.connect(_on_connection_request)
 	disconnection_request.connect(_on_disconnection_request)
+	focus_entered.connect(auto_refresh)
 	
 
 func _on_connection_request(from_node, from_port, to_node, to_port) -> void:
@@ -89,3 +92,11 @@ func force_drag_release(graph_node : SceneMapNode = null):
 	ev.pressed = false
 	ev.position = get_global_mouse_position()
 	gui_input.emit(ev)
+
+
+func auto_refresh() -> void:
+	print(SM_EventBus.has_changes())
+	if SM_EventBus.has_changes():
+		await SM_NodeRefresher.scan_all_scenes(self)
+		SM_EventBus.clear_changes()
+		force_drag_release()

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=8 format=3 uid="uid://bsiqv8sxvs86p"]
+[gd_resource type="Resource" load_steps=11 format=3 uid="uid://nep6gcthk8rq"]
 
 [ext_resource type="Script" uid="uid://cu1fsenurp8wr" path="res://addons/scene_map_plugin/scripts/resources/scene_map_node_resource.gd" id="1_yln3w"]
 [ext_resource type="Script" uid="uid://p2mmnni4huyo" path="res://addons/scene_map_plugin/scripts/resources/scene_map_slot_resource.gd" id="2_yln3w"]
@@ -6,39 +6,80 @@
 
 [sub_resource type="Resource" id="Resource_yln3w"]
 script = ExtResource("2_yln3w")
-slot_id = "bhc4y1rku2jb1:6244761210966650832"
+slot_id = "di56ddpupkoyd:4172430071631244931"
 index = 1
-left = false
-right = true
-left_icon = "res://addons/scene_map_plugin/assets/arrow-left.svg"
-right_icon = "res://addons/scene_map_plugin/assets/arrow-right.svg"
-scene_uid = "bhc4y1rku2jb1"
-component_uid = "6244761210966650832"
-component_name = "Red House - Bottom Door"
+left = true
+right = false
+left_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
+right_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
+scene_uid = "di56ddpupkoyd"
+component_uid = "4172430071631244931"
+component_name = "Bottom door"
 component_name_is_custom = true
-type = 1
-side = 1
+type = 2
+side = 0
 connected_to_ids = Array[String]([])
 connected_from_ids = Array[String]([])
 
 [sub_resource type="Resource" id="Resource_8v2go"]
 script = ExtResource("2_yln3w")
-slot_id = "bhc4y1rku2jb1:7540881001234267392"
+slot_id = "di56ddpupkoyd:2697989057222745235"
 index = 2
-left = false
-right = true
-left_icon = "res://addons/scene_map_plugin/assets/arrow-left.svg"
-right_icon = "res://addons/scene_map_plugin/assets/arrow-right.svg"
-scene_uid = "bhc4y1rku2jb1"
-component_uid = "7540881001234267392"
-component_name = "Red House - Top Door"
+left = true
+right = false
+left_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
+right_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
+scene_uid = "di56ddpupkoyd"
+component_uid = "2697989057222745235"
+component_name = "Top door"
 component_name_is_custom = true
-type = 1
-side = 1
+type = 2
+side = 0
 connected_to_ids = Array[String]([])
 connected_from_ids = Array[String]([])
 
 [sub_resource type="Resource" id="Resource_1rojr"]
+script = ExtResource("1_yln3w")
+offset = Vector2(740, 80)
+scene_name = "Interior Red House"
+scene_uid = "di56ddpupkoyd"
+component_slots = Array[ExtResource("2_yln3w")]([SubResource("Resource_yln3w"), SubResource("Resource_8v2go")])
+
+[sub_resource type="Resource" id="Resource_is818"]
+script = ExtResource("2_yln3w")
+slot_id = "bhc4y1rku2jb1:6244761210966650832"
+index = 1
+left = false
+right = true
+left_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
+right_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
+scene_uid = "bhc4y1rku2jb1"
+component_uid = "6244761210966650832"
+component_name = "Red House - Bottom Door"
+component_name_is_custom = true
+type = 2
+side = 1
+connected_to_ids = Array[String]([])
+connected_from_ids = Array[String]([])
+
+[sub_resource type="Resource" id="Resource_jn6tc"]
+script = ExtResource("2_yln3w")
+slot_id = "bhc4y1rku2jb1:7540881001234267392"
+index = 2
+left = false
+right = true
+left_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
+right_icon = "res://addons/scene_map_plugin/assets/arrow-double.svg"
+scene_uid = "bhc4y1rku2jb1"
+component_uid = "7540881001234267392"
+component_name = "Red House - Top Door"
+component_name_is_custom = true
+type = 2
+side = 1
+connected_to_ids = Array[String]([])
+connected_from_ids = Array[String]([])
+
+[sub_resource type="Resource" id="Resource_plngk"]
 script = ExtResource("2_yln3w")
 slot_id = "bhc4y1rku2jb1:5690034455176242348"
 index = 3
@@ -55,14 +96,14 @@ side = 1
 connected_to_ids = Array[String]([])
 connected_from_ids = Array[String]([])
 
-[sub_resource type="Resource" id="Resource_is818"]
+[sub_resource type="Resource" id="Resource_6cui4"]
 script = ExtResource("1_yln3w")
-offset = Vector2(539, 332.5)
+offset = Vector2(180, 140)
 scene_name = "Exterior"
 scene_uid = "bhc4y1rku2jb1"
-component_slots = Array[ExtResource("2_yln3w")]([SubResource("Resource_yln3w"), SubResource("Resource_8v2go"), SubResource("Resource_1rojr")])
+component_slots = Array[ExtResource("2_yln3w")]([SubResource("Resource_is818"), SubResource("Resource_jn6tc"), SubResource("Resource_plngk")])
 
 [resource]
 script = ExtResource("3_1rojr")
-nodes = Array[ExtResource("1_yln3w")]([SubResource("Resource_is818")])
+nodes = Array[ExtResource("1_yln3w")]([SubResource("Resource_1rojr"), SubResource("Resource_6cui4")])
 connections = Array[Dictionary]([])

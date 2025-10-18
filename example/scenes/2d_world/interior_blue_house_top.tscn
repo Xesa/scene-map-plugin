@@ -86,6 +86,8 @@ metadata/_component_uid = "8790966372245848312"
 metadata/_component_type = 2
 metadata/_component_side = 1
 metadata/_component_custom_name = "Right"
+metadata/_next_scene_uid = "b8h1kwmnkqlja"
+metadata/_next_component_uid = "6232885429436258503"
 
 [node name="Sprite2D" type="Sprite2D" parent="SceneMapComponent5"]
 texture = ExtResource("5_4j1de")

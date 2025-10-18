@@ -66,6 +66,9 @@ static func load(graph : SceneMapGraph) -> void:
 	if FileAccess.file_exists(path):
 		graph_resource = load(path)
 
+	else:
+		return
+
 	var slot_ids : Dictionary[String, SceneMapSlot] = {}
 
 	# Iterates each graph node in the resource

@@ -2,6 +2,8 @@ extends Node
 
 const SM_Constants := preload("uid://cjynbj0oq1sx1")
 const SM_ResourceTools := preload("uid://b71h2bnocse6c")
+const SM_NodeRefresher := preload("uid://up5v7v7p5u60")
+const SM_EventBus := preload("uid://xyfuxcmkl0hb")
 
 
 static var scenes := {}
@@ -28,6 +30,7 @@ static func start() -> void:
 
 	if any_unsaved_scene:
 		EditorInterface.save_all_scenes()
+		
 	
 	scenes = {}
 

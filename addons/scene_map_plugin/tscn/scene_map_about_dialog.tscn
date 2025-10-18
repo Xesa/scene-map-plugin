@@ -1,6 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://cirq1cv70x3h"]
+[gd_scene load_steps=4 format=3 uid="uid://cirq1cv70x3h"]
 
 [ext_resource type="Script" uid="uid://dk3jlts3isimm" path="res://addons/scene_map_plugin/scripts/gui/dialogs/scene_map_about_dialog.gd" id="1_2ub4m"]
+
+[sub_resource type="SystemFont" id="SystemFont_2ub4m"]
+font_names = PackedStringArray("Monospace")
+font_weight = 800
+subpixel_positioning = 0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bg4o8"]
 
@@ -17,8 +22,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -4.0
+offset_right = 646.0
+offset_bottom = 346.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.13, 0.13, 0.13, 1)
@@ -31,10 +36,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -321.0
-offset_top = -171.0
-offset_right = 321.0
-offset_bottom = 171.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 646.0
+offset_bottom = 346.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
@@ -44,6 +49,7 @@ z_index = 2
 custom_minimum_size = Vector2(600, 275)
 layout_mode = 2
 theme_override_constants/line_separation = 8
+theme_override_fonts/mono_font = SubResource("SystemFont_2ub4m")
 theme_override_font_sizes/mono_font_size = 14
 theme_override_font_sizes/normal_font_size = 14
 theme_override_font_sizes/bold_font_size = 16
@@ -52,7 +58,7 @@ bbcode_enabled = true
 text = "[b][font_size=21]How to use the SceneMap Plugin[/font_size][/b]
 [b]Adding components to a scene[/b]
 [ol]
- Create a new script that inherits from the [code]SceneMapComponent2D[/code] class.
+ Create a new script that inherits from the  [bgcolor=#1a1a1a][code]SceneMapComponent2D[/code][/bgcolor]  class.
  Add a node in the scene and attach that script to it.
 [/ol]
 
@@ -61,13 +67,26 @@ text = "[b][font_size=21]How to use the SceneMap Plugin[/font_size][/b]
  Use the [img=%20]res://addons/scene_map_plugin/assets/add-icon.svg[/img] or button drag a .tscn file to add a new scene to the map.
  Drag and drop the arrow slots [img=%18]res://addons/scene_map_plugin/assets/arrow-double.svg[/img] to connect one scene to another.
  Use the controls in each slot to disconnect them [img=%18]res://addons/scene_map_plugin/assets/disconnect-icon.svg[/img] or change their side [img=%18]res://addons/scene_map_plugin/assets/sides-icon.svg[/img], type [img=%18]res://addons/scene_map_plugin/assets/type-icon.svg[/img] or name [img=%18]res://addons/scene_map_plugin/assets/edit-icon.svg[/img]
+ Use the [img=%20]res://addons/scene_map_plugin/assets/refresh-icon.svg[/img] button to refresh all nodes in the map.
  Press DEL while having one or more nodes selected to remove them from the map.
 [/ol]
 
+[b]Configuring the components[/b]
+[indent]The script that you create to inherit from the  [bgcolor=#1a1a1a][code]SceneMapComponent2D[/code][/bgcolor]  class must override the  [bgcolor=#1a1a1a][code]go_to_next_scene()[/code][/bgcolor]  method. You can check the documentation of that method in the script editor or in the GitHub page.[/indent]
+
+[b]Adding sub-components[/b]
+[indent]You can add sub-components to provide additional functionalities to the SceneMap components. To do so, simply add one of this nodes as a child to your component:
+[ul]
+ [bgcolor=#1a1a1a][code]SceneMapComponentArea2D[/code][/bgcolor] : triggers the component when the player enters the area.
+ [bgcolor=#1a1a1a][code]SceneMapComponentMarker2D[/code][/bgcolor] : places a marker visible only in the editor that overrides the component's position. Teleporting to this component will spawn the player in the marker's position instead of the component's center position.
+[/ul][/indent]
+
 [b]Notes and recommendations[/b]
 [ul]
-It is recommended to close all scenes while working with this plugin.
-The ⚠ symbol next to a node's name means that the node has disconnected slots."
+ It is recommended to close all scenes while working with this plugin.
+ You can double click on a node to open the scene in the editor.
+ The ⚠ symbol next to a node's name means that the node has disconnected slots.
+[/ul]"
 
 [node name="BottomText" type="RichTextLabel" parent="VBoxContainer"]
 clip_contents = false
