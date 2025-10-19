@@ -2,6 +2,7 @@
 extends EditorPlugin
 
 const SceneMapGraph := preload(SceneMapConstants.SCENE_MAP_GRAPH)
+const SM_AutoUpdater := preload(SceneMapConstants.AUTO_UPDATER)
 const SceneMapIO := preload(SceneMapConstants.SCENE_MAP_IO)
 
 var main_panel : Control
@@ -16,6 +17,10 @@ func _enter_tree() -> void:
 	if _load_config_file() != OK:
 		EditorInterface.set_plugin_enabled.call_deferred(_get_plugin_name, false)
 		return
+
+	var auto_updater := SM_AutoUpdater.new(get_tree())
+	auto_updater.check_for_updates()
+	
 
 	# Adds the main panel
 	main_panel = load(SceneMapConstants.PANEL_TSCN).instantiate()

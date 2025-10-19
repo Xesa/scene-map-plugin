@@ -24,6 +24,7 @@ const MAIN_PATH := SCRIPTS_PATH + "main/"
 const RESOURCES_PATH := SCRIPTS_PATH + "resources/"
 
 # Common scripts
+const AUTO_UPDATER := COMMON_PATH + "auto_updater.gd"
 const COMPONENT_FINDER := COMMON_PATH + "component_finder.gd"
 const CONSTANTS := COMMON_PATH + "constants.gd"
 const ENUMS := COMMON_PATH + "enums.gd"
@@ -91,10 +92,14 @@ const SIDES_ICON := ASSETS_PATH + "sides-icon.svg"
 const TYPE_ICON := ASSETS_PATH + "type-icon.svg"
 const EDIT_ICON := ASSETS_PATH + "edit-icon.svg"
 
+# GitHub
+const GITHUB_LINK := "https://github.com/Xesa/scene-map-plugin"
+const GITHUB_API := "https://api.github.com/repos/Xesa/scene-map-plugin/releases"
+const GITHUB_TOKEN := ""
+const UPDATE_PATH := PLUGIN_PATH + "update.zip"
+
 # Other
 const VIEWPORT_SIZE := Vector2i(320,260)
-
-const GITHUB_LINK := "https://github.com/Xesa/scene-map-plugin"
 
 const SLOT_CONFIG := {
 		SM_Enums.Type.ENTRY:	{"label": "Entrance",	"icons": [ARROW_RIGHT, ARROW_LEFT]},

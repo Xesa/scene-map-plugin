@@ -98,10 +98,10 @@ extends Node2D
 var where_to_spawn: SceneMapComponent2D
 
 func _ready() -> void:
-    if not where_to_spawn:
-        player.global_position = default_spawn_node.get_component_position()
-    else:
-        player.global_position = where_to_spawn.get_component_position()
+	if not where_to_spawn:
+		player.global_position = default_spawn_node.get_component_position()
+	else:
+		player.global_position = where_to_spawn.get_component_position()
 ```
 
 ## How to Integrate Everything Into a Scene
