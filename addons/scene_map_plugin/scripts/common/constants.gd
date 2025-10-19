@@ -14,7 +14,7 @@ const ASSETS_PATH := PLUGIN_PATH + "assets/"
 const COMPONENTS_PATH := PLUGIN_PATH + "components/"
 const SCRIPTS_PATH := PLUGIN_PATH + "scripts/"
 const TSCN_PATH := PLUGIN_PATH + "tscn/"
-const USER_DATA_PATH := PLUGIN_PATH + "user_data/"
+const USER_DATA_PATH := "res://.plugin_data/scene_map_plugin/"
 
 # Script folders
 const COMMON_PATH := SCRIPTS_PATH + "common/"
