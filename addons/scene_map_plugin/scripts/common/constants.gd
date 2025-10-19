@@ -33,10 +33,13 @@ const RESOURCE_TOOLS := COMMON_PATH + "resource_tools.gd"
 const SCENE_SAVER := COMMON_PATH + "scene_saver.gd"
 
 # GUI scripts
+const UPDATE_DIALOG := GUI_PATH + "dialogs/scene_map_update_dialog.gd"
 const ABOUT_DIALOG := GUI_PATH + "dialogs/scene_map_about_dialog.gd"
 const ADD_DIALOG := GUI_PATH + "dialogs/scene_map_add_dialog.gd"
 
+
 const GRAPH_ABOUT_BUTTON := GUI_PATH + "graph/graph_about_button.gd"
+const GRAPH_UPDATE_BUTTON := GUI_PATH + "graph/graph_update_button.gd"
 const GRAPH_ADD_BUTTON := GUI_PATH + "graph/graph_add_button.gd"
 const GRAPH_CONFIG_BUTTON := GUI_PATH + "graph/graph_config_button.gd"
 const GRAPH_REFRESH_BUTTON := GUI_PATH + "graph/graph_refresh_button.gd"

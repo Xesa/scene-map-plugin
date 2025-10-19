@@ -1,15 +1,19 @@
-[gd_scene load_steps=11 format=3 uid="uid://booyw8vscyshu"]
+[gd_scene load_steps=15 format=3 uid="uid://booyw8vscyshu"]
 
 [ext_resource type="Script" uid="uid://oiktsvd4pdkl" path="res://addons/scene_map_plugin/scripts/main/scene_map_graph.gd" id="1_gt7hy"]
 [ext_resource type="Texture2D" uid="uid://cm23pxr7faqc4" path="res://addons/scene_map_plugin/assets/about-icon.svg" id="2_38w3s"]
 [ext_resource type="Script" uid="uid://i4j27dsb5b75" path="res://addons/scene_map_plugin/scripts/gui/graph/graph_about_button.gd" id="3_wb71h"]
 [ext_resource type="Texture2D" uid="uid://bcwxyr3ftw0vo" path="res://addons/scene_map_plugin/assets/config-icon.svg" id="4_01stx"]
 [ext_resource type="Script" uid="uid://xud3fcw57jhx" path="res://addons/scene_map_plugin/scripts/gui/graph/graph_config_button.gd" id="5_13j7q"]
+[ext_resource type="Texture2D" uid="uid://o4afnb6oc273" path="res://addons/scene_map_plugin/assets/notification-icon.svg" id="6_7mx42"]
 [ext_resource type="Texture2D" uid="uid://os5jf3vgldqr" path="res://addons/scene_map_plugin/assets/add-icon.svg" id="6_q2a30"]
 [ext_resource type="Script" uid="uid://bttiennyu3gud" path="res://addons/scene_map_plugin/scripts/gui/graph/graph_add_button.gd" id="7_jmxlb"]
+[ext_resource type="Script" uid="uid://dbeewfd73u4at" path="res://addons/scene_map_plugin/scripts/gui/graph/graph_update_button.gd" id="7_tp2n4"]
 [ext_resource type="Texture2D" uid="uid://lyk158lmo6ff" path="res://addons/scene_map_plugin/assets/refresh-icon.svg" id="8_ac1rd"]
 [ext_resource type="Script" uid="uid://b2s440prenmwf" path="res://addons/scene_map_plugin/scripts/gui/graph/graph_refresh_button.gd" id="9_ofa4h"]
 [ext_resource type="PackedScene" uid="uid://cirq1cv70x3h" path="res://addons/scene_map_plugin/tscn/scene_map_about_dialog.tscn" id="10_e76fw"]
+[ext_resource type="PackedScene" uid="uid://cvxaqbf66mb8w" path="res://addons/scene_map_plugin/tscn/scene_map_update_dialog.tscn" id="13_unh4v"]
+[ext_resource type="Script" uid="uid://c85wb02xx0qpr" path="res://addons/scene_map_plugin/scripts/gui/dialogs/scene_map_update_dialog.gd" id="14_bgq8q"]
 
 [node name="SceneMapPanel" type="Control"]
 texture_filter = 6
@@ -64,6 +68,14 @@ tooltip_text = "Configuration"
 icon = ExtResource("4_01stx")
 script = ExtResource("5_13j7q")
 
+[node name="UpdateButton" type="Button" parent="TopContainer"]
+visible = false
+z_index = 1
+layout_mode = 2
+tooltip_text = "Configuration"
+icon = ExtResource("6_7mx42")
+script = ExtResource("7_tp2n4")
+
 [node name="BottomContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 2
@@ -91,3 +103,7 @@ icon = ExtResource("8_ac1rd")
 script = ExtResource("9_ofa4h")
 
 [node name="SceneMapAboutDialog" parent="." instance=ExtResource("10_e76fw")]
+
+[node name="SceneMapUpdateDialog" parent="." instance=ExtResource("13_unh4v")]
+visible = false
+script = ExtResource("14_bgq8q")
