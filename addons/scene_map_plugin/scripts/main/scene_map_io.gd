@@ -54,7 +54,19 @@ static func save(graph : SceneMapGraph) -> void:
 
 			resource.nodes.append(node_res)
 
-	# Saves the resource in disk
+	# Creates the plugin_data folder if doesn't exists
+	var base_dir := SceneMapConstants.USER_DATA_PATH.get_base_dir()
+	var dir := DirAccess.open("res://")
+	var subdirs := base_dir.replace("res://", "").split("/")
+
+	for sub in subdirs:
+		if sub == "":
+			continue
+		if not dir.dir_exists(sub):
+			dir.make_dir(sub)
+		dir.change_dir(sub)
+
+	# Saves the resources in disk
 	ResourceSaver.save(resource, path)
 
 
