@@ -3,7 +3,7 @@
 [node name="SceneMapTokenDialog" type="ConfirmationDialog"]
 title = "SceneMap auto-updater"
 initial_position = 4
-size = Vector2i(450, 225)
+size = Vector2i(450, 235)
 visible = true
 unresizable = true
 ok_button_text = "Accept"
@@ -43,7 +43,7 @@ text = "Don't ask again"
 custom_minimum_size = Vector2(400, 25)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "You can change this in the config.cfg file anytime."
+text = "You can change this in the plugin's configuration anytime."
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3

@@ -111,8 +111,10 @@ const EDIT_ICON := ASSETS_PATH + "edit-icon.svg"
 
 # GitHub
 const GITHUB_LINK := "https://github.com/Xesa/scene-map-plugin"
-const GITHUB_API := "https://api.github.com/repos/Xesa/scene-map-plugin/releases"
+const GITHUB_API := "https://api.github.com/repos/Xesa/scene-map-plugin/releases/latest"
 const UPDATE_PATH := PLUGIN_PATH + "update.zip"
+const TOKEN_PATH := USER_DATA_PATH + "token"
+const DATA_GITIGNORE := USER_DATA_PATH + ".gitignore"
 
 # Other
 const VIEWPORT_SIZE := Vector2i(320,260)

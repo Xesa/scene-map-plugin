@@ -177,6 +177,9 @@ func _on_zip_downloaded(result, response_code, response_headers, body) -> void:
 	zip_reader.close()
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(SceneMapConstants.UPDATE_PATH))
 
+	# Creates a gitignore
+	create_gitignore()
+
 	print("SceneMap Plugin succesfully updated!")
 
 	# Resets the editor
