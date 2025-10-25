@@ -1,5 +1,8 @@
 @tool
 extends ConfirmationDialog
+## SM_UpdateDialog
+##
+## A ConfirmationDialog that handles updating the SceneMap plugin.
 
 const SM_AutoUpdater := preload(SceneMapConstants.AUTO_UPDATER)
 

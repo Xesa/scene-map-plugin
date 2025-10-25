@@ -2,11 +2,12 @@
 extends EditorPlugin
 
 const SM_AutoUpdater := preload(SceneMapConstants.AUTO_UPDATER)
+const SM_ResourceTools := preload(SceneMapConstants.RESOURCE_TOOLS)
 const SceneMapPanel := preload(SceneMapConstants.SCENE_MAP_PANEL)
 const SceneMapGraph := preload(SceneMapConstants.SCENE_MAP_GRAPH)
 const SceneMapIO := preload(SceneMapConstants.SCENE_MAP_IO)
 
-var main_panel : SceneMapPanel
+var panel : SceneMapPanel
 
 func _enter_tree() -> void:
 
@@ -16,37 +17,33 @@ func _enter_tree() -> void:
 
 	SceneMapConstants.PLUGIN_REFERENCE = self
 
-	# Loads the config file
-	if _load_config_file() != OK:
+	# Loads the config file and checks if it is ok
+	if SM_ResourceTools.check_config_file() != OK:
 		EditorInterface.set_plugin_enabled.call_deferred(_get_plugin_name, false)
 		return
 
 	# Adds the main panel
-	main_panel = load(SceneMapConstants.PANEL_TSCN).instantiate()
-	main_panel.name = "SceneMapPanel"
-	get_editor_interface().get_editor_main_screen().add_child(main_panel)
-	SceneMapConstants.PANEL_REFERENCE = main_panel
-
+	panel = load(SceneMapConstants.PANEL_TSCN).instantiate()
+	panel.name = "SceneMapPanel"
+	SceneMapConstants.PANEL_REFERENCE = panel
+	get_editor_interface().get_editor_main_screen().add_child(panel)
+	
 	# Adds the graph to the main panel
-	var graph : SceneMapGraph = main_panel.get_node("SceneMapGraph")
+	var graph : SceneMapGraph = panel.get_node("SceneMapGraph")
 	graph.plugin = self
 
 	# Loads the saved data
 	SceneMapIO.load(graph)
 
 	# Checks for updates
-	var auto_updater := SM_AutoUpdater.new(get_tree())
-	await auto_updater.check_for_updates()
-
-	if SceneMapConstants.UPDATES_AVAILABLE:
-		main_panel.get_node("TopContainer/UpdateButton").toggle_visibility(true)
+	_check_for_updates.call_deferred()
 	
 	_make_visible(false)
 
 
 func _exit_tree() -> void:
-	if main_panel:
-		main_panel.queue_free()
+	if panel:
+		panel.queue_free()
 
 
 func _has_main_screen() -> bool:
@@ -54,8 +51,8 @@ func _has_main_screen() -> bool:
 
 
 func _make_visible(visible : bool) -> void:
-	if main_panel:
-		main_panel.visible = visible
+	if panel:
+		panel.visible = visible
 
 
 func _get_plugin_name():
@@ -69,13 +66,11 @@ func _get_plugin_icon():
 	return ImageTexture.create_from_image(img)
 
 
-func _load_config_file() -> int:
-	var config := ConfigFile.new()
-	var err := config.load(SceneMapConstants.CONFIG_PATH)
+## Checks for updates using the AutoUpdater helper.
+## If updates are available, shows the update button in the panel.
+func _check_for_updates() -> void:
+	var auto_updater := SM_AutoUpdater.new(get_tree())
+	await auto_updater.check_for_updates()
 
-	if err == OK:
-		SceneMapConstants.VERSION = config.get_value("plugin", "version")
-	else:
-		printerr("Error loading .cfg file. Please, reinstall the plugin")
-
-	return err
+	if SceneMapConstants.UPDATES_AVAILABLE:
+		panel.update_button.toggle_visibility(true)

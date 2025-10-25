@@ -1,4 +1,8 @@
 class_name SceneMapConstants extends Object
+## Central class for defining constants, paths, and references used throughout the SceneMap plugin.
+##
+## This class acts as a single point of reference to avoid hardcoding paths
+## or constants elsewhere in the plugin.
 
 const SM_Enums := preload(ENUMS)
 const SceneMapPlugin := preload(SCENE_MAP)

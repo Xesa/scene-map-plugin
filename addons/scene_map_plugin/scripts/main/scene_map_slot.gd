@@ -192,6 +192,7 @@ func update_connection(to_slot : SceneMapSlot, action : SM_SlotConnector.Action)
 	await SM_SlotConnector.update_connection(self, to_slot, action)
 
 
+## Changes the side of this slot (LEFT or RIGHT) and updates the associated component.
 func change_sides() -> void:
 
 	var scene_values := SM_SceneSaver.open_scene(scene_uid)
@@ -219,6 +220,8 @@ func change_sides() -> void:
 	SceneMapIO.save(graph_node.get_parent())
 
 
+
+## Changes the type of this slot (e.g., FUNNEL, STANDARD) and updates the associated component.
 func change_type(new_type : SM_Enums.Type) -> void:
 
 	if type == new_type:
@@ -252,6 +255,7 @@ func change_type(new_type : SM_Enums.Type) -> void:
 	SceneMapIO.save(graph_node.get_parent())
 	
 
+## Updates internal left/right flags, icons, and side metadata for this slot.
 func _update_side_info(_left : bool, _right : bool, _left_icon_index : int, _right_icon_index : int, _side : SM_Enums.Side, component : SceneMapComponent2D) -> void:
 	var slot_config : Dictionary = SM_Constants.SLOT_CONFIG[type]
 	left = _left
@@ -262,6 +266,7 @@ func _update_side_info(_left : bool, _right : bool, _left_icon_index : int, _rig
 	component._set_component_side(side)
 
 
+## Refreshes the slot visuals in the GraphNode based on current left/right state and icons.
 func _update_slot_configuration() -> void:
 
 	var left_icon := load(left_icon)
@@ -297,6 +302,7 @@ func set_component_name(new_name : String) -> void:
 	SceneMapIO.save(graph_node.get_parent())
 
 
+## Removes the custom name of this slot's component and restores default.
 func remove_component_name() -> void:
 
 	if !component_name_is_custom:

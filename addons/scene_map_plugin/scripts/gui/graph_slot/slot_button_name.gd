@@ -1,4 +1,7 @@
 extends Button
+## SM_SlotButtonName
+##
+## A Button that enables a [LabelEdit] control to allow renaming a [SceneMapSlot].
 
 const SM_SlotControl := preload(SceneMapConstants.SLOT_CONTROL)
 

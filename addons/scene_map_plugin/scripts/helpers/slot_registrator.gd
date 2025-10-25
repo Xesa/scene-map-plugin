@@ -1,4 +1,6 @@
 extends Node
+## SM_SlotRegistrator
+##
 ## Class in charge of registering new [SceneMapSlot] and associating them to the [SceneMapNode].[br]
 ##
 ## The [register_slots()] method is used for creating brand new slots when the node
@@ -7,7 +9,7 @@ extends Node
 ## For creating a single brand new slot, see the [register_slot()] method. There is also the
 ## [load_existing_slot()] used for loading the information from a saved resource.
 ##
-## This class makes use of the [ComponentFinder] helper class for listing all the [SceneMapComponent] present in the scene.[br]
+## This class makes use of the [SM_ComponentFinder] helper class for listing all the [SceneMapComponent] present in the scene.[br]
 
 const SM_Enums := preload(SceneMapConstants.ENUMS)
 const SM_ComponentFinder := preload(SceneMapConstants.COMPONENT_FINDER)

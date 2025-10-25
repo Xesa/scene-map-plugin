@@ -1,6 +1,10 @@
+@tool
 extends FileDialog
+## SM_AddDialog
+##
+## A FileDialog that allows the user to select a .tscn file and adds it to the graph.
 
-signal scene_selected(scene : Resource)
+const SM_NodeRegistrator := preload(SceneMapConstants.NODE_REGISTRATOR)
 
 
 func _init() -> void:
@@ -23,4 +27,4 @@ func _on_file_selected(path : String) -> void:
 	if path == "" or not FileAccess.file_exists(path):
 		return
 
-	scene_selected.emit(path)
+	SM_NodeRegistrator.register_scene(SceneMapConstants.PANEL_REFERENCE.graph, path)

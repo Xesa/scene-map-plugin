@@ -1,10 +1,18 @@
 extends Node
-## Provides methods for creating or refreshing the preview of a scene
-## and adding different visual markers to it. 
+## SM_NodePreviewer
+##
+## Provides methods for creating or refreshing a scene preview.
+## Supports adding visual markers for components and fitting the scene into a preview box.
+##
+## Main methods:[br]
+## - [create_preview()]: Creates the viewport and generates a preview.[br]
+## - [refresh_preview()]: Refreshes an existing viewport preview.[br]
 
 const SM_SceneSaver := preload(SceneMapConstants.SCENE_SAVER)
 const SM_ComponentFinder := preload(SceneMapConstants.COMPONENT_FINDER)
 const SceneMapNode := preload(SceneMapConstants.SCENE_MAP_NODE)
+
+#region PublicMethods
 
 ## Creates the preview box and calls the [_refresh_preview()] method.
 static func create_preview(graph_node : SceneMapNode) -> void:
@@ -34,15 +42,15 @@ static func refresh_preview(graph_node : SceneMapNode) -> void:
 	viewport.add_child(scene_instance)
 
 	# Calculates the scene size
-	var scene_rect = get_node_rect(scene_instance, Rect2(Vector2.ONE, Vector2.ONE))
+	var scene_rect = _get_node_rect(scene_instance, Rect2(Vector2.ONE, Vector2.ONE))
 
 	# Adds markers to the scene
-	scene_instance = put_markers(scene_instance, scene_rect.size)
+	scene_instance = _put_markers(scene_instance, scene_rect.size)
 
 	# Creates a camera and sets its position and zoom to fit the entire scene into the subviewport
 	var camera := Camera2D.new()
 	camera.enabled = true
-	camera = fit_camera_to_scene(camera, scene_rect, SceneMapConstants.VIEWPORT_SIZE)
+	camera = _fit_camera_to_scene(camera, scene_rect, SceneMapConstants.VIEWPORT_SIZE)
 	viewport.add_child(camera)
 	camera.make_current()
 	
@@ -56,10 +64,13 @@ static func refresh_preview(graph_node : SceneMapNode) -> void:
 	camera.queue_free()
 	viewport.queue_free()
 
+#endregion
+
+#region PrivateMethods
 
 ## Returns a [Rect2] with the position and size of all the occupied space in each child of [node].
 ## This function is recursive so it will scan every node inside the [node] parameter's tree.
-static func get_node_rect(node : Node, rect : Rect2) -> Rect2:
+static func _get_node_rect(node : Node, rect : Rect2) -> Rect2:
 
 	# Gets the used space by a TileMapLayer
 	if node is TileMapLayer:
@@ -76,13 +87,13 @@ static func get_node_rect(node : Node, rect : Rect2) -> Rect2:
 
 	# Iterates each child recursively
 	for child in node.get_children():
-		rect = get_node_rect(child, rect)
+		rect = _get_node_rect(child, rect)
 
 	return rect
 
 
 ## Sets the camera position and size to fit the entire scene into the preview box.
-static func fit_camera_to_scene(camera : Camera2D, scene_rect : Rect2, viewport_size : Vector2) -> Camera2D:
+static func _fit_camera_to_scene(camera : Camera2D, scene_rect : Rect2, viewport_size : Vector2) -> Camera2D:
 	var center = scene_rect.position + scene_rect.size * 0.5
 	var scale_x = viewport_size.x / scene_rect.size.x
 	var scale_y = viewport_size.y / scene_rect.size.y
@@ -95,7 +106,7 @@ static func fit_camera_to_scene(camera : Camera2D, scene_rect : Rect2, viewport_
 
 
 ## Places numbered markers in the position of each component that will be shown in the node's preview.
-static func put_markers(scene_instance : Node, scene_size : Vector2) -> Node:
+static func _put_markers(scene_instance : Node, scene_size : Vector2) -> Node:
 
 	var components := SM_ComponentFinder.find_all_components(scene_instance)
 
@@ -124,3 +135,5 @@ static func put_markers(scene_instance : Node, scene_size : Vector2) -> Node:
 		scene_instance.add_child(label)
 
 	return scene_instance
+
+#endregion

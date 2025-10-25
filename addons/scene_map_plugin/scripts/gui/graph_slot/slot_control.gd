@@ -1,4 +1,9 @@
 extends HBoxContainer
+## SM_SlotControl
+##
+## Control that manages a single [SceneMapSlot] UI within a [SceneMapNode].
+## Handles the slot label, edit field, disconnect buttons, type/side/name buttons,
+## and mouse hover interactions for showing/hiding subcontrols.
 
 const SM_SlotLabel := preload(SceneMapConstants.SLOT_LABEL)
 const SM_DisconnectButton := preload(SceneMapConstants.SLOT_DISCONNECT_BUTTON)

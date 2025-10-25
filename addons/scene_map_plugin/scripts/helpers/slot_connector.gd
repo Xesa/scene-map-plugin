@@ -1,4 +1,9 @@
 extends Node
+## SM_SlotConnector
+##
+## Manages connections between [SceneMapSlots] in a [SceneMapGraph].
+## Updates slot properties and component metadata to reflect connections,
+## and ensures changes are saved to both the graph and scene files.
 
 const SM_ResourceTools := preload(SceneMapConstants.RESOURCE_TOOLS)
 const SM_ConnectionValidator := preload(SceneMapConstants.GRAPH_CONNECTION_VALIDATOR)

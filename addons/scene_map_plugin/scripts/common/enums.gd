@@ -1,4 +1,7 @@
 extends Node
+## SM_Enums
+##
+## Defines all the enums for the Scene Map.
 
 ## Defines which actions will the player be able to perform.
 enum Type {

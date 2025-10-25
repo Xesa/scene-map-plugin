@@ -1,4 +1,8 @@
 extends Node
+## SM_ConnectionValidator
+##
+## Utility class to determine connection types and directions between [SceneMapSlot] components.
+## Provides static methods that evaluate compatibility based on type, side, and current connections.
 
 const SM_Enums := preload(SceneMapConstants.ENUMS)
 const SceneMapSlot := preload(SceneMapConstants.SCENE_MAP_SLOT)
@@ -73,6 +77,9 @@ static func get_connection_type(from_slot : SceneMapSlot, to_slot : SceneMapSlot
 	return 0
 
 
+## Returns the connection direction based on the [side] properties from each slot.
+## [br]- [1]: left-to-right
+## [br]- [-1]: right-to-left
 static func get_connection_direction(from_slot : SceneMapSlot, to_slot : SceneMapSlot) -> int:
 
 	if from_slot.type == SM_Enums.Type.FUNNEL:

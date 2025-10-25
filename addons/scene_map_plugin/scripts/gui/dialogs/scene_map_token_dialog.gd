@@ -1,7 +1,13 @@
 @tool
 extends ConfirmationDialog
+## SM_TokenDialog
+##
+## A ConfirmationDialog that prompts the user to enter a GitHub token
+## for the SceneMap plugin. Handles token validation, provides UI feedback
+## for invalid tokens, and saves user preferences.
 
 const SM_AutoUpdater := preload(SceneMapConstants.AUTO_UPDATER)
+const SM_ResourceTools := preload(SceneMapConstants.RESOURCE_TOOLS)
 
 @onready var line_edit : LineEdit = $VBoxContainer/LineEdit
 @onready var checkbox : CheckBox = $VBoxContainer/CheckBox
@@ -30,7 +36,7 @@ func _on_close_request() -> void:
 
 
 func _on_cancel_pressed() -> void:
-	save_config("ask_for_token", !checkbox.button_pressed)
+	SM_ResourceTools.save_config("ask_for_token", !checkbox.button_pressed)
 	toggle_visiblity(false)
 
 
@@ -45,22 +51,16 @@ func _on_token_failed() -> void:
 
 
 func _on_accept_pressed() -> void:
+
+	# Checks the token validity
 	var updater := SM_AutoUpdater.new(get_tree())
 	var is_token_valid := await updater.check_token_validity(line_edit.text)
-	await Engine.get_main_loop().process_frame
 
+	# If it's not valid, restarts the prompt
 	if !is_token_valid:
 		_on_token_failed()
 
+	# If it's valid, saves it and checks for updates
 	else:
 		updater.save_token(line_edit.text)
 		updater.check_for_updates()
-
-
-func save_config(key : String, value : Variant) -> void:
-	var cfg = ConfigFile.new()
-	var err = cfg.load(SceneMapConstants.CONFIG_PATH)
-
-	if err == OK:
-		cfg.set_value("plugin", key, value)
-		cfg.save(SceneMapConstants.CONFIG_PATH)

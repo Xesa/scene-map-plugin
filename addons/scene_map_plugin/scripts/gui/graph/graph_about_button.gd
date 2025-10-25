@@ -1,15 +1,16 @@
 @tool
 extends Button
+## SM_AboutButton
+##
+## A Button that opens the [SM_AboutDialog] when pressed.
 
 const SM_AboutDialog := preload(SceneMapConstants.ABOUT_DIALOG)
 
-var panel : Control
 var about_dialog : SM_AboutDialog
 
 
 func _ready() -> void:
-	panel = owner as Control
-	about_dialog = panel.get_node("SceneMapAboutDialog")
+	about_dialog = SceneMapConstants.PANEL_REFERENCE.about_dialog
 	pressed.connect(_on_button_pressed)
 
 

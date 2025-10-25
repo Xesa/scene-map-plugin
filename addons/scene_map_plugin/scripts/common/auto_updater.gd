@@ -1,6 +1,15 @@
 @tool
 extends Object
-## This script is responsible for checking and downloading updates of the SceneMap Plugin from GitHub.
+## SM_AutoUpdater
+##
+##This script is responsible for checking and downloading updates of the SceneMap Plugin from GitHub.
+## 
+## Main methods:[br]
+## - check_for_updates(): checks GitHub for new plugin releases[br]
+## - download_updates(): downloads and installs the latest release[br]
+## - check_token_validity(): verifies the GitHub token[br]
+
+const SM_ResourceTools := preload(SceneMapConstants.RESOURCE_TOOLS)
 
 var tree : SceneTree
 var is_token_valid := false
@@ -16,6 +25,7 @@ signal validity_checked()
 func _init(_tree : SceneTree) -> void:
 	tree = _tree
 
+#region CheckUpdates
 
 ## Checks GitHub API for new releases of the plugin.
 ## Once the HTTP request is sent, the [_on_request_completed()] method is fired.
@@ -71,6 +81,9 @@ func _on_request_completed(result, response_code, response_headers, body) -> voi
 
 	updates_checked.emit()
 	
+#endregion
+
+#region DownloadUpdates
 
 ## Downloads and installs the latest plugin version if available.
 ## Once the HTTP request is sent, the [_on_zip_downloaded()] method is fired.
@@ -186,7 +199,13 @@ func _on_zip_downloaded(result, response_code, response_headers, body) -> void:
 	await tree.create_timer(2.0).timeout
 	EditorInterface.restart_editor(true)
 
+#endregion
 
+#region TokenValidity
+
+## Checks if the token is valid by calling GitHub's API.
+## Once the HTTP request is sent, the [_on_validity_checked()] method is fired.
+## Emits [validity_checked] after the checking attempt ends.
 func check_token_validity(token : String) -> bool:
 
 	# Creates a new request
@@ -203,11 +222,17 @@ func check_token_validity(token : String) -> bool:
 	return is_token_valid
 
 
+## Callback when the token is validated after the [check_token_validity()] method.
 func _on_validity_checked(result, response_code, response_headers, body) -> void:
 	is_token_valid = response_code == 200
 	validity_checked.emit()
 
+#endregion
 
+#region TokenParsing
+
+## Checks if the token file exists and parses it. If there is no file or the token is not valid,
+##  opens the token input dialog by calling the [ask_for_token()] method.
 func parse_token() -> bool:
 
 	# Opens the file
@@ -234,13 +259,16 @@ func parse_token() -> bool:
 	return false
 
 
+## Opens the token input dialog.
 func ask_for_token() -> void:
-	var ask_for_token : bool = get_config("ask_for_token", true)
+	var ask_for_token : bool = SM_ResourceTools.load_config("ask_for_token", true)
 	if ask_for_token:
 		SceneMapConstants.PANEL_REFERENCE.token_dialog.toggle_visiblity(true)
 
 
+## Saves the token in a file that won't be tracked by Git.
 func save_token(token : String) -> void:
+
 	# Creates the plugin_data folder if doesn't exists
 	var base_dir := SceneMapConstants.USER_DATA_PATH.get_base_dir()
 	var dir := DirAccess.open("res://")
@@ -263,19 +291,14 @@ func save_token(token : String) -> void:
 	file.store_string(token)
 	file.close()
 
+	# Creates a gitignore file
 	create_gitignore()
 
+# endregion
 
-func get_config(key : String, default_value : Variant) -> Variant:
-	var cfg = ConfigFile.new()
-	var err = cfg.load(SceneMapConstants.CONFIG_PATH)
+#region HelperMethods
 
-	if err == OK:
-		return cfg.get_value("plugin", key, default_value)
-	
-	return default_value
-
-
+## Creates a gitignore file in the plugin_data folder to avoid tracking sensitive information.
 func create_gitignore() -> void:
 	var gitignore := FileAccess.open(SceneMapConstants.DATA_GITIGNORE, FileAccess.WRITE)
 
@@ -293,3 +316,5 @@ func _get_headers(token : String) -> Array:
 		"Accept: application/vnd.github+json",
 		"Authorization: Bearer " + token
 	]
+
+#endregion

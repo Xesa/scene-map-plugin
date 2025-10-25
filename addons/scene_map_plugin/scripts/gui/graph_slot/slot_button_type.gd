@@ -1,4 +1,7 @@
 extends MenuButton
+## SM_SlotButtonType
+##
+## A MenuButton used to change the type of a [SceneMapSlot].
 
 const SM_Enums := preload(SceneMapConstants.ENUMS)
 const SM_SlotControl := preload(SceneMapConstants.SLOT_CONTROL)

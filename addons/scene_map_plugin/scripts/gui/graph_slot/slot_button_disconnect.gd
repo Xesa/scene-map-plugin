@@ -1,9 +1,13 @@
 extends Button
+## SM_SlotButtonDisconnect
+##
+## A Button used to remove scene graph connections from a specific [SceneMapSlot].
+## It stays enabled only when the slot has valid connections based on its type
+## and which side of the slot this button represents.
 
 const SM_Enums := preload(SceneMapConstants.ENUMS)
 const SM_SlotControl := preload(SceneMapConstants.SLOT_CONTROL)
 const SceneMapSlot := preload(SceneMapConstants.SCENE_MAP_SLOT)
-
 
 
 var control : SM_SlotControl
@@ -11,6 +15,7 @@ var slot : SceneMapSlot
 var is_connected := false
 var button_side : int
 var force_disabled := false
+
 
 func _init(_control : SM_SlotControl, _slot : SceneMapSlot, _button_side : int) -> void:
 	control = _control

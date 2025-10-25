@@ -1,4 +1,8 @@
 extends LineEdit
+## SM_SlotLabelEdit
+## 
+## Editable text field for a [SceneMapSlot].
+## Allows the user to assign a custom name to the component.
 
 const SM_SlotControl := preload(SceneMapConstants.SLOT_CONTROL)
 const SceneMapSlot := preload(SceneMapConstants.SCENE_MAP_SLOT)

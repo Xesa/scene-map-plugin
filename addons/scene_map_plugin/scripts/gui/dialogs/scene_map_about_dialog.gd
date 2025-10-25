@@ -1,5 +1,8 @@
 @tool
 extends PopupPanel
+## SM_AboutDialog
+##
+## A PopupPanel that shows information about the plugin and links to different websites.
 
 @onready var main_text : RichTextLabel = $'VBoxContainer/MainText'
 @onready var bottom_text : RichTextLabel = $'VBoxContainer/BottomText'

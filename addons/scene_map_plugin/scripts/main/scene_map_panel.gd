@@ -1,5 +1,11 @@
 @tool
 extends Control
+## Main container for the SceneMap plugin.
+##
+## This class manages the top-level UI of the SceneMap plugin,
+## including buttons for adding, refreshing, updating, and configuring the graph.
+## It also holds references to various dialogs such as About, Update, and Token dialogs.
+## The [SceneMapGraph] node is used to display and manage the graph itself.
 
 const SceneMapGraph := preload(SceneMapConstants.SCENE_MAP_GRAPH)
 

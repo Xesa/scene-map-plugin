@@ -1,4 +1,9 @@
 extends Node
+## SM_NodeRegistrator
+##
+## Provides methods to register new scenes into a [SceneMapGraph].
+## Handles creating [SceneMapNodes] for each scene, setting their position,
+## and ensuring scenes are not duplicated in the graph.
 
 const SM_ResourceTools := preload(SceneMapConstants.RESOURCE_TOOLS)
 const SceneMapGraph := preload(SceneMapConstants.SCENE_MAP_GRAPH)

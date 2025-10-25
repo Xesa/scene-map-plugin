@@ -1,5 +1,10 @@
 @tool
 extends Node
+## Handles saving and loading the SceneMap graph to and from disk.
+##
+## Converts [SceneMapNodes] and [SceneMapSlots] into resource data for persistence,
+## and restores nodes, slots, and their connections when loading.
+## Ensures that all scenes and connections are properly initialized and refreshed.
 
 const SM_SlotRegistrator := preload(SceneMapConstants.SLOT_REGISTRATOR)
 const SM_GraphResource := preload(SceneMapConstants.GRAPH_RESOURCE)
@@ -11,6 +16,9 @@ const SceneMapNode := preload(SceneMapConstants.SCENE_MAP_NODE)
 const SceneMapSlot := preload(SceneMapConstants.SCENE_MAP_SLOT)
 
 
+## Saves the given [SceneMapGraph] to disk as a .tres resource.
+## Converts each [SceneMapNode] and its [SceneMapSlots] into [SM_NodeResource] and [SM_SlotResource],
+## stores connections, and ensures the plugin_data folder exists.
 static func save(graph : SceneMapGraph) -> void:
 
 	var path = SceneMapConstants.USER_DATA_PATH + "graph_1.tres"
@@ -70,6 +78,9 @@ static func save(graph : SceneMapGraph) -> void:
 	ResourceSaver.save(resource, path)
 
 
+## Loads a [SceneMapGraph] from a previously saved .tres resource.
+## Reconstructs [SceneMapNodes] and [SceneMapSlots], hydrates their connections,
+## reconnects nodes in the graph, and refreshes all scenes.
 static func load(graph : SceneMapGraph) -> void:
 
 	var path = SceneMapConstants.USER_DATA_PATH + "graph_1.tres"

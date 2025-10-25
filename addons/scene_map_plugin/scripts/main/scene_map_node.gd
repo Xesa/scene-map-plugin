@@ -76,11 +76,15 @@ func _ready() -> void:
 	node_ready.emit()
 
 
+## Checks for DELETE key press and deletes this node if selected.
 func _process(delta : float) -> void:
 	if Input.is_key_pressed(KEY_DELETE) and selected and not set_to_delete:
 		_delete()
 
 
+## Handles mouse input for this node.
+## Left double-click opens the scene in the editor.
+## Right-click opens the node context menu.
 func _on_gui_input(event : InputEvent) -> void:
 
 	if event is InputEventMouseButton:
@@ -91,6 +95,12 @@ func _on_gui_input(event : InputEvent) -> void:
 		if event.button_index == MOUSE_BUTTON_RIGHT and event.is_pressed():
 			menu.make_visible(event.global_position)
 			graph_edit.add_child(menu)
+
+
+## Triggered when a connection is added or removed.
+## Re-evaluates the node's connection state and updates the title accordingly.
+func _on_connection_added_or_removed(connection : SceneMapSlot, direction : int) -> void:
+	check_connections()
 
 
 ## Deletes this node and all its connections. This will also clear the [component_uid] values
@@ -123,6 +133,7 @@ func get_component_slot(index : int, side : int) -> SceneMapSlot:
 	return null
 
 
+## Returns the [SceneMapSlot] that matches the given component UID.
 func get_component_slot_by_uid(component_uid) -> SceneMapSlot:
 	for slot in component_slots:
 		if slot.component_uid == component_uid:
@@ -130,6 +141,8 @@ func get_component_slot_by_uid(component_uid) -> SceneMapSlot:
 	return null
 
 
+## Opens the scene represented by this node in the Godot editor.
+## Switches to the 2D editor view and releases any current drag operation.
 func open_scene_in_editor() -> void:
 	EditorInterface.open_scene_from_path("uid://"+scene_uid)
 	await Engine.get_main_loop().process_frame
@@ -137,10 +150,8 @@ func open_scene_in_editor() -> void:
 	graph_edit.force_drag_release(self)
 
 
-func _on_connection_added_or_removed(connection : SceneMapSlot, direction : int) -> void:
-	check_connections()
-
-
+## Checks all component slots for existing connections.
+## Updates the node's title with a warning symbol if no connections are found.
 func check_connections() -> void:
 	for slot in component_slots:
 		if slot.connected_from.size() == 0 and slot.connected_to.size() == 0:

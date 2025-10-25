@@ -1,4 +1,8 @@
 extends Button
+## SM_SlotButtonSide
+##
+## A Button that toggles the side of a [SceneMapSlot] when pressed.
+## This button remains disabled unless the slot configuration allows side changes.
 
 const SM_SlotControl := preload(SceneMapConstants.SLOT_CONTROL)
 const SceneMapSlot := preload(SceneMapConstants.SCENE_MAP_SLOT)
