@@ -1,5 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://booyw8vscyshu"]
+[gd_scene load_steps=18 format=3 uid="uid://booyw8vscyshu"]
 
+[ext_resource type="Script" uid="uid://djahhce2wderp" path="res://addons/scene_map_plugin/scripts/main/scene_map_panel.gd" id="1_6i2hd"]
 [ext_resource type="Script" uid="uid://oiktsvd4pdkl" path="res://addons/scene_map_plugin/scripts/main/scene_map_graph.gd" id="1_gt7hy"]
 [ext_resource type="Texture2D" uid="uid://cm23pxr7faqc4" path="res://addons/scene_map_plugin/assets/about-icon.svg" id="2_38w3s"]
 [ext_resource type="Script" uid="uid://i4j27dsb5b75" path="res://addons/scene_map_plugin/scripts/gui/graph/graph_about_button.gd" id="3_wb71h"]
@@ -14,6 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://cirq1cv70x3h" path="res://addons/scene_map_plugin/tscn/scene_map_about_dialog.tscn" id="10_e76fw"]
 [ext_resource type="PackedScene" uid="uid://cvxaqbf66mb8w" path="res://addons/scene_map_plugin/tscn/scene_map_update_dialog.tscn" id="13_unh4v"]
 [ext_resource type="Script" uid="uid://c85wb02xx0qpr" path="res://addons/scene_map_plugin/scripts/gui/dialogs/scene_map_update_dialog.gd" id="14_bgq8q"]
+[ext_resource type="PackedScene" uid="uid://divnfjycbptrh" path="res://addons/scene_map_plugin/tscn/scene_map_token_dialog.tscn" id="15_bgq8q"]
+[ext_resource type="Script" uid="uid://bnndy4sq1aj3a" path="res://addons/scene_map_plugin/scripts/gui/dialogs/scene_map_token_dialog.gd" id="16_gr8yi"]
 
 [node name="SceneMapPanel" type="Control"]
 texture_filter = 6
@@ -25,6 +28,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
 mouse_filter = 1
+script = ExtResource("1_6i2hd")
 
 [node name="SceneMapGraph" type="GraphEdit" parent="."]
 layout_mode = 1
@@ -107,3 +111,8 @@ script = ExtResource("9_ofa4h")
 [node name="SceneMapUpdateDialog" parent="." instance=ExtResource("13_unh4v")]
 visible = false
 script = ExtResource("14_bgq8q")
+
+[node name="SceneMapTokenDialog" parent="." instance=ExtResource("15_bgq8q")]
+size = Vector2i(450, 235)
+visible = false
+script = ExtResource("16_gr8yi")

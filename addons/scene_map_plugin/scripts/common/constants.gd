@@ -1,10 +1,21 @@
 class_name SceneMapConstants extends Object
 
 const SM_Enums := preload(ENUMS)
+const SceneMapPlugin := preload(SCENE_MAP)
+const SceneMapPanel := preload(SCENE_MAP_PANEL)
+
+# Variables
+static var VERSION : String
+static var LATEST_VERSION : String
+static var LATEST_URL : String
+static var UPDATES_AVAILABLE := false
+static var GITHUB_TOKEN : String
+
+# References
+static var PLUGIN_REFERENCE : SceneMapPlugin
+static var PANEL_REFERENCE : SceneMapPanel
 
 # General
-static var VERSION : String
-
 const PLUGIN_NAME := "SceneMap"
 const PLUGIN_PATH := "res://addons/scene_map_plugin/"
 const CONFIG_PATH := PLUGIN_PATH + "plugin.cfg"
@@ -34,9 +45,9 @@ const SCENE_SAVER := COMMON_PATH + "scene_saver.gd"
 
 # GUI scripts
 const UPDATE_DIALOG := GUI_PATH + "dialogs/scene_map_update_dialog.gd"
+const TOKEN_DIALOG := GUI_PATH + "dialogs/scene_map_token_dialog.gd"
 const ABOUT_DIALOG := GUI_PATH + "dialogs/scene_map_about_dialog.gd"
 const ADD_DIALOG := GUI_PATH + "dialogs/scene_map_add_dialog.gd"
-
 
 const GRAPH_ABOUT_BUTTON := GUI_PATH + "graph/graph_about_button.gd"
 const GRAPH_UPDATE_BUTTON := GUI_PATH + "graph/graph_update_button.gd"
@@ -64,6 +75,7 @@ const SLOT_REGISTRATOR := HELPERS_PATH + "slot_registrator.gd"
 
 # Main sripts
 const SCENE_MAP := MAIN_PATH + "scene_map.gd"
+const SCENE_MAP_PANEL := MAIN_PATH + "scene_map_panel.gd"
 const SCENE_MAP_GRAPH := MAIN_PATH + "scene_map_graph.gd"
 const SCENE_MAP_IO := MAIN_PATH + "scene_map_io.gd"
 const SCENE_MAP_NODE := MAIN_PATH + "scene_map_node.gd"
@@ -77,6 +89,8 @@ const SLOT_RESOURCE := RESOURCES_PATH + "scene_map_slot_resource.gd"
 # Interface
 const PANEL_TSCN := TSCN_PATH + "scene_map_panel.tscn"
 const ABOUT_DIALOG_TSCN := TSCN_PATH + "scene_map_about_dialog.tscn"
+const UPDATE_TSCN := TSCN_PATH + "scene_map_update_dialog.tscn"
+const TOKEN_TSCN := TSCN_PATH + "scene_map_token_dialog.tscn"
 
 # Assets
 const MAP_ICON := ASSETS_PATH + "map-icon.svg"
@@ -98,7 +112,6 @@ const EDIT_ICON := ASSETS_PATH + "edit-icon.svg"
 # GitHub
 const GITHUB_LINK := "https://github.com/Xesa/scene-map-plugin"
 const GITHUB_API := "https://api.github.com/repos/Xesa/scene-map-plugin/releases"
-const GITHUB_TOKEN := ""
 const UPDATE_PATH := PLUGIN_PATH + "update.zip"
 
 # Other

@@ -2,16 +2,19 @@
 extends EditorPlugin
 
 const SM_AutoUpdater := preload(SceneMapConstants.AUTO_UPDATER)
+const SceneMapPanel := preload(SceneMapConstants.SCENE_MAP_PANEL)
 const SceneMapGraph := preload(SceneMapConstants.SCENE_MAP_GRAPH)
 const SceneMapIO := preload(SceneMapConstants.SCENE_MAP_IO)
 
-var main_panel : Control
+var main_panel : SceneMapPanel
 
 func _enter_tree() -> void:
 
 	# Waits until the filesystem is fully loaded
 	while EditorInterface.get_resource_filesystem().is_scanning():
 		await Engine.get_main_loop().process_frame
+
+	SceneMapConstants.PLUGIN_REFERENCE = self
 
 	# Loads the config file
 	if _load_config_file() != OK:
@@ -22,6 +25,7 @@ func _enter_tree() -> void:
 	main_panel = load(SceneMapConstants.PANEL_TSCN).instantiate()
 	main_panel.name = "SceneMapPanel"
 	get_editor_interface().get_editor_main_screen().add_child(main_panel)
+	SceneMapConstants.PANEL_REFERENCE = main_panel
 
 	# Adds the graph to the main panel
 	var graph : SceneMapGraph = main_panel.get_node("SceneMapGraph")
@@ -34,7 +38,7 @@ func _enter_tree() -> void:
 	var auto_updater := SM_AutoUpdater.new(get_tree())
 	await auto_updater.check_for_updates()
 
-	if auto_updater.updates_available:
+	if SceneMapConstants.UPDATES_AVAILABLE:
 		main_panel.get_node("TopContainer/UpdateButton").toggle_visibility(true)
 	
 	_make_visible(false)

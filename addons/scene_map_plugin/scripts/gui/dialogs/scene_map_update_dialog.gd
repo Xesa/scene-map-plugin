@@ -35,4 +35,4 @@ func _on_update_pressed() -> void:
 		
 		var updater := SM_AutoUpdater.new(get_tree())
 		print("Updating SceneMap Plugin... This may take a few seconds.")
-		#updater.download_updates()
+		updater.download_updates()

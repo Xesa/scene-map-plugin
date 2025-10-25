@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://divnfjycbptrh"]
+
+[node name="SceneMapTokenDialog" type="ConfirmationDialog"]
+title = "SceneMap auto-updater"
+initial_position = 4
+size = Vector2i(450, 225)
+visible = true
+unresizable = true
+ok_button_text = "Accept"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -49.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(400, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "If you have purchased the full version, you can introduce here the token to receive automatic updates."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer"]
+custom_minimum_size = Vector2(400, 35)
+layout_mode = 2
+placeholder_text = "github_pat..."
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Don't ask again"
+
+[node name="CheckboxMessage" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(400, 25)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "You can change this in the config.cfg file anytime."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="TokenMessage" type="Label" parent="VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(400, 25)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.12549, 0.12549, 1)
+theme_override_font_sizes/font_size = 14
+text = "Invalid token."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
