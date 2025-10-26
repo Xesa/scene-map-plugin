@@ -49,14 +49,11 @@ static func refresh_preview(graph_node : SceneMapNode) -> void:
 	if scene_instance is Node3D:
 		graph_node.preview.texture = await _get_preview_3d(viewport, scene_instance)
 
-	# Frees the nodes that are no longer necessary
-	scene_instance.queue_free()
-	viewport.queue_free()
-
 #endregion
 
 #region Preview2DMethods
 
+## Generates the preview from a Node2D instance.
 static func _get_preview_2d(viewport : SubViewport, scene_instance : Node) -> ImageTexture:
 	# Calculates the scene size
 	var scene_rect = _get_node_rect_2d(scene_instance, Rect2(Vector2.ONE, Vector2.ONE))
@@ -157,26 +154,32 @@ static func _put_markers_2d(scene_instance : Node, scene_size : Vector2) -> Node
 
 #region Preview3DMethods
 
+## Generates the preview from a Node3D instance.
 static func _get_preview_3d(viewport : SubViewport, scene_instance : Node) -> ImageTexture:
+	
 	# Calculates the scene size
 	var scene_aabb = _get_node_aabb_3d(scene_instance)
 
-	# Adds markers to the scene
-	scene_instance = _put_markers_3d(scene_instance, scene_aabb)
-
 	# Creates a camera and sets its position and zoom to fit the entire scene into the subviewport
 	var camera := _fit_camera_to_scene_3d(viewport, scene_aabb)
+
+	# Adds markers to the scene
+	scene_instance = _put_markers_3d(scene_instance, scene_aabb, camera)
 	
 	# Generates the image and assigns it to the preview box
 	await RenderingServer.frame_post_draw
 	var image := viewport.get_texture().get_image()
 
 	# Frees the nodes that are no longer necessary
+	scene_instance.queue_free()
 	camera.queue_free()
+	viewport.queue_free()
 
 	return ImageTexture.create_from_image(image)
 
 
+## Returns a [AABB] with the position and size of all the occupied space in each child of [node].
+## This function is recursive so it will scan every node inside the [node] parameter's tree.
 static func _get_node_aabb_3d(node : Node, aabb: AABB = AABB()) -> AABB:
 
 	# If the node has a mesh or shape to calculate its size
@@ -206,6 +209,7 @@ static func _get_node_aabb_3d(node : Node, aabb: AABB = AABB()) -> AABB:
 	return aabb
 
 
+## Sets the camera position and size to fit the entire scene into the preview box.
 static func _fit_camera_to_scene_3d(viewport : SubViewport, scene_aabb : AABB) -> Camera3D:
 
 	# Creates a new camera
@@ -234,21 +238,36 @@ static func _fit_camera_to_scene_3d(viewport : SubViewport, scene_aabb : AABB) -
 	return camera
 
 
-static func _put_markers_3d(scene_instance : Node3D, scene_aabb : AABB) -> Node3D:
+## Places numbered markers in the position of each component that will be shown in the node's preview.
+static func _put_markers_3d(scene_instance: Node3D, scene_aabb: AABB, camera: Camera3D) -> Node3D:
+
 	var components = SM_ComponentFinder.find_all_components(scene_instance)
+	var pixels_per_unit = SceneMapConstants.VIEWPORT_SIZE.y / camera.size
 
 	var index = 0
+
 	for component in components:
 		index += 1
 
 		var label = Label3D.new()
-		label.text = str(index)
-		label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		label.transform.origin = component.global_transform.origin + Vector3(0, 0.1, 0)
-
 		scene_instance.add_child(label)
+		label.text = str(index)
+
+		# Billboarding
+		label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+		label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+
+		# Font style, size and outline
+		label.font_size = scene_aabb.size.x * 15
+		label.outline_size = scene_aabb.size.x * 5
+
+		label.modulate = Color.RED
+		label.outline_modulate = Color.WHITE
+
+		# Position
+		var pivot_offset := Vector3(0, scene_aabb.size.y, 0)
+		label.global_position = component.get_global_position() + pivot_offset
 
 	return scene_instance
 
