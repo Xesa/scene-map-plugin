@@ -113,7 +113,7 @@ func _delete() -> void:
 	var scene_values := SM_SceneSaver.open_scene(scene_uid)
 	
 	# Iterates each slot and removes their connections
-	for slot in component_slots:
+	for slot in component_slots.duplicate():
 		await slot.delete()
 
 	# Saves all the changes made to the scenes
