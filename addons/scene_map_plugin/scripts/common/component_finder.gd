@@ -4,12 +4,12 @@ extends Node
 ## Provides utility functions to find and traverse SceneMap components within a scene tree.
 ##
 ## Main methods:[br]
-## - find_all_components(node): returns an array of all SceneMapComponent2D under the given node[br]
+## - find_all_components(node): returns an array of all [SceneMapComponent] under the given node[br]
 ## - search_component_by_uid(node, component_uid): finds a component by its UID[br]
 ## - get_root_node(node): returns the root node of a given node[br]
 
 
-## Finds all SceneMapComponent2D instances under the given node.
+## Finds all [SceneMapComponent] instances under the given node.
 static func find_all_components(node: Node) -> Array:
 	var components := []
 
@@ -19,16 +19,16 @@ static func find_all_components(node: Node) -> Array:
 
 ## Internal helper function that recursively collects components.
 static func _collect_components(node: Node, components: Array) -> void:
-	if node is SceneMapComponent2D:
+	if node.has_method("get_scene_map_component_type"):
 		components.append(node)
 
 	for child in node.get_children():
 		_collect_components(child, components)
 
 
-## Searches recursively for a SceneMapComponent2D with the given UID.
-static func search_component_by_uid(node: Node, component_uid: String) -> SceneMapComponent2D:
-	if node is SceneMapComponent2D and node.get_component_uid() == component_uid:
+## Searches recursively for a [SceneMapComponent] with the given UID.
+static func search_component_by_uid(node: Node, component_uid: String) -> Node:
+	if node.has_method("get_scene_map_component_type") and node.get_component_uid() == component_uid:
 		return node
 
 	for child in node.get_children():

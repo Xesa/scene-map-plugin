@@ -41,6 +41,10 @@ static func refresh_preview(graph_node : SceneMapNode) -> void:
 	var scene_instance : Node = scene_resource.instantiate()
 	viewport.add_child(scene_instance)
 
+	if scene_instance is Node3D:
+		scene_instance.queue_free()
+		viewport.queue_free()
+
 	# Calculates the scene size
 	var scene_rect = _get_node_rect(scene_instance, Rect2(Vector2.ONE, Vector2.ONE))
 

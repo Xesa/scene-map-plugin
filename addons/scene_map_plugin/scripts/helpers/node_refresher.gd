@@ -117,7 +117,7 @@ static func _apply_modifications(graph_node : SceneMapNode, slot_registrator : S
 
 	for stats in modifications:
 		var slot : SceneMapSlot = stats["slot"]
-		var component : SceneMapComponent2D = stats["component"]
+		var component : Node = stats["component"]
 		var original_index : int = slot.index if slot else -1
 		var updated_index : int = stats["index"]
 

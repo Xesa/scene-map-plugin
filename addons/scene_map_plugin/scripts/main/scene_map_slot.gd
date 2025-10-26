@@ -256,7 +256,7 @@ func change_type(new_type : SM_Enums.Type) -> void:
 	
 
 ## Updates internal left/right flags, icons, and side metadata for this slot.
-func _update_side_info(_left : bool, _right : bool, _left_icon_index : int, _right_icon_index : int, _side : SM_Enums.Side, component : SceneMapComponent2D) -> void:
+func _update_side_info(_left : bool, _right : bool, _left_icon_index : int, _right_icon_index : int, _side : SM_Enums.Side, component : Node) -> void:
 	var slot_config : Dictionary = SM_Constants.SLOT_CONFIG[type]
 	left = _left
 	right = _right
