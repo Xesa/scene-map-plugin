@@ -1,6 +1,6 @@
 @tool
-class_name SceneMapComponent2D extends Node2D
-## Abstract 2D component for being used with the SceneMap plugin.[br]
+class_name SceneMapComponent3D extends Node3D
+## Abstract 3D component for being used with the SceneMap plugin.[br]
 ##
 ## This class allows the SceneMap plugin to detect where are the entrances and exits of a scene.
 ## In order to use it, the developer must create a class that extends this class and override the
@@ -21,12 +21,12 @@ const SM_EventBus := preload(SceneMapConstants.EVENT_BUS)
 ## To instantiate the scene see the [get_next_scene_instance()] method.
 @onready var next_scene_resource : PackedScene = get_next_scene_resource()
 
-## Dictionary with references to the sub-components that this component has. Sub-components provide a [SceneMapComponent2D]
+## Dictionary with references to the sub-components that this component has. Sub-components provide a [SceneMapComponent3D]
 ## of different functionalities such as having a position or detecting other areas and bodies.[br]
 ## There are several pre-made sub-components ready to use for the most common use cases, but the developer is able to extend them or create new ones.[br]
 ## The keys of the dictionary are the class name of the sub-components. Here's a list of the sub-component types ready to use:[br]
-## - [SceneMapComponentNode2D]: Provides of a position in a 2D space. Ideal to set a spawn position when loading the next scene.[br]
-## - [SceneMapComponentArea2D]: Triggers the [go_to_next_scene()] method when a body enters[br]
+## - [SceneMapComponentNode3D]: Provides of a position in a 2D space. Ideal to set a spawn position when loading the next scene.[br]
+## - [SceneMapComponentArea3D]: Triggers the [go_to_next_scene()] method when a body enters[br]
 @onready var sub_components : Dictionary = connect_sub_components()
 
 
@@ -175,6 +175,12 @@ func get_custom_name() -> String:
 func has_custom_name() -> bool:
 	return has_meta(&"_component_custom_name") and get_meta(&"_component_custom_name") != ""
 
+
+## Type method that returns the type of this [SceneMapComponent].
+## The [has_method()] check allows distinguishing whether an object behaves as a [SceneMapComponent].
+func get_scene_map_component_type() -> String:
+	return "SceneMapComponent3D"
+
 #endregion
 
 #region EndUserMethods
@@ -207,7 +213,7 @@ func get_next_scene_instance() -> Node:
 ## The value for that parameter can be obtained using the [get_next_scene_instance()] method.[br]
 ## The instance of the scene used to perform all actions should be always the same.[br]
 ## If the [next_scene_instance] parameter is null or the [next_component_uid] property is empty or null, this method returns [null].
-func get_next_component_reference(next_scene_instance : Node) -> SceneMapComponent2D:
+func get_next_component_reference(next_scene_instance : Node) -> SceneMapComponent3D:
 	var next_component_uid = get_next_component_uid()
 	if next_scene_instance and next_component_uid != null and next_component_uid != "":
 		return SM_ComponentFinder.search_component_by_uid(next_scene_instance, next_component_uid)
@@ -242,17 +248,17 @@ func connect_sub_components() -> Dictionary:
 	return {}
 
 
-## Returns the global position of the component. If there is a [SceneMapComponentMarker2D] attached to it,
+## Returns the global position of the component. If there is a [SceneMapComponentMarker3D] attached to it,
 ## this method will return the marker's position instead.
-func get_component_position() -> Vector2:
-	if sub_components.has(&"SceneMapComponentMarker2D"):
-		return sub_components[&"SceneMapComponentMarker2D"].global_position
+func get_component_position() -> Vector3:
+	if sub_components.has(&"SceneMapComponentMarker3D"):
+		return sub_components[&"SceneMapComponentMarker3D"].global_position
 	return global_position
 
 
 ## Abstract method that must be called to change the scene. This method has no logic and it is the final developer who is in charge
 ## of adding the needed logic by overriding it. This class provides helper methods to instantiate the next scene, get a reference to the next
-## [SceneMapComponent2D] and load the scene into the tree.[br]
+## [SceneMapComponent3D] and load the scene into the tree.[br]
 ## This is an example of the most basic implementation:
 ## [codeblock]
 ## func go_to_next_scene() -> void:

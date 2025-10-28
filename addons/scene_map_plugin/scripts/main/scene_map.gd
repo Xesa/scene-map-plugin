@@ -67,10 +67,6 @@ func _get_plugin_icon():
 
 
 ## Checks for updates using the AutoUpdater helper.
-## If updates are available, shows the update button in the panel.
 func _check_for_updates() -> void:
 	var auto_updater := SM_AutoUpdater.new(get_tree())
 	await auto_updater.check_for_updates()
-
-	if SceneMapConstants.UPDATES_AVAILABLE:
-		panel.update_button.toggle_visibility(true)

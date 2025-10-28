@@ -78,6 +78,7 @@ func _on_request_completed(result, response_code, response_headers, body) -> voi
 	else:
 		print("There is a new SceneMap Plugin version: " + SceneMapConstants.LATEST_VERSION + " - Release notes: " + SceneMapConstants.LATEST_URL)
 		SceneMapConstants.UPDATES_AVAILABLE = true
+		SceneMapConstants.PANEL_REFERENCE.update_button.toggle_visibility(true)
 
 	updates_checked.emit()
 	

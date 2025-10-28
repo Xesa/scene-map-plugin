@@ -27,7 +27,7 @@ func _ready() -> void:
 func _on_item_pressed(index : int):
 	match index:
 		0: graph_node.open_scene_in_editor()
-		1: graph_node._delete()
+		1: graph_node.delete()
 
 
 func _on_popup_hidden() -> void:

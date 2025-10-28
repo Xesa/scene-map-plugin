@@ -56,10 +56,20 @@ static func open_scene(scene_uid : String) -> Dictionary:
 
 	# If the scene is already open returns it
 	if scenes.get(scene_uid):
-		return scenes[scene_uid]
+		if ResourceLoader.exists(scenes[scene_uid]["path"]):
+			return scenes[scene_uid]
+
+		# If the scene was deleted, removes it from the list
+		else:
+			scenes.erase(scene_uid)
+			return {}
 
 	# If the scene is not open, loads the resource and instantiates the scene
 	var scene_resource : PackedScene = SM_ResourceTools.load_from_uid(scene_uid)
+
+	if !scene_resource:
+		return {}
+
 	var scene_instance : Node = scene_resource.instantiate()
 	var scene_path := scene_resource.resource_path
 
@@ -104,6 +114,11 @@ static func save() -> void:
 #endregion
 
 #region HelperMethods
+
+## Returns true if there are pending saves.
+static func has_pending_changes() -> bool:
+	return scenes != null and scenes.size() > 0
+
 
 ## Finds and caches the TabBar that contains the editor's scene tabs.
 static func _get_scene_tabs() -> void:

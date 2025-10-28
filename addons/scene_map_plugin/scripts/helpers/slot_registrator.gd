@@ -37,8 +37,14 @@ func register_slots() -> void:
 
 	# Gets the scene instance
 	var scene_values := await SM_SceneSaver.open_scene(graph_node.scene_uid)
+
+	# If the scene file doesn't exist, clears the node
+	if scene_values == {}:
+		printerr("Could not find the scene. The node will be deleted.")
+		graph_node.clear()
+		return
 	
-	# Gets all the [SceneMapComponent2D] in the scene
+	# Gets all the [SceneMapComponent] in the scene
 	var components := SM_ComponentFinder.find_all_components(scene_values.instance)
 
 	# Sets an invisible node, otherwise the rest of nodes won't work properly
@@ -54,7 +60,7 @@ func register_slots() -> void:
 
 ## Registers a new [SceneMapSlot] that represents the given [SceneMapComponent].
 ## When a slot is registered this way, this class populates the [component_uid] metadata value in the [SceneMapComponent].
-func register_new_slot(component: SceneMapComponent2D) -> SceneMapSlot:
+func register_new_slot(component: Node) -> SceneMapSlot:
 
 	# Increases the counter
 	slot_counter += 1
@@ -147,7 +153,7 @@ func _create_and_attach_slot(data: Dictionary) -> SceneMapSlot:
 
 
 ## Returns the sides in which the slot should be active and the icon paths.
-func _get_slot_sides(component : SceneMapComponent2D) -> Array:
+func _get_slot_sides(component : Node) -> Array:
 
 	# Gets the slot configuration for this component type
 	var config = SceneMapConstants.SLOT_CONFIG[component.get_component_type()]

@@ -167,8 +167,19 @@ func remove_all_connections() -> void:
 ## Deleting a slot will also remove the [component_uid], [next_scene_uid] and [next_component_uid]
 ## metadata values from the [SceneMapComponent]
 func delete() -> void:
-	await remove_all_connections()
+
+	# Opens the scene
 	var scene_values := SM_SceneSaver.open_scene(scene_uid)
+
+	# If the scene file doesn't exist, clears the node
+	if scene_values == {}:
+		printerr("Could not find the scene. The node will be deleted.")
+		graph_node.clear()
+		return
+
+	# Removes all connections, the component's next scene and all the remaining info
+	await remove_all_connections()
+
 	var component := SM_ComponentFinder.search_component_by_uid(scene_values["instance"], component_uid)
 
 	if component:
@@ -179,6 +190,12 @@ func delete() -> void:
 
 	if graph_node.component_slots.has(self):
 		graph_node.component_slots.erase(self)
+
+
+## Alternative version of [delete()] used for when the scene file
+## has been deleted and the load/save actions cannot be performed properly.
+func clear() -> void:
+	await remove_all_connections()
 
 
 ## Adds or removes a connection with another [SceneMapSlot]. This method uses the
@@ -195,7 +212,15 @@ func update_connection(to_slot : SceneMapSlot, action : SM_SlotConnector.Action)
 ## Changes the side of this slot (LEFT or RIGHT) and updates the associated component.
 func change_sides() -> void:
 
+	# Opens the scene and if the file doesn't exist, clears the node
 	var scene_values := SM_SceneSaver.open_scene(scene_uid)
+
+	if scene_values == {}:
+		printerr("Could not find the scene. The node will be deleted.")
+		graph_node.clear()
+		return
+
+	# Checks the component type and side
 	var component := SM_ComponentFinder.search_component_by_uid(scene_values["instance"], component_uid)
 
 	if type == SM_Enums.Type.FUNNEL:
@@ -210,6 +235,7 @@ func change_sides() -> void:
 		else:
 			_update_side_info(true, false, 0, 1, SM_Enums.Side.LEFT, component)
 
+	# Removes all the connections and saves the changes
 	await remove_all_connections()
 
 	SM_SceneSaver.save()
@@ -227,7 +253,15 @@ func change_type(new_type : SM_Enums.Type) -> void:
 	if type == new_type:
 		return
 
+	# Opens the scene and if the file doesn't exist, clears the node
 	var scene_values := SM_SceneSaver.open_scene(scene_uid)
+
+	if scene_values == {}:
+		printerr("Could not find the scene. The node will be deleted.")
+		graph_node.clear()
+		return
+
+	# Checks the component type and side
 	var component := SM_ComponentFinder.search_component_by_uid(scene_values["instance"], component_uid)
 
 	type = new_type
@@ -245,6 +279,7 @@ func change_type(new_type : SM_Enums.Type) -> void:
 		else:
 			_update_side_info(false, true, 0, 1, side, component)
 
+	# Removes all the connections and saves the changes
 	await remove_all_connections()
 
 	SM_SceneSaver.save()
@@ -256,7 +291,7 @@ func change_type(new_type : SM_Enums.Type) -> void:
 	
 
 ## Updates internal left/right flags, icons, and side metadata for this slot.
-func _update_side_info(_left : bool, _right : bool, _left_icon_index : int, _right_icon_index : int, _side : SM_Enums.Side, component : SceneMapComponent2D) -> void:
+func _update_side_info(_left : bool, _right : bool, _left_icon_index : int, _right_icon_index : int, _side : SM_Enums.Side, component : Node) -> void:
 	var slot_config : Dictionary = SM_Constants.SLOT_CONFIG[type]
 	left = _left
 	right = _right
@@ -289,7 +324,15 @@ func set_component_name(new_name : String) -> void:
 	if new_name == component_name:
 		return
 
+	# Opens the scene and if the file doesn't exist, clears the node
 	var scene_values := SM_SceneSaver.open_scene(scene_uid)
+
+	if scene_values == {}:
+		printerr("Could not find the scene. The node will be deleted.")
+		graph_node.clear()
+		return
+
+	# Saves the changes
 	var component := SM_ComponentFinder.search_component_by_uid(scene_values["instance"], component_uid)
 
 	component_name = new_name
@@ -308,7 +351,15 @@ func remove_component_name() -> void:
 	if !component_name_is_custom:
 		return
 
+	# Opens the scene and if the file doesn't exist, clears the node
 	var scene_values := SM_SceneSaver.open_scene(scene_uid)
+
+	if scene_values == {}:
+		printerr("Could not find the scene. The node will be deleted.")
+		graph_node.clear()
+		return
+
+	# Saves the changes
 	var component := SM_ComponentFinder.search_component_by_uid(scene_values["instance"], component_uid)
 
 	component._remove_custom_name()

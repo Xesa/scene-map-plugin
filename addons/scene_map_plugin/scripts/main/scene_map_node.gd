@@ -55,6 +55,12 @@ func _ready() -> void:
 	await SM_SceneSaver.start()
 	var scene_values := SM_SceneSaver.open_scene(scene_uid)
 
+	# If the scene file doesn't exist, clears the node
+	if scene_values == {}:
+		printerr("Could not find the scene. The node will be deleted.")
+		clear()
+		return
+
 	# Gets the scene preview
 	await SM_NodePreviewer.create_preview(self)
 
@@ -79,7 +85,7 @@ func _ready() -> void:
 ## Checks for DELETE key press and deletes this node if selected.
 func _process(delta : float) -> void:
 	if Input.is_key_pressed(KEY_DELETE) and selected and not set_to_delete:
-		_delete()
+		delete()
 
 
 ## Handles mouse input for this node.
@@ -105,21 +111,40 @@ func _on_connection_added_or_removed(connection : SceneMapSlot, direction : int)
 
 ## Deletes this node and all its connections. This will also clear the [component_uid] values
 ## of each [SceneMapComponent] that is attached to every [SceneMapSlot] owned by this node.
-func _delete() -> void:
+func delete() -> void:
 	set_to_delete = true
 
 	# Initiates the scene saver and opens the scene
 	await SM_SceneSaver.start()
 	var scene_values := SM_SceneSaver.open_scene(scene_uid)
-	
+
+	# If the scene was already deleted, clears the node instead of deleting it
+	if scene_values == {}:
+		await clear()
+		return
+
 	# Iterates each slot and removes their connections
-	for slot in component_slots:
+	for slot in component_slots.duplicate():
 		await slot.delete()
 
 	# Saves all the changes made to the scenes
 	await SM_SceneSaver.save()
 
 	# Emits a signal for the graph to delete this node
+	node_deleted.emit(self)
+
+
+## Alternative version of [delete()] used for when the scene file
+## has been deleted and the load/save actions cannot be performed properly.
+func clear() -> void:
+	set_to_delete = true
+
+	for slot in component_slots:
+		await slot.clear()
+
+	if SM_SceneSaver.has_pending_changes():
+		await SM_SceneSaver.save()
+
 	node_deleted.emit(self)
 
 
@@ -144,6 +169,13 @@ func get_component_slot_by_uid(component_uid) -> SceneMapSlot:
 ## Opens the scene represented by this node in the Godot editor.
 ## Switches to the 2D editor view and releases any current drag operation.
 func open_scene_in_editor() -> void:
+
+	# If the file doesn't exit, clears the node
+	if !ResourceLoader.exists("uid://"+scene_uid):
+		printerr("Could not find the scene. The node will be deleted.")
+		clear()
+		return
+
 	EditorInterface.open_scene_from_path("uid://"+scene_uid)
 	await Engine.get_main_loop().process_frame
 	EditorInterface.set_main_screen_editor("2D")
