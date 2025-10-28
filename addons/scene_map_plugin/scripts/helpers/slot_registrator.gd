@@ -37,6 +37,12 @@ func register_slots() -> void:
 
 	# Gets the scene instance
 	var scene_values := await SM_SceneSaver.open_scene(graph_node.scene_uid)
+
+	# If the scene file doesn't exist, clears the node
+	if scene_values == {}:
+		printerr("Could not find the scene. The node will be deleted.")
+		graph_node.clear()
+		return
 	
 	# Gets all the [SceneMapComponent] in the scene
 	var components := SM_ComponentFinder.find_all_components(scene_values.instance)

@@ -37,7 +37,13 @@ static func refresh_preview(graph_node : SceneMapNode) -> void:
 	graph_node.add_child(viewport)
 
 	# Gets the scene instance
-	var scene_resource : PackedScene = await SM_SceneSaver.open_scene(graph_node.scene_uid)["resource"]
+	var scene_values := await SM_SceneSaver.open_scene(graph_node.scene_uid)
+
+	if scene_values == {}:
+		printerr("Could not find the scene. If you deleted the .tscn file, refresh the SceneMap.")
+		return
+
+	var scene_resource : PackedScene = scene_values["resource"]
 	var scene_instance : Node = scene_resource.instantiate()
 	viewport.add_child(scene_instance)
 

@@ -47,10 +47,16 @@ static func _scan_scene(graph_node : SceneMapNode) -> void:
 	# Opens the scene and gets graph edit
 	var graph_edit := graph_node.graph_edit
 	var slot_registrator := SM_SlotRegistrator.new(graph_node)
-	var scene_info := SM_SceneSaver.open_scene(graph_node.scene_uid)
+	var scene_values := SM_SceneSaver.open_scene(graph_node.scene_uid)
+
+	# If the scene file doesn't exist, clears the node
+	if scene_values == {}:
+		printerr("Could not find the scene. The node will be deleted.")
+		graph_node.clear()
+		return
 
 	# Finds all the components currently in the scene
-	var components := SM_ComponentFinder.find_all_components(scene_info["instance"])
+	var components := SM_ComponentFinder.find_all_components(scene_values["instance"])
 	var original_connections := graph_edit.get_node_connections(graph_node)
 	var updated_connections := original_connections.duplicate(true)
 

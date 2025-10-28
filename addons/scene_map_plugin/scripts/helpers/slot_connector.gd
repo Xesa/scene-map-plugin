@@ -56,12 +56,14 @@ static func make_connection(from_node, from_port, to_node, to_port, connect : bo
 ## Once the connection is completed, both [SceneMapSlot] will have their [connected_to]
 ## and [connected_from] properties updated, pointing to each other.
 static func update_connection(from_slot : SceneMapSlot, to_slot : SceneMapSlot, action : Action) -> void:
-	
+
 	# Opens the node's scene
 	var scene_values := await SM_SceneSaver.open_scene(from_slot.scene_uid)
+	var scene_instance : Node
+	var component : Node
 
-	var scene_resource : PackedScene = scene_values["resource"]
-	var scene_instance : Node = scene_values["instance"]
+	if scene_values != {}:
+		scene_instance = scene_values["instance"]
 
 	# Gets the slots info
 	var from_node := from_slot.scene_uid
@@ -69,6 +71,7 @@ static func update_connection(from_slot : SceneMapSlot, to_slot : SceneMapSlot, 
 	var to_node := to_slot.scene_uid
 	var to_port := to_slot.index
 
+	# Gets the connection direction
 	var direction := SM_ConnectionValidator.get_connection_direction(from_slot, to_slot)
 
 	if direction == -1:
@@ -78,16 +81,17 @@ static func update_connection(from_slot : SceneMapSlot, to_slot : SceneMapSlot, 
 		to_port = from_slot.index
 
 	# Gets the component
-	var component := SM_ComponentFinder.search_component_by_uid(scene_instance, from_slot.component_uid)
+	if scene_instance:
+		component = SM_ComponentFinder.search_component_by_uid(scene_instance, from_slot.component_uid)
 
-	# If the component is inside a packed scene, sets the owner's children as editable
-	if component and component.owner != scene_instance and scene_instance.is_editable_instance(component.owner) == false:
-		scene_instance.set_editable_instance(component.owner, true)
-
+		# If the component is inside a packed scene, sets the owner's children as editable
+		if component and component.owner != scene_instance and scene_instance.is_editable_instance(component.owner) == false:
+			scene_instance.set_editable_instance(component.owner, true)
 
 	# Updates connection info to the slot
 	if action == Action.CONNECT:
-		component._set_next_scene(to_slot.scene_uid, to_slot.component_uid)
+		if component:
+			component._set_next_scene(to_slot.scene_uid, to_slot.component_uid)
 		await from_slot.add_connection(to_slot, 1)
 		await to_slot.add_connection(from_slot, 0)
 		graph.connect_node(from_node, from_port, to_node, to_port)
@@ -98,3 +102,16 @@ static func update_connection(from_slot : SceneMapSlot, to_slot : SceneMapSlot, 
 		await to_slot.remove_connection(from_slot, 0)
 		if component:
 			component._remove_next_scene()
+
+	# If the scene file was deleted prints an error and clears the node
+	if scene_values == {} and !from_slot.graph_node.set_to_delete:
+		printerr("Could not find the scene. Unable to connect slots.")
+		_clear_node.call_deferred(from_slot)
+
+
+## Auxiliary method to clear a node when the connection fails.
+## The reason it is in a separate method is because
+## it needs to happen after all connections have been done.
+static func _clear_node(slot : SceneMapSlot) -> void:
+	await Engine.get_main_loop().process_frame
+	slot.graph_node.clear()
