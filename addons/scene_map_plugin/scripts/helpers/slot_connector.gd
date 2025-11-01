@@ -13,8 +13,6 @@ const SceneMapGraph := preload(SceneMapConstants.SCENE_MAP_GRAPH)
 const SceneMapSlot := preload(SceneMapConstants.SCENE_MAP_SLOT)
 const SceneMapIO := preload(SceneMapConstants.SCENE_MAP_IO)
 
-static var graph : SceneMapGraph
-
 enum Action {
 	CONNECT,
 	DISCONNECT,
@@ -23,10 +21,9 @@ enum Action {
 
 ## Searches and connects two components based on their node and port indexes. This method is used by
 ## the [SceneMapGraph] to find the [SceneMapSlot] that are part of a connection/disconnection request.
-static func make_connection(from_node, from_port, to_node, to_port, connect : bool, _graph : SceneMapGraph) -> void:
+static func make_connection(from_node, from_port, to_node, to_port, connect : bool) -> void:
 
-	if not graph:
-		graph = _graph
+	var graph := SceneMapConstants.PANEL_REFERENCE.graph
 
 	var from_slot := graph.get_slot_info(from_node, from_port, 1)
 	var to_slot := graph.get_slot_info(to_node, to_port, 0)
@@ -57,6 +54,8 @@ static func make_connection(from_node, from_port, to_node, to_port, connect : bo
 ## and [connected_from] properties updated, pointing to each other.
 static func update_connection(from_slot : SceneMapSlot, to_slot : SceneMapSlot, action : Action) -> void:
 
+	var graph := SceneMapConstants.PANEL_REFERENCE.graph
+
 	# Opens the node's scene
 	var scene_values := await SM_SceneSaver.open_scene(from_slot.scene_uid)
 	var scene_instance : Node
@@ -79,6 +78,8 @@ static func update_connection(from_slot : SceneMapSlot, to_slot : SceneMapSlot, 
 		from_port = to_slot.index
 		to_node = from_slot.scene_uid
 		to_port = from_slot.index
+
+
 
 	# Gets the component
 	if scene_instance:

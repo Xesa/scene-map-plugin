@@ -81,12 +81,12 @@ func force_drag_release(graph_node : SceneMapNode = null):
 
 ## Handles a connection request between two nodes and delegates it to [SM_SlotConnector].
 func _on_connection_request(from_node, from_port, to_node, to_port) -> void:
-	SM_SlotConnector.make_connection(from_node, from_port, to_node, to_port, true, self)
+	SM_SlotConnector.make_connection(from_node, from_port, to_node, to_port, true)
 
 
 ## Handles a disconnection request between two nodes and delegates it to [SM_SlotConnector].
 func _on_disconnection_request(from_node, from_port, to_node, to_port) -> void:
-	SM_SlotConnector.make_connection(from_node, from_port, to_node, to_port, false, self)
+	SM_SlotConnector.make_connection(from_node, from_port, to_node, to_port, false)
 
 
 ## Determines if a connection between the given nodes and ports is valid.
