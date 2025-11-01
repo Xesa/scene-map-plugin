@@ -134,7 +134,7 @@ func _on_zip_downloaded(result, response_code, response_headers, body) -> void:
 		return
 
 	# Creates the zip file
-	var zip = FileAccess.open(plugin.UPDATE_PATH, FileAccess.WRITE)
+	var zip = FileAccess.open(SceneMapConstants.UPDATE_PATH, FileAccess.WRITE)
 	if zip.get_open_error() != OK:
 		push_error("Failed to get SceneMap Plugin updates: unable to download source files")
 		update_completed.emit()
@@ -145,7 +145,7 @@ func _on_zip_downloaded(result, response_code, response_headers, body) -> void:
 
 	# Opens the zip file
 	var zip_reader := ZIPReader.new()
-	var zip_result := zip_reader.open(plugin.UPDATE_PATH)
+	var zip_result := zip_reader.open(SceneMapConstants.UPDATE_PATH)
 
 	if zip_result != OK:
 		push_error("Failed to get SceneMap Plugin updates: unable to unzip source files")
