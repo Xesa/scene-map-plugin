@@ -110,7 +110,7 @@ func download_updates() -> void:
 	print("Updating SceneMap Plugin to the version " + plugin.LATEST_VERSION + "...")
 
 	# Gets the source code url
-	var release_url = str(plugin.GITHUB_LINK, "/archive/refs/tags/", plugin.LATEST_VERSION, ".zip")
+	var release_url = str(SceneMapConstants.GITHUB_LINK, "/archive/refs/tags/", plugin.LATEST_VERSION, ".zip")
 
 	# Prepares a new request to download the source code
 	var http := HTTPRequest.new()
