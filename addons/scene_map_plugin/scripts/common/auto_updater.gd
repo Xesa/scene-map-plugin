@@ -81,7 +81,7 @@ func _on_request_completed(result, response_code, response_headers, body) -> voi
 	else:
 		print("There is a new SceneMap Plugin version: " + plugin.LATEST_VERSION + " - Release notes: " + plugin.LATEST_URL)
 		plugin.UPDATES_AVAILABLE = true
-		plugin.PANEL_REFERENCE.update_button.toggle_visibility(true)
+		plugin.panel.update_button.toggle_visibility(true)
 
 	updates_checked.emit()
 	
