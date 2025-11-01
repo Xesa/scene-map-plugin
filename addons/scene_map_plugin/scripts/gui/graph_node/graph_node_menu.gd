@@ -31,8 +31,8 @@ func _on_item_pressed(index : int):
 
 
 func _on_popup_hidden() -> void:
-	SceneMapConstants.PANEL_REFERENCE.graph.remove_child(self)
-	SceneMapConstants.PANEL_REFERENCE.graph.force_drag_release(graph_node)
+	Engine.get_singleton("SceneMapPlugin").graph.remove_child(self)
+	Engine.get_singleton("SceneMapPlugin").graph.force_drag_release(graph_node)
 
 
 func _on_focus_lost() -> void:

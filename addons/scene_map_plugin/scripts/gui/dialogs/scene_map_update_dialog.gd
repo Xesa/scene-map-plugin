@@ -36,6 +36,6 @@ func _on_update_pressed() -> void:
 		get_ok_button().disabled = true
 		updating = true
 		
-		var updater := SM_AutoUpdater.new(get_tree())
+		var updater := SM_AutoUpdater.new()
 		print("Updating SceneMap Plugin... This may take a few seconds.")
 		updater.download_updates()

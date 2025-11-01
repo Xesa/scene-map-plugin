@@ -10,7 +10,7 @@ var about_dialog : SM_AboutDialog
 
 
 func _ready() -> void:
-	about_dialog = SceneMapConstants.PANEL_REFERENCE.about_dialog
+	about_dialog = Engine.get_singleton("SceneMapPlugin").panel.about_dialog
 	pressed.connect(_on_button_pressed)
 
 

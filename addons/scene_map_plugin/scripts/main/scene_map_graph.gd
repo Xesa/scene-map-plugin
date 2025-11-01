@@ -12,12 +12,9 @@ const SM_NodeRegistrator := preload(SceneMapConstants.NODE_REGISTRATOR)
 const SM_ConnectionValidator := preload(SceneMapConstants.GRAPH_CONNECTION_VALIDATOR)
 const SM_EventBus := preload(SceneMapConstants.EVENT_BUS)
 const SM_NodeRefresher := preload(SceneMapConstants.NODE_REFRESHER)
-const SceneMap := preload(SceneMapConstants.SCENE_MAP)
 const SceneMapNode := preload(SceneMapConstants.SCENE_MAP_NODE)
 const SceneMapSlot := preload(SceneMapConstants.SCENE_MAP_SLOT)
 const SceneMapIO := preload(SceneMapConstants.SCENE_MAP_IO)
-
-var plugin : SceneMap
 
 
 func _ready() -> void:
@@ -103,7 +100,7 @@ func _is_node_hover_valid(from_node: StringName, from_port: int, to_node: String
 func _on_node_deleted(node : SceneMapNode) -> void:
 	node.queue_free()
 	await Engine.get_main_loop().process_frame
-	SceneMapIO.save(self)
+	SceneMapIO.save()
 
 
 ## Determines whether the dragged data can be dropped onto the graph.
@@ -121,14 +118,14 @@ func _can_drop_data(at_position: Vector2, data: Variant) -> bool:
 func _drop_data(at_position: Vector2, data: Variant) -> void:
 	for file_path in data["files"]:
 		if file_path.ends_with(".tscn"):
-			SM_NodeRegistrator.register_scene(self, file_path, "", true, at_position)
+			SM_NodeRegistrator.register_scene(file_path, "", true, at_position)
 
 
 ## Automatically refreshes all nodes if there are changes flagged in [SM_EventBus].
 ## Calls [SM_NodeRefresher] to scan all scenes and then clears the event bus.
 func _auto_refresh() -> void:
 	if SM_EventBus.has_changes():
-		await SM_NodeRefresher.scan_all_scenes(self)
+		await SM_NodeRefresher.scan_all_scenes()
 		SM_EventBus.clear_changes()
 		force_drag_release()
 

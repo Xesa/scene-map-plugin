@@ -27,4 +27,4 @@ func _on_file_selected(path : String) -> void:
 	if path == "" or not FileAccess.file_exists(path):
 		return
 
-	SM_NodeRegistrator.register_scene(SceneMapConstants.PANEL_REFERENCE.graph, path)
+	SM_NodeRegistrator.register_scene(path)

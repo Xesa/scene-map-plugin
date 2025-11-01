@@ -21,7 +21,9 @@ const SceneMapIO := preload(SceneMapConstants.SCENE_MAP_IO)
 ## Iterates through all the graph node's in the SceneMap and checks all the [SceneMapComponent] present
 ## on their scenes in search for any changes made to the order or names of the components as well as
 ## if there are new components or any of them have been removed.
-static func scan_all_scenes(graph : SceneMapGraph) -> void:
+static func scan_all_scenes() -> void:
+
+	var graph : SceneMapGraph = Engine.get_singleton("SceneMapPlugin").graph
 
 	SM_EventBus.clear_changes()
 	await SM_SceneSaver.start()
@@ -35,7 +37,7 @@ static func scan_all_scenes(graph : SceneMapGraph) -> void:
 
 	await SM_SceneSaver.save()
 
-	await SceneMapIO.save(graph)
+	await SceneMapIO.save()
 	SM_EventBus.clear_changes()
 
 
@@ -45,7 +47,7 @@ static func scan_all_scenes(graph : SceneMapGraph) -> void:
 static func _scan_scene(graph_node : SceneMapNode) -> void:
 
 	# Opens the scene and gets graph edit
-	var graph_edit := graph_node.graph_edit
+	var graph : SceneMapGraph = Engine.get_singleton("SceneMapPlugin").graph
 	var slot_registrator := SM_SlotRegistrator.new(graph_node)
 	var scene_values := SM_SceneSaver.open_scene(graph_node.scene_uid)
 
@@ -57,7 +59,7 @@ static func _scan_scene(graph_node : SceneMapNode) -> void:
 
 	# Finds all the components currently in the scene
 	var components := SM_ComponentFinder.find_all_components(scene_values["instance"])
-	var original_connections := graph_edit.get_node_connections(graph_node)
+	var original_connections := graph.get_node_connections(graph_node)
 	var updated_connections := original_connections.duplicate(true)
 
 	# Removes all the slots that don't have their component present anymore
@@ -69,7 +71,7 @@ static func _scan_scene(graph_node : SceneMapNode) -> void:
 	updated_connections = _apply_modifications(graph_node, slot_registrator, component_modifications, original_connections, updated_connections, true)
 
 	# Reorders connections
-	await _reorder_connections(graph_edit, original_connections, updated_connections)
+	await _reorder_connections(original_connections, updated_connections)
 	await _reorder_component_slots(graph_node)
 
 	_resize_node.call_deferred(graph_node)
@@ -171,10 +173,12 @@ static func _update_connection(graph_node : SceneMapNode, original_connections :
 
 
 ## Reorders all the graph edit's connections by disconnecting the old connections and adding the updated ones when needed.
-static func _reorder_connections(graph_edit : SceneMapGraph, original_connections : Dictionary, updated_connections : Dictionary) -> void:
+static func _reorder_connections(original_connections : Dictionary, updated_connections : Dictionary) -> void:
+
+	var graph : SceneMapGraph = Engine.get_singleton("SceneMapPlugin").graph
 	
 	for original_index in original_connections.keys():
-		for connection in graph_edit.connections:
+		for connection in graph.connections:
 
 			if connection == original_connections[original_index]:
 				var oc := original_connections.get(original_index)
@@ -182,10 +186,10 @@ static func _reorder_connections(graph_edit : SceneMapGraph, original_connection
 				if updated_connections.has(original_index):
 					var uc := updated_connections.get(original_index)
 					if oc != uc:
-						graph_edit.disconnect_node(oc["from_node"], oc["from_port"], oc["to_node"], oc["to_port"])
-						graph_edit.connect_node(uc["from_node"], uc["from_port"], uc["to_node"], uc["to_port"])
+						graph.disconnect_node(oc["from_node"], oc["from_port"], oc["to_node"], oc["to_port"])
+						graph.connect_node(uc["from_node"], uc["from_port"], uc["to_node"], uc["to_port"])
 				else:
-					graph_edit.disconnect_node(oc["from_node"], oc["from_port"], oc["to_node"], oc["to_port"])
+					graph.disconnect_node(oc["from_node"], oc["from_port"], oc["to_node"], oc["to_port"])
 
 
 ## Reorders the [component_slots] array from the [graph_node] according to each slot's [index] property.

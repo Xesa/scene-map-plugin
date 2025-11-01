@@ -23,7 +23,7 @@ enum Action {
 ## the [SceneMapGraph] to find the [SceneMapSlot] that are part of a connection/disconnection request.
 static func make_connection(from_node, from_port, to_node, to_port, connect : bool) -> void:
 
-	var graph := SceneMapConstants.PANEL_REFERENCE.graph
+	var graph : SceneMapGraph = Engine.get_singleton("SceneMapPlugin").graph
 
 	var from_slot := graph.get_slot_info(from_node, from_port, 1)
 	var to_slot := graph.get_slot_info(to_node, to_port, 0)
@@ -45,7 +45,7 @@ static func make_connection(from_node, from_port, to_node, to_port, connect : bo
 
 	# Saves all the changes made to the scenes
 	await SM_SceneSaver.save()
-	SceneMapIO.save(graph)
+	SceneMapIO.save()
 
 
 ## Creates, updates or deletes a connection from one [SceneMapSlot] to another, and updates
@@ -54,7 +54,7 @@ static func make_connection(from_node, from_port, to_node, to_port, connect : bo
 ## and [connected_from] properties updated, pointing to each other.
 static func update_connection(from_slot : SceneMapSlot, to_slot : SceneMapSlot, action : Action) -> void:
 
-	var graph := SceneMapConstants.PANEL_REFERENCE.graph
+	var graph : SceneMapGraph = Engine.get_singleton("SceneMapPlugin").graph
 
 	# Opens the node's scene
 	var scene_values := await SM_SceneSaver.open_scene(from_slot.scene_uid)

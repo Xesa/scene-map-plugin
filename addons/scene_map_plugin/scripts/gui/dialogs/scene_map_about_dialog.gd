@@ -10,7 +10,7 @@ extends PopupPanel
 
 func _ready() -> void:
 	toggle_visiblity(false)
-	var version = SceneMapConstants.VERSION
+	var version = Engine.get_singleton("SceneMapPlugin").VERSION
 	var github = SceneMapConstants.GITHUB_LINK
 	bottom_text.text = "Version " + version + " | Developed by Guillem Chesa | [url=" + github + "]GitHub[/url]"
 

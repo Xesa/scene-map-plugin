@@ -53,7 +53,7 @@ func _on_token_failed() -> void:
 func _on_accept_pressed() -> void:
 
 	# Checks the token validity
-	var updater := SM_AutoUpdater.new(get_tree())
+	var updater := SM_AutoUpdater.new()
 	var is_token_valid := await updater.check_token_validity(line_edit.text)
 
 	# If it's not valid, restarts the prompt

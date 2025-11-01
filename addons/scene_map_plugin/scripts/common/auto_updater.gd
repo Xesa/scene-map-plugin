@@ -10,7 +10,9 @@ extends Object
 ## - check_token_validity(): verifies the GitHub token[br]
 
 const SM_ResourceTools := preload(SceneMapConstants.RESOURCE_TOOLS)
+const SceneMap := preload(SceneMapConstants.SCENE_MAP)
 
+var plugin : SceneMap
 var tree : SceneTree
 var is_token_valid := false
 
@@ -22,8 +24,9 @@ signal update_completed()
 signal validity_checked()
 
 
-func _init(_tree : SceneTree) -> void:
-	tree = _tree
+func _init() -> void:
+	plugin = Engine.get_singleton("SceneMapPlugin")
+	tree = plugin.get_tree()
 
 #region CheckUpdates
 
@@ -38,7 +41,7 @@ func check_for_updates() -> void:
 
 	# Creates a new request
 	var http := HTTPRequest.new()
-	var headers := _get_headers(SceneMapConstants.GITHUB_TOKEN)
+	var headers := _get_headers(plugin.GITHUB_TOKEN)
 	tree.root.add_child(http)
 	http.request_completed.connect(_on_request_completed)
 
@@ -68,17 +71,17 @@ func _on_request_completed(result, response_code, response_headers, body) -> voi
 	
 	# Compares the current version with the latest version
 	var latest_release = json.data
-	SceneMapConstants.LATEST_VERSION = latest_release["tag_name"]
-	SceneMapConstants.LATEST_URL = latest_release["html_url"]
+	plugin.LATEST_VERSION = latest_release["tag_name"]
+	plugin.LATEST_URL = latest_release["html_url"]
 	
-	if SceneMapConstants.LATEST_VERSION == SceneMapConstants.VERSION:
-		print("SceneMap Plugin up-to-date (" + SceneMapConstants.VERSION + ") - Release notes: " + SceneMapConstants.LATEST_URL)
-		SceneMapConstants.UPDATES_AVAILABLE = false
+	if plugin.LATEST_VERSION == plugin.VERSION:
+		print("SceneMap Plugin up-to-date (" + plugin.VERSION + ") - Release notes: " + plugin.LATEST_URL)
+		plugin.UPDATES_AVAILABLE = false
 
 	else:
-		print("There is a new SceneMap Plugin version: " + SceneMapConstants.LATEST_VERSION + " - Release notes: " + SceneMapConstants.LATEST_URL)
-		SceneMapConstants.UPDATES_AVAILABLE = true
-		SceneMapConstants.PANEL_REFERENCE.update_button.toggle_visibility(true)
+		print("There is a new SceneMap Plugin version: " + plugin.LATEST_VERSION + " - Release notes: " + plugin.LATEST_URL)
+		plugin.UPDATES_AVAILABLE = true
+		plugin.PANEL_REFERENCE.update_button.toggle_visibility(true)
 
 	updates_checked.emit()
 	
@@ -91,27 +94,27 @@ func _on_request_completed(result, response_code, response_headers, body) -> voi
 ## Emits [update_completed] after the update attempt ends.
 func download_updates() -> void:
 
-	if !SceneMapConstants.GITHUB_TOKEN:
+	if !plugin.GITHUB_TOKEN:
 		return
 
 	# If didn't check before, checks for updates
-	if !SceneMapConstants.LATEST_VERSION or SceneMapConstants.LATEST_VERSION == "":
+	if !plugin.LATEST_VERSION or plugin.LATEST_VERSION == "":
 		check_for_updates()
 		await updates_checked
 
 	# If there are no updates, returns
-	if !SceneMapConstants.UPDATES_AVAILABLE:
+	if !plugin.UPDATES_AVAILABLE:
 		print("There are no new updates available for SceneMap Plugin")
 		return
 
-	print("Updating SceneMap Plugin to the version " + SceneMapConstants.LATEST_VERSION + "...")
+	print("Updating SceneMap Plugin to the version " + plugin.LATEST_VERSION + "...")
 
 	# Gets the source code url
-	var release_url = str(SceneMapConstants.GITHUB_LINK, "/archive/refs/tags/", SceneMapConstants.LATEST_VERSION, ".zip")
+	var release_url = str(plugin.GITHUB_LINK, "/archive/refs/tags/", plugin.LATEST_VERSION, ".zip")
 
 	# Prepares a new request to download the source code
 	var http := HTTPRequest.new()
-	var headers := _get_headers(SceneMapConstants.GITHUB_TOKEN)
+	var headers := _get_headers(plugin.GITHUB_TOKEN)
 	tree.root.add_child(http)
 	http.request_completed.connect(_on_zip_downloaded)
 
@@ -131,7 +134,7 @@ func _on_zip_downloaded(result, response_code, response_headers, body) -> void:
 		return
 
 	# Creates the zip file
-	var zip = FileAccess.open(SceneMapConstants.UPDATE_PATH, FileAccess.WRITE)
+	var zip = FileAccess.open(plugin.UPDATE_PATH, FileAccess.WRITE)
 	if zip.get_open_error() != OK:
 		push_error("Failed to get SceneMap Plugin updates: unable to download source files")
 		update_completed.emit()
@@ -142,7 +145,7 @@ func _on_zip_downloaded(result, response_code, response_headers, body) -> void:
 
 	# Opens the zip file
 	var zip_reader := ZIPReader.new()
-	var zip_result := zip_reader.open(SceneMapConstants.UPDATE_PATH)
+	var zip_result := zip_reader.open(plugin.UPDATE_PATH)
 
 	if zip_result != OK:
 		push_error("Failed to get SceneMap Plugin updates: unable to unzip source files")
@@ -252,7 +255,7 @@ func parse_token() -> bool:
 	var is_token_valid := await check_token_validity(token)
 
 	if is_token_valid:
-		SceneMapConstants.GITHUB_TOKEN = token
+		plugin.GITHUB_TOKEN = token
 		return true
 
 	# If the token is not valid, asks for it
@@ -264,7 +267,7 @@ func parse_token() -> bool:
 func ask_for_token() -> void:
 	var ask_for_token : bool = SM_ResourceTools.load_config("ask_for_token", true)
 	if ask_for_token:
-		SceneMapConstants.PANEL_REFERENCE.token_dialog.toggle_visiblity(true)
+		plugin.panel.token_dialog.toggle_visiblity(true)
 
 
 ## Saves the token in a file that won't be tracked by Git.

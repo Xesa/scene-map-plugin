@@ -13,4 +13,4 @@ func _ready() -> void:
 
 
 func _on_button_pressed() -> void:
-	SM_NodeRefresher.scan_all_scenes(SceneMapConstants.PANEL_REFERENCE.graph)
+	SM_NodeRefresher.scan_all_scenes()

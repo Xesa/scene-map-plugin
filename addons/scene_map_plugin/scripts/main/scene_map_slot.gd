@@ -20,7 +20,6 @@ extends Node
 ## In order to make a connection with another node, this class makes use of the [SlotConnector] helper class.
 ## To check whether two slots are compatible or not, see the [ConnectionValidator] helper class.
 
-const SM_Constants := preload(SceneMapConstants.CONSTANTS)
 const SM_ComponentFinder := preload(SceneMapConstants.COMPONENT_FINDER)
 const SM_SlotConnector := preload(SceneMapConstants.SLOT_CONNECTOR)
 const SM_SceneSaver := preload(SceneMapConstants.SCENE_SAVER)
@@ -29,7 +28,6 @@ const SM_Enums := preload(SceneMapConstants.ENUMS)
 const SceneMapNode := preload(SceneMapConstants.SCENE_MAP_NODE)
 const SceneMapSlot := preload(SceneMapConstants.SCENE_MAP_SLOT)
 const SceneMapIO := preload(SceneMapConstants.SCENE_MAP_IO)
-
 
 var graph_node : SceneMapNode
 var control : SM_SlotControl
@@ -243,7 +241,7 @@ func change_sides() -> void:
 	_update_slot_configuration()
 
 	side_changed.emit(side)
-	SceneMapIO.save(graph_node.get_parent())
+	SceneMapIO.save()
 
 
 
@@ -287,12 +285,12 @@ func change_type(new_type : SM_Enums.Type) -> void:
 	_update_slot_configuration()
 
 	type_changed.emit(type)
-	SceneMapIO.save(graph_node.get_parent())
+	SceneMapIO.save()
 	
 
 ## Updates internal left/right flags, icons, and side metadata for this slot.
 func _update_side_info(_left : bool, _right : bool, _left_icon_index : int, _right_icon_index : int, _side : SM_Enums.Side, component : Node) -> void:
-	var slot_config : Dictionary = SM_Constants.SLOT_CONFIG[type]
+	var slot_config : Dictionary = SceneMapConstants.SLOT_CONFIG[type]
 	left = _left
 	right = _right
 	left_icon = slot_config["icons"][_left_icon_index]
@@ -342,7 +340,7 @@ func set_component_name(new_name : String) -> void:
 	control.refresh_label()
 
 	SM_SceneSaver.save()
-	SceneMapIO.save(graph_node.get_parent())
+	SceneMapIO.save()
 
 
 ## Removes the custom name of this slot's component and restores default.
@@ -368,4 +366,4 @@ func remove_component_name() -> void:
 	control.refresh_label()
 
 	SM_SceneSaver.save()
-	SceneMapIO.save(graph_node.get_parent())
+	SceneMapIO.save()

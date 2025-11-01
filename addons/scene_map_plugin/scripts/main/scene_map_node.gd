@@ -16,12 +16,10 @@ const SM_SlotRegistrator := preload(SceneMapConstants.SLOT_REGISTRATOR)
 const SM_SceneSaver := preload(SceneMapConstants.SCENE_SAVER)
 const SM_ResourceTools := preload(SceneMapConstants.RESOURCE_TOOLS)
 const SM_NodeMenu := preload(SceneMapConstants.GRAPH_NODE_MENU)
-const SceneMapGraph := preload(SceneMapConstants.SCENE_MAP_GRAPH)
 const SceneMapNode := preload(SceneMapConstants.SCENE_MAP_NODE)
 const SceneMapSlot := preload(SceneMapConstants.SCENE_MAP_SLOT)
 const SceneMapIO := preload(SceneMapConstants.SCENE_MAP_IO)
 
-var graph_edit : SceneMapGraph
 
 var scene_name : String
 var scene_uid : String
@@ -37,8 +35,7 @@ signal node_deleted(node : SceneMapNode)
 signal node_ready()
 
 
-func _init(_graph_edit : SceneMapGraph, _scene_uid : String, _scene_name : String,  _set_to_create : bool = true) -> void:
-	graph_edit = _graph_edit
+func _init(_scene_uid : String, _scene_name : String,  _set_to_create : bool = true) -> void:
 	scene_name = _scene_name
 	scene_uid = _scene_uid
 	title = scene_name
@@ -68,7 +65,7 @@ func _ready() -> void:
 	if set_to_create:
 		await SM_SlotRegistrator.new(self).register_slots()
 		await SM_SceneSaver.save()
-		SceneMapIO.save(get_parent())
+		SceneMapIO.save()
 
 	# Creates the node's menu
 	menu = SM_NodeMenu.new(self)
@@ -100,7 +97,7 @@ func _on_gui_input(event : InputEvent) -> void:
 
 		if event.button_index == MOUSE_BUTTON_RIGHT and event.is_pressed():
 			menu.make_visible(event.global_position)
-			graph_edit.add_child(menu)
+			Engine.get_singleton("SceneMapPlugin").graph.add_child(menu)
 
 
 ## Triggered when a connection is added or removed.
@@ -179,7 +176,7 @@ func open_scene_in_editor() -> void:
 	EditorInterface.open_scene_from_path("uid://"+scene_uid)
 	await Engine.get_main_loop().process_frame
 	EditorInterface.set_main_screen_editor("2D")
-	graph_edit.force_drag_release(self)
+	Engine.get_singleton("SceneMapPlugin").graph.force_drag_release(self)
 
 
 ## Checks all component slots for existing connections.

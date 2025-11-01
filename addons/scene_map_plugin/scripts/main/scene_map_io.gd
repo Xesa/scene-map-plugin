@@ -19,8 +19,9 @@ const SceneMapSlot := preload(SceneMapConstants.SCENE_MAP_SLOT)
 ## Saves the given [SceneMapGraph] to disk as a .tres resource.
 ## Converts each [SceneMapNode] and its [SceneMapSlots] into [SM_NodeResource] and [SM_SlotResource],
 ## stores connections, and ensures the plugin_data folder exists.
-static func save(graph : SceneMapGraph) -> void:
+static func save() -> void:
 
+	var graph : SceneMapGraph = Engine.get_singleton("SceneMapPlugin").graph
 	var path = SceneMapConstants.USER_DATA_PATH + "graph_1.tres"
 
 	# Creates a new resource
@@ -81,8 +82,9 @@ static func save(graph : SceneMapGraph) -> void:
 ## Loads a [SceneMapGraph] from a previously saved .tres resource.
 ## Reconstructs [SceneMapNodes] and [SceneMapSlots], hydrates their connections,
 ## reconnects nodes in the graph, and refreshes all scenes.
-static func load(graph : SceneMapGraph) -> void:
+static func load() -> void:
 
+	var graph : SceneMapGraph = Engine.get_singleton("SceneMapPlugin").graph
 	var path = SceneMapConstants.USER_DATA_PATH + "graph_1.tres"
 
 	# Loads the resource
@@ -100,7 +102,7 @@ static func load(graph : SceneMapGraph) -> void:
 	for node_resource in graph_resource.nodes:
 
 		# Creates an actual graph node
-		var node = SceneMapNode.new(graph, node_resource.scene_uid, node_resource.scene_name, false)
+		var node = SceneMapNode.new(node_resource.scene_uid, node_resource.scene_name, false)
 		node.position_offset = node_resource.offset
 
 		graph.add_child(node)
@@ -133,7 +135,7 @@ static func load(graph : SceneMapGraph) -> void:
 
 	# Scans all scenes in search of changes
 	await Engine.get_main_loop().process_frame
-	await SM_NodeRefresher.scan_all_scenes(graph)
+	await SM_NodeRefresher.scan_all_scenes()
 
 	# Checks all the connections for each node
 	for node in graph.get_children():

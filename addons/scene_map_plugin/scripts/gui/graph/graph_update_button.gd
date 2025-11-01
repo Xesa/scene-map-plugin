@@ -11,7 +11,7 @@ func _ready() -> void:
 
 
 func _on_button_pressed() -> void:
-	SceneMapConstants.PANEL_REFERENCE.update_dialog.toggle_visiblity(true)
+	Engine.get_singleton("SceneMapPlugin").panel.update_dialog.toggle_visiblity(true)
 
 
 func toggle_visibility(toggle : bool) -> void:

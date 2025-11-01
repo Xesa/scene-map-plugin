@@ -32,4 +32,3 @@ const SM_TokenDialog := preload(SceneMapConstants.TOKEN_DIALOG)
 @onready var about_dialog : SM_AboutDialog = $SceneMapAboutDialog
 @onready var update_dialog : SM_UpdateDialog = $SceneMapUpdateDialog
 @onready var token_dialog : SM_TokenDialog = $SceneMapTokenDialog
-

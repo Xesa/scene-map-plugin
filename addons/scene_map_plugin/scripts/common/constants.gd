@@ -5,19 +5,6 @@ class_name SceneMapConstants extends Object
 ## or constants elsewhere in the plugin.
 
 const SM_Enums := preload(ENUMS)
-const SceneMapPlugin := preload(SCENE_MAP)
-const SceneMapPanel := preload(SCENE_MAP_PANEL)
-
-# Variables
-static var VERSION : String
-static var LATEST_VERSION : String
-static var LATEST_URL : String
-static var UPDATES_AVAILABLE := false
-static var GITHUB_TOKEN : String
-
-# References
-static var PLUGIN_REFERENCE : SceneMapPlugin
-static var PANEL_REFERENCE : SceneMapPanel
 
 # General
 const PLUGIN_NAME := "SceneMap"

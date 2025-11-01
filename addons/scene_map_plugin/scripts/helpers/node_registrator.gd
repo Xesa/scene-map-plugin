@@ -12,13 +12,10 @@ const SceneMapNode := preload(SceneMapConstants.SCENE_MAP_NODE)
 
 ## Registers a new scene to the SceneMap in the form of a [SceneMapNode].
 ## If the scene is already present in the SceneMap it prints an error.
-static func register_scene(
-		graph : SceneMapGraph,
-		scene_path : String,
-		scene_uid : String = "",
-		should_register_slots : bool = true,
-		at_position : Vector2 = Vector2.ZERO
-) -> void:
+static func register_scene(scene_path : String, scene_uid : String = "",
+							should_register_slots : bool = true, at_position : Vector2 = Vector2.ZERO) -> void:
+
+	var graph : SceneMapGraph = Engine.get_singleton("SceneMapPlugin").graph
 
 	# Gets the scene UID if not present
 	if scene_uid == "":
@@ -32,7 +29,7 @@ static func register_scene(
 
 	# Adds the graph node to the graph
 	var scene_name = SM_ResourceTools.get_name_from_path(scene_path)
-	var graph_node = SceneMapNode.new(graph, scene_uid, scene_name)
+	var graph_node = SceneMapNode.new(scene_uid, scene_name)
 
 	# Calculates the position offset
 	var offset : Vector2

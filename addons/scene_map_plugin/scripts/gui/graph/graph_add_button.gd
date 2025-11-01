@@ -17,7 +17,7 @@ func _ready() -> void:
 func _on_button_pressed() -> void:
 	dialog = SM_AddDialog.new()
 	dialog.canceled.connect(_on_dialog_closed)
-	SceneMapConstants.PANEL_REFERENCE.add_child(dialog)
+	Engine.get_singleton("SceneMapPlugin").panel.add_child(dialog)
 
 
 func _on_dialog_closed() -> void:

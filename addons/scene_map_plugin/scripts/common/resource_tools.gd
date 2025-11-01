@@ -102,11 +102,12 @@ static func save_config(key : String, value : Variant) -> void:
 ## Checks and loads the plugin configuration file.
 ## Sets [SceneMapConstants.VERSION] if successful.
 static func check_config_file() -> int:
+	var plugin = Engine.get_singleton("SceneMapPlugin")
 	var config := ConfigFile.new()
 	var err := config.load(SceneMapConstants.CONFIG_PATH)
 
 	if err == OK:
-		SceneMapConstants.VERSION = config.get_value("plugin", "version")
+		plugin.VERSION = config.get_value("plugin", "version")
 	else:
 		printerr("Error loading .cfg file. Please, reinstall the plugin")
 
