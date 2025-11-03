@@ -20,6 +20,7 @@ extends Node
 ## In order to make a connection with another node, this class makes use of the [SlotConnector] helper class.
 ## To check whether two slots are compatible or not, see the [ConnectionValidator] helper class.
 
+const SM_ResourceTools := preload(SceneMapConstants.RESOURCE_TOOLS)
 const SM_ComponentFinder := preload(SceneMapConstants.COMPONENT_FINDER)
 const SM_SlotConnector := preload(SceneMapConstants.SLOT_CONNECTOR)
 const SM_SceneSaver := preload(SceneMapConstants.SCENE_SAVER)
@@ -162,7 +163,7 @@ func remove_all_connections() -> void:
 
 ## Deletes this slot, removing all the connections established with other [SceneMapSlot]. This effectively removes
 ## this slot from the [connected_to] and [connected_from] properties in the other slot.
-## Deleting a slot will also remove the [component_uid], [next_scene_uid] and [next_component_uid]
+## Deleting a slot will also remove the [next_scene_uid] and [next_component_uid]
 ## metadata values from the [SceneMapComponent]
 func delete() -> void:
 
@@ -191,9 +192,11 @@ func delete() -> void:
 
 
 ## Alternative version of [delete()] used for when the scene file
-## has been deleted and the load/save actions cannot be performed properly.
+## has been deleted and the load/save actions cannot be performed properly.[br]
+## This method will remove the component's UID from the registry.
 func clear() -> void:
 	await remove_all_connections()
+	SM_ComponentFinder.remove_component_uid(component_uid)
 
 
 ## Adds or removes a connection with another [SceneMapSlot]. This method uses the

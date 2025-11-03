@@ -16,10 +16,13 @@ extends Node
 ## - check_config_file(): load config and update version[br][br]
 ##
 ## String methods:[br]
-## - convert_string_to_readable_name(): format string nicely
+## - convert_string_to_readable_name(): format string nicely[br][br]
+##
+## Other methods:[br]
+## - create_absolute_path(): checks if a paths exists, and if not, creates it.
 
 
-#region UIDMethods
+#region SceneMethods
 
 ## Extracts the UID from a .tscn file at the given path.
 ## Returns an empty string if the file cannot be read or UID is not found.
@@ -45,15 +48,19 @@ static func get_uid_from_tscn(scene_path : String) -> String:
 	return ""
 
 
-## Returns the resource path of a scene given its UID.
-static func get_path_from_uid(scene_uid : String) -> String:
+## Returns the resource path of a scene given its UID. Returns [null] if the scene doesn't exist.
+static func get_path_from_uid(scene_uid : String) -> Variant:
 	var scene_resource := load_from_uid(scene_uid)
+	if scene_resource == null:
+		return null
 	return scene_resource.resource_path
 
 
-## Returns a readable name of a scene given its UID.
-static func get_name_from_uid(scene_uid : String) -> String:
+## Returns a readable name of a scene given its UID. Returns [null] if the scene doesn't exist.
+static func get_name_from_uid(scene_uid : String) -> Variant:
 	var scene_path := get_path_from_uid(scene_uid)
+	if scene_path == null:
+		return null
 	return get_name_from_path(scene_path)
 
 
@@ -66,12 +73,15 @@ static func get_name_from_path(scene_path : String) -> String:
 
 
 ## Loads a PackedScene resource from its UID.
-## Returns null if the UID is invalid or empty.
+## Returns [null] if the UID is invalid or empty.
 static func load_from_uid(scene_uid : String) -> PackedScene:
 	var uid := "uid://" + scene_uid if scene_uid != null and scene_uid != "" else null
-	if uid != null:
-		return load(uid) as PackedScene
-	return null
+	if uid == null:
+		return null
+	var uid_int := ResourceUID.text_to_id(uid)
+	if !ResourceUID.has_id(uid_int):
+		return null
+	return load(uid) as PackedScene	
 
 #endregion
 
@@ -136,5 +146,15 @@ static func convert_string_to_readable_name(string : String) -> String:
 
 	var name = " ".join(words)
 	return name
+
+#endregion
+
+#region OtherMethods
+
+## Checks if a path exists and if not, creates it.
+static func create_absolute_path(path : String) -> void:
+	var abs_path = ProjectSettings.globalize_path(path)
+	if not DirAccess.dir_exists_absolute(abs_path):
+		DirAccess.make_dir_recursive_absolute(abs_path)
 
 #endregion

@@ -79,14 +79,12 @@ static func update_connection(from_slot : SceneMapSlot, to_slot : SceneMapSlot, 
 		to_node = from_slot.scene_uid
 		to_port = from_slot.index
 
-
-
 	# Gets the component
 	if scene_instance:
 		component = SM_ComponentFinder.search_component_by_uid(scene_instance, from_slot.component_uid)
 
 		# If the component is inside a packed scene, sets the owner's children as editable
-		if component and component.owner != scene_instance and scene_instance.is_editable_instance(component.owner) == false:
+		if component and component.owner and component.owner != scene_instance and scene_instance.is_editable_instance(component.owner) == false:
 			scene_instance.set_editable_instance(component.owner, true)
 
 	# Updates connection info to the slot

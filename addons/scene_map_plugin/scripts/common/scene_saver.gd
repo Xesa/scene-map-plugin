@@ -9,9 +9,12 @@ extends Node
 ## and clear the memory. The editor returns to the plugin's main screen afterward.
 ##
 ## Main methods:[br]
-## - start(): prepares the manager, saves unsaved scenes, and clears cache[br]
-## - open_scene(scene_uid): loads, instantiates, and stores a scene by UID[br]
-## - save(): saves all opened scenes, reloads them in the editor, and clears cache[br]
+## - start(): prepares the manager, saves unsaved scenes, and clears cache.[br]
+## - open_scene(scene_uid): loads, instantiates, and stores a scene by UID.[br]
+## - save(): saves all opened scenes, reloads them in the editor, and clears cache.[br]
+## Helper methods: [br]
+## - has_pending_changes(): checks if there is any change pending to save.[br]
+## - is_scene_open(scene_uid): checks if a scene is currently open in the editor.
 
 
 const SM_ResourceTools := preload(SceneMapConstants.RESOURCE_TOOLS)
@@ -115,9 +118,16 @@ static func save() -> void:
 
 #region HelperMethods
 
-## Returns true if there are pending saves.
+## Returns [true] if there are pending saves.
 static func has_pending_changes() -> bool:
 	return scenes != null and scenes.size() > 0
+
+
+## Returns [true] if the given scene is currently open in the editor.
+static func is_scene_open(scene_uid : String) -> bool:
+	var open_scenes := EditorInterface.get_open_scenes()
+	var scene_path := SM_ResourceTools.get_path_from_uid(scene_uid)
+	return open_scenes.has(scene_path)
 
 
 ## Finds and caches the TabBar that contains the editor's scene tabs.
