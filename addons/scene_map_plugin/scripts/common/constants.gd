@@ -107,6 +107,9 @@ const UPDATE_PATH := PLUGIN_PATH + "update.zip"
 const TOKEN_PATH := USER_DATA_PATH + "token"
 const DATA_GITIGNORE := USER_DATA_PATH + ".gitignore"
 
+# User data
+const UID_PATH := USER_DATA_PATH + "uids.cfg"
+
 # Other
 const VIEWPORT_SIZE := Vector2i(320,260)
 

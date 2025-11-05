@@ -3,6 +3,7 @@ extends EditorPlugin
 
 const SM_AutoUpdater := preload(SceneMapConstants.AUTO_UPDATER)
 const SM_ResourceTools := preload(SceneMapConstants.RESOURCE_TOOLS)
+const SM_ComponentFinder := preload(SceneMapConstants.COMPONENT_FINDER)
 const SceneMap := preload(SceneMapConstants.SCENE_MAP)
 const SceneMapPanel := preload(SceneMapConstants.SCENE_MAP_PANEL)
 const SceneMapGraph := preload(SceneMapConstants.SCENE_MAP_GRAPH)
@@ -44,6 +45,9 @@ func _enter_tree() -> void:
 
 	# Loads the saved data
 	SceneMapIO.load()
+
+	# Clears all unused component UIDs
+	SM_ComponentFinder.clear_unused_component_uids()
 
 	# Checks for updates
 	_check_for_updates.call_deferred()

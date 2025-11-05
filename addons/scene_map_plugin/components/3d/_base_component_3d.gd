@@ -13,6 +13,7 @@ class_name SceneMapComponent3D extends Node3D
 
 const SM_ComponentFinder := preload(SceneMapConstants.COMPONENT_FINDER)
 const SM_ResourceTools := preload(SceneMapConstants.RESOURCE_TOOLS)
+const SM_SceneSaver := preload(SceneMapConstants.SCENE_SAVER)
 const SM_Enums := preload(SceneMapConstants.ENUMS)
 const SM_EventBus := preload(SceneMapConstants.EVENT_BUS)
 
@@ -45,28 +46,56 @@ func _notification(what: int) -> void:
 	if what == NOTIFICATION_UNPARENTED:
 		SM_EventBus.notify_changes(self)
 
-
 #region SetterMethods
 
 ## Generates a unique identifier for this component that will be stored in the [component_uid] metadata value.
-## If this component already has an identifier but it is the same one as any other component in the scene, it will generate a new one.[br]
+## If this component already has an identifier but it is the same one as any other component in the scene, it will generate a new one.
+## The final UID will be stored in a .cfg file that can be checked using the [ResourceTools] class.[br]
 ## To get this component's UID use the [get_component_uid()] method or [get_component_uid_or_null()] if no errors should be generated.[br]
 ## [b]This method is for exclusive use of the SceneMap plugin and shouldn't be used anywhere else.[/b]
 func _generate_component_uid() -> void:
-	if get_component_uid_or_null() == null:
+
+	var scene_uid := SM_ComponentFinder.get_scene_root_uid(self)
+	var component_uid := get_component_uid_or_null()
+
+	# If the current component UID is null or not valid, generates a new one
+	if component_uid == null or SM_ComponentFinder.check_component_uid(component_uid, scene_uid) != 0:
 		_set_component_uid()
-		EditorInterface.mark_scene_as_unsaved()
-	
+
 	var components := SM_ComponentFinder.find_all_components(SM_ComponentFinder.get_root_node(self))
 
+	# If it conflicts with any of the other components in the scene, generates a new one
 	for component in components:
+		
 		if component == self or component.get_component_uid_or_null() == null:
 			continue
 		
 		if component.get_component_uid() == get_component_uid():
+			remove_meta(&"_component_uid")
 			_set_component_uid()
-			EditorInterface.mark_scene_as_unsaved()
 			return
+
+
+## Sets the [component_uid] value in the component's metadata.
+## [b]This method is for exclusive use of the SceneMap plugin and shouldn't be used anywhere else.[/b]
+func _set_component_uid() -> void:
+	var scene_uid := SM_ComponentFinder.get_scene_root_uid(self)
+	var component_uid := get_component_uid_or_null()
+
+	if component_uid == null:
+		component_uid = str(ResourceUID.create_id())
+		
+	# Generates new UIDs until it finds one that is not a duplicate
+	while SM_ComponentFinder.check_component_uid(component_uid, scene_uid) == 1:
+		component_uid = str(ResourceUID.create_id())
+	
+	SM_ComponentFinder.save_component_uid(component_uid, scene_uid)
+	set_meta(&"_component_uid", component_uid)
+
+	# If the scene is not open, opens it and then marks it as unsaved
+	if !SM_SceneSaver.is_scene_open(scene_uid):
+		EditorInterface.open_scene_from_path(SM_ResourceTools.get_path_from_uid(scene_uid))
+	EditorInterface.mark_scene_as_unsaved()
 
 
 ## Sets the component's type, which defines what actions can be performed through this component.[br]
@@ -87,13 +116,6 @@ func _set_custom_name(custom_name : String) -> void:
 	set_meta(&"_component_custom_name", custom_name)
 
 
-## Sets the [component_uid] value in the component's metadata.
-## [b]This method is for exclusive use of the SceneMap plugin and shouldn't be used anywhere else.[/b]
-func _set_component_uid() -> void:
-	var component_uid = str(ResourceUID.create_id())
-	set_meta(&"_component_uid", component_uid)
-
-
 ## Sets the [next_scene_uid] and [next_component_uid] references in the component's metadata.[br]
 ## [b]This method is for exclusive use of the SceneMap plugin and shouldn't be used anywhere else.[/b]
 func _set_next_scene(scene_uid : String, component_uid : String) -> void:
@@ -107,7 +129,10 @@ func _set_next_scene(scene_uid : String, component_uid : String) -> void:
 ## Removes the [component_uid] value in the component's metadata.
 ## [b]This method is for exclusive use of the SceneMap plugin and shouldn't be used anywhere else.[/b]
 func _remove_component_uid() -> void:
+	var component_uid := get_component_uid()
+	SM_ComponentFinder.remove_component_uid(component_uid)
 	remove_meta(&"_component_uid")
+	EditorInterface.mark_scene_as_unsaved()
 
 
 ## Removes the [next_scene_uid] and [next_component_uid] references in the component's metadata.[br]
@@ -181,6 +206,12 @@ func has_custom_name() -> bool:
 func get_scene_map_component_type() -> String:
 	return "SceneMapComponent3D"
 
+
+## Returns the current scene's UID.
+func get_current_scene_uid() -> String:
+	var root := SM_ComponentFinder.get_root_node(self)
+	return SM_ResourceTools.get_uid_from_tscn(root.scene_file_path)
+
 #endregion
 
 #region EndUserMethods
@@ -200,9 +231,14 @@ func get_next_scene_resource() -> PackedScene:
 
 
 ## Gets an instance of the scene referenced in [next_scene_uid].[br]
+## If the scene referenced in [next_scene_uid] is the same as the current scene,
+## returns the root node of the current scene without loading it again.
 ## If that property is empty or null, this method returns [null] and generates an error.[br]
-## To load the scene's resource see the [get_next_scene_resource()] method.
+## This method automatically loads the scene's resource by calling the [get_next_scene_resource()] method.
 func get_next_scene_instance() -> Node:
+	if get_current_scene_uid() == get_next_scene_uid():
+		return get_tree().current_scene
+
 	var next_scene_resource = get_next_scene_resource()
 	if next_scene_resource != null:
 		return next_scene_resource.instantiate()
