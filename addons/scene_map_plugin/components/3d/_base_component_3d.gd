@@ -63,13 +63,15 @@ func _generate_component_uid() -> void:
 		_set_component_uid()
 
 	var components := SM_ComponentFinder.find_all_components(SM_ComponentFinder.get_root_node(self))
-	
+
 	# If it conflicts with any of the other components in the scene, generates a new one
 	for component in components:
+		
 		if component == self or component.get_component_uid_or_null() == null:
 			continue
 		
 		if component.get_component_uid() == get_component_uid():
+			remove_meta(&"_component_uid")
 			_set_component_uid()
 			return
 
@@ -80,6 +82,9 @@ func _set_component_uid() -> void:
 	var scene_uid := SM_ComponentFinder.get_scene_root_uid(self)
 	var component_uid := get_component_uid_or_null()
 
+	if component_uid == null:
+		component_uid = str(ResourceUID.create_id())
+		
 	# Generates new UIDs until it finds one that is not a duplicate
 	while SM_ComponentFinder.check_component_uid(component_uid, scene_uid) == 1:
 		component_uid = str(ResourceUID.create_id())
