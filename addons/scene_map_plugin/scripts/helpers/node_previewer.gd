@@ -52,8 +52,12 @@ static func refresh_preview(graph_node : SceneMapNode) -> void:
 		graph_node.preview.texture = await _get_preview_2d(viewport, scene_instance)
 
 	# Creates a preview if the scene is 3D
-	if scene_instance is Node3D:
+	elif scene_instance is Node3D:
 		graph_node.preview.texture = await _get_preview_3d(viewport, scene_instance)
+
+	# Creates a preview if the scene is a Control
+	elif scene_instance is Control:
+		graph_node.preview.texture = await _get_preview_control(viewport, scene_instance)
 
 #endregion
 
@@ -278,3 +282,59 @@ static func _put_markers_3d(scene_instance: Node3D, scene_aabb: AABB, camera: Ca
 	return scene_instance
 
 #endregion
+
+#region PreviewControlMethods
+
+## Generates the preview from a Control instance.
+static func _get_preview_control(viewport : SubViewport, scene_instance : Node) -> ImageTexture:
+	# Calculates the scene size
+	var scene_rect = _get_node_rect_control(scene_instance, Rect2(Vector2.ONE, Vector2.ONE))
+
+	# Creates a camera and sets its position and zoom to fit the entire scene into the subviewport
+	var camera := _fit_camera_to_scene_control(viewport, scene_rect, SceneMapConstants.VIEWPORT_SIZE)
+
+	# Generates the image and assigns it to the preview box
+	await RenderingServer.frame_post_draw
+	var image := viewport.get_texture().get_image()
+
+	# Frees the nodes that are no longer necessary
+	scene_instance.queue_free()
+	camera.queue_free()
+	viewport.queue_free()
+
+	return ImageTexture.create_from_image(image)
+
+
+## Returns a [Rect2] with the position and size of all the occupied space in each child of [node].
+## This function is recursive so it will scan every node inside the [node] parameter's tree.
+static func _get_node_rect_control(node : Node, rect : Rect2) -> Rect2:
+
+	# Gets the used space by regular Control
+	if node.get("size") and node.get("position"):
+		var used_rect := Rect2(node.global_position, node.size)
+		rect = rect.merge(used_rect)
+
+	# Iterates each child recursively
+	for child in node.get_children():
+		rect = _get_node_rect_control(child, rect)
+
+	return rect
+
+
+## Sets the camera position and size to fit the entire scene into the preview box.
+static func _fit_camera_to_scene_control(viewport : SubViewport, scene_rect : Rect2, viewport_size : Vector2) -> Camera2D:
+	var camera := Camera2D.new()
+	camera.enabled = true
+
+	var center = scene_rect.position + scene_rect.size * 0.5
+	var scale_x = viewport_size.x / scene_rect.size.x
+	var scale_y = viewport_size.y / scene_rect.size.y
+	var zoom_factor = min(scale_x, scale_y)
+
+	camera.position = center
+	camera.zoom = Vector2(zoom_factor, zoom_factor)
+
+	viewport.add_child(camera)
+	camera.make_current()
+
+	return camera
