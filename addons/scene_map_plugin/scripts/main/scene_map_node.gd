@@ -97,7 +97,7 @@ func _on_gui_input(event : InputEvent) -> void:
 
 		if event.button_index == MOUSE_BUTTON_RIGHT and event.is_pressed():
 			menu.make_visible(event.global_position)
-			Engine.get_singleton("SceneMapPlugin").graph.add_child(menu)
+			
 
 
 ## Triggered when a connection is added or removed.

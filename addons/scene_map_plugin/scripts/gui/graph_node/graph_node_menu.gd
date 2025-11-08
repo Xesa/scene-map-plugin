@@ -31,8 +31,17 @@ func _on_item_pressed(index : int):
 
 
 func _on_popup_hidden() -> void:
-	Engine.get_singleton("SceneMapPlugin").graph.remove_child(self)
-	Engine.get_singleton("SceneMapPlugin").graph.force_drag_release(graph_node)
+	_cleanup_after_hide.call_deferred()
+	
+
+func _cleanup_after_hide() -> void:
+	var graph = Engine.get_singleton("SceneMapPlugin").graph
+	
+	if is_inside_tree():
+		if self.get_parent() == graph:
+			graph.remove_child(self)
+
+	graph.force_drag_release(graph_node)
 
 
 func _on_focus_lost() -> void:
@@ -42,3 +51,7 @@ func _on_focus_lost() -> void:
 func make_visible(mouse_position : Vector2) -> void:
 	visible = true
 	position = mouse_position
+	Engine.get_singleton("SceneMapPlugin").graph.add_child(self)
+
+	
+	
