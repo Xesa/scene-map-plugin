@@ -194,7 +194,7 @@ static func _get_node_aabb_3d(node : Node, aabb: AABB = AABB()) -> AABB:
 
 	# If the node has a mesh or shape to calculate its size
 	if node is MeshInstance3D:
-		var mesh_aabb = node.get_aabb()
+		var mesh_aabb = node.get_aabb().abs()
 		aabb = aabb.merge(mesh_aabb)
 
 	# If it's a Node3D with a custom size
@@ -208,7 +208,7 @@ static func _get_node_aabb_3d(node : Node, aabb: AABB = AABB()) -> AABB:
 			size = node.scale
 
 		if size:
-			var mesh_aabb = AABB(pos, size)
+			var mesh_aabb = AABB(pos, size).abs()
 			aabb = aabb.merge(mesh_aabb)
 		
 	# Iterates recursively
